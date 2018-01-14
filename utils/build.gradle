@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
+group = 'com.jueggs'
+version = '1.0.0'
+
 android {
     compileSdkVersion 27
 
