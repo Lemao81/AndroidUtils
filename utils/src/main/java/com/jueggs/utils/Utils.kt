@@ -1,7 +1,5 @@
 package com.jueggs.utils
 
-import android.os.Build
-import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.View
 
@@ -12,6 +10,3 @@ fun logTagged(tag: String, text: Any, prefix: String) = Log.d(tag, if (!prefix.i
 fun logDebug(text: Any, prefix: String = EMPTY_STRING) = logTagged(TAG_DEBUG, text, prefix)
 
 fun logNetwork(text: Any, prefix: String = EMPTY_STRING) = logTagged(TAG_NETWORK, text, prefix)
-
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-fun isLollipopOrAbove(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP

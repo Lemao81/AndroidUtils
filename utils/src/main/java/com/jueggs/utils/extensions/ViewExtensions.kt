@@ -1,6 +1,5 @@
 package com.jueggs.utils.extensions
 
-import android.content.Context
 import android.support.annotation.ArrayRes
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.LinearLayoutManager
@@ -57,7 +56,19 @@ fun RecyclerView.setTheAdapter(adapter: RecyclerView.Adapter<*>): RecyclerView {
 
 fun RecyclerView.setSimpleDivider() = addItemDecoration(SimpleDivider(context, R.drawable.simple_divider))
 
-fun Spinner.setSimpleAdapter(vararg elements: String): ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
-fun <T> Spinner.setSimpleAdapter(elements: List<T>): ArrayAdapter<T> = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
-fun <T> Spinner.setSimpleAdapter(elements: Array<T>): ArrayAdapter<T> = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
-fun Spinner.setSimpleAdapter(@ArrayRes arrayResId: Int): ArrayAdapter<String> = setSimpleAdapter(context.getStringArray(arrayResId))
+fun Spinner.setSimpleAdapter(vararg elements: String): Spinner {
+    adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
+    return this
+}
+
+fun <T> Spinner.setSimpleAdapter(elements: List<T>): Spinner {
+    adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
+    return this
+}
+
+fun <T> Spinner.setSimpleAdapter(elements: Array<T>): Spinner {
+    adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
+    return this
+}
+
+fun Spinner.setSimpleAdapter(@ArrayRes arrayResId: Int): Spinner = setSimpleAdapter(context.getStringArray(arrayResId))
