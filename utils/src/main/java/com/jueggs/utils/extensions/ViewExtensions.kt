@@ -3,6 +3,7 @@ package com.jueggs.utils.extensions
 import android.content.Context
 import android.support.annotation.ArrayRes
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -33,16 +34,19 @@ fun ViewGroup.collectCheckedCheckboxes(): List<CheckBox> {
 fun TextView.asString(): String = text.toString()
 fun TextView.asInt(): Int = text.toString().toInt()
 
-fun RecyclerView.setSimpleDivider() = addItemDecoration(SimpleDivider(context, R.drawable.simple_divider))
-
 fun AdapterView<*>.asStringOrNull(): String? = if (selectedItem != null) selectedItem.toString() else null
 
 fun AdapterView<*>.asString(): String = selectedItem.toString()
 
 fun ViewGroup.layoutInflater(): LayoutInflater = LayoutInflater.from(context)
 
-fun RecyclerView.setVerticalLinearLayoutManager(context: Context): RecyclerView {
-    layoutManager = context.verticalLinearLayoutManager()
+fun RecyclerView.setVerticalLinearLayoutManager(): RecyclerView {
+    layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+    return this
+}
+
+fun RecyclerView.setHorizontalLinearLayoutManager(): RecyclerView {
+    layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
     return this
 }
 
@@ -50,6 +54,8 @@ fun RecyclerView.setTheAdapter(adapter: RecyclerView.Adapter<*>): RecyclerView {
     this.adapter = adapter
     return this
 }
+
+fun RecyclerView.setSimpleDivider() = addItemDecoration(SimpleDivider(context, R.drawable.simple_divider))
 
 fun Spinner.setSimpleAdapter(vararg elements: String): ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
 fun <T> Spinner.setSimpleAdapter(elements: List<T>): ArrayAdapter<T> = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)

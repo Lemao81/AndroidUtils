@@ -15,8 +15,6 @@ import android.widget.LinearLayout
 import com.jueggs.utils.createSharedElement
 import org.jetbrains.anko.connectivityManager
 
-fun Context.verticalLinearLayoutManager(): RecyclerView.LayoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-fun Context.horizontalLinearLayoutManager(): RecyclerView.LayoutManager = LinearLayoutManager(this, LinearLayout.HORIZONTAL, false)
 @SuppressLint("MissingPermission")
 fun Context.isNetworkConnected(): Boolean = connectivityManager.activeNetworkInfo.isConnectedOrConnecting
 
