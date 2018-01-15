@@ -1,10 +1,12 @@
 package com.jueggs.utils.extensions
 
+import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
@@ -33,4 +35,20 @@ fun ViewGroup.collectCheckedCheckboxes(): List<CheckBox> {
 fun TextView.asString(): String = text.toString()
 fun TextView.asInt(): Int = text.toString().toInt()
 
-fun RecyclerView.addSimpleDivider() = addItemDecoration(SimpleDivider(context, R.drawable.simple_divider))
+fun RecyclerView.setSimpleDivider() = addItemDecoration(SimpleDivider(context, R.drawable.simple_divider))
+
+fun AdapterView<*>.asStringOrNull(): String? = if (selectedItem != null) selectedItem.toString() else null
+
+fun AdapterView<*>.asString(): String = selectedItem.toString()
+
+fun ViewGroup.layoutInflater(): LayoutInflater = LayoutInflater.from(context)
+
+fun RecyclerView.setVerticalLinearLayoutManager(context: Context): RecyclerView {
+    layoutManager = context.verticalLinearLayoutManager()
+    return this
+}
+
+fun RecyclerView.setTheAdapter(adapter: RecyclerView.Adapter<*>): RecyclerView {
+    this.adapter = adapter
+    return this
+}
