@@ -46,9 +46,35 @@ fun Activity.hideStatusBar() {
 
 fun Activity.hideSoftKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
 
+fun Activity.setNavigationTransitions(@TransitionRes enterResId: Int = R.transition.fade, @TransitionRes exitResId: Int = R.transition.fade,
+                                      @TransitionRes reenterResId: Int = R.transition.fade, @TransitionRes returnResId: Int = R.transition.fade) {
+    if (isLollipopOrAbove()) {
+        val transitionInflater = TransitionInflater.from(this)
+        window.enterTransition = transitionInflater.inflateTransition(enterResId)
+        window.exitTransition = transitionInflater.inflateTransition(exitResId)
+        window.reenterTransition = transitionInflater.inflateTransition(reenterResId)
+        window.returnTransition = transitionInflater.inflateTransition(returnResId)
+    }
+}
+
 fun Activity.setEnterTransition(@TransitionRes resId: Int = R.transition.fade) {
     if (isLollipopOrAbove())
         window.enterTransition = TransitionInflater.from(this).inflateTransition(resId)
+}
+
+fun Activity.setExitTransition(@TransitionRes resId: Int = R.transition.fade) {
+    if (isLollipopOrAbove())
+        window.exitTransition = TransitionInflater.from(this).inflateTransition(resId)
+}
+
+fun Activity.setReenterTransition(@TransitionRes resId: Int = R.transition.fade) {
+    if (isLollipopOrAbove())
+        window.reenterTransition = TransitionInflater.from(this).inflateTransition(resId)
+}
+
+fun Activity.setReturnTransition(@TransitionRes resId: Int = R.transition.fade) {
+    if (isLollipopOrAbove())
+        window.returnTransition = TransitionInflater.from(this).inflateTransition(resId)
 }
 
 
