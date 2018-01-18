@@ -12,3 +12,7 @@ const val TAG_STORAGE_FAILURE = "STORAGE_FAILURE"
 const val TAG_ANY_TAG = "ANY_TAG"
 const val TAG_DEBUG = "DEBUG"
 const val TAG_NETWORK = "NETWORK"
+
+//log
+const val LOG_DEBUG = 0
+const val LOG_ERROR = 1

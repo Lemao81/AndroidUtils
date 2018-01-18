@@ -72,3 +72,15 @@ fun <T> Spinner.setSimpleAdapter(elements: Array<T>): Spinner {
 }
 
 fun Spinner.setSimpleAdapter(@ArrayRes arrayResId: Int): Spinner = setSimpleAdapter(context.getStringArray(arrayResId))
+
+fun View.gone() {
+    visibility = View.GONE
+}
+
+fun View.invisible() {
+    visibility = View.INVISIBLE
+}
+
+fun View.visible() {
+    visibility = View.VISIBLE
+}
