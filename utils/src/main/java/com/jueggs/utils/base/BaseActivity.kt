@@ -5,14 +5,15 @@ import android.support.v7.app.AppCompatActivity
 import com.jueggs.utils.R
 import com.jueggs.utils.extension.setNavigationTransitions
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity<TView> : AppCompatActivity() where TView : BaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(getLayout())
-        injectDependencies()
+        setContentView(layout())
+        inject()
+        presenter().view = self()
 
-        initializeComponents()
-        initializeListeners()
+        initializeViews()
+        setListeners()
 
         if (savedInstanceState == null)
             onInitialStart()
@@ -22,12 +23,13 @@ abstract class BaseActivity : AppCompatActivity() {
         setNavigationTransitions(getEnterTransition(), getExitTransition(), getReenterTransition(), getReturnTransition())
     }
 
-    abstract fun getLayout(): Int
+    abstract fun layout(): Int
+    abstract fun inject(): Unit?
+    abstract fun presenter(): BasePresenter<TView>
+    abstract fun self(): TView
 
-    open fun injectDependencies() {}
-
-    open fun initializeComponents() {}
-    open fun initializeListeners() {}
+    open fun initializeViews() {}
+    open fun setListeners() {}
 
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}

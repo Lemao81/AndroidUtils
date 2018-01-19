@@ -7,31 +7,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-abstract class BaseFragment : Fragment() {
-    lateinit var ctx: Context
+abstract class BaseFragment<TView> : Fragment() where TView : BaseView {
+    protected lateinit var ctx: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        injectDependencies()
+        inject()
+        presenter().view = self()
     }
 
-    open fun injectDependencies(): Unit? {
-        return null
-    }
+    abstract fun inject(): Unit?
+    abstract fun presenter(): BasePresenter<TView>
+    abstract fun self(): TView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(getLayout(), container, false)
-
-    abstract fun getLayout(): Int
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(layout(), container, false)
+    abstract fun layout(): Int
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initializePresenter()
-        initializeComponents()
-        initializeListeners()
+        initializeViews()
+        setListeners()
     }
 
-    abstract fun initializePresenter()
-    open fun initializeComponents() {}
-    open fun initializeListeners() {}
+    open fun initializeViews() {}
+    open fun setListeners() {}
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        checkNotNull(this.context)
+        ctx = this.context!!
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -44,14 +48,8 @@ abstract class BaseFragment : Fragment() {
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}
 
-    override fun onStart() {
-        super.onStart()
-        checkNotNull(context)
-        ctx = context!!
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDetach() {
         ctx = context!!.applicationContext
+        super.onDetach()
     }
 }
