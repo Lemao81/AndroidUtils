@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import com.jueggs.utils.R
 import com.jueggs.utils.extension.setNavigationTransitions
 
-abstract class BaseActivity<TView> : AppCompatActivity() where TView : BaseView {
+abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout())

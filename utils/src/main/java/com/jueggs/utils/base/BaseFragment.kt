@@ -1,13 +1,14 @@
 package com.jueggs.utils.base
 
 import android.content.Context
+import android.net.http.SslCertificate.restoreState
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-abstract class BaseFragment<TView> : Fragment() where TView : BaseView {
+abstract class BaseFragment<TView : BaseView> : Fragment() {
     protected lateinit var ctx: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {

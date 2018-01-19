@@ -4,7 +4,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 
-abstract class BasePresenter<TView> : LifecycleObserver where TView : BaseView {
+abstract class BasePresenter<TView : BaseView> : LifecycleObserver {
     var view: TView? = null
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
