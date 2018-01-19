@@ -1,4 +1,4 @@
-package com.jueggs.utils.extensions
+package com.jueggs.utils.extension
 
 import android.app.Activity
 import android.content.Intent

@@ -1,4 +1,4 @@
-package com.jueggs.utils.accessories
+package com.jueggs.utils.accessory
 
 import android.content.Context
 import android.graphics.Canvas
@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.jueggs.utils.extensions.getDrawableCompat
+import com.jueggs.utils.extension.getDrawableCompat
 
 class SimpleDivider(context: Context, @DrawableRes resId: Int) : RecyclerView.ItemDecoration() {
     private var _drawable: Drawable? = context.getDrawableCompat(resId)

@@ -1,4 +1,4 @@
-package com.jueggs.utils.extensions
+package com.jueggs.utils.extension
 
 import java.lang.reflect.Field
 import java.lang.reflect.Method

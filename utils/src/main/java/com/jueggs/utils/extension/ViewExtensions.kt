@@ -1,4 +1,4 @@
-package com.jueggs.utils.extensions
+package com.jueggs.utils.extension
 
 import android.support.annotation.ArrayRes
 import android.support.annotation.LayoutRes
@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.jueggs.utils.R
-import com.jueggs.utils.accessories.SimpleDivider
+import com.jueggs.utils.accessory.SimpleDivider
 
 fun ViewGroup.inflate(@LayoutRes resId: Int): View = LayoutInflater.from(context).inflate(resId, this, false)
 

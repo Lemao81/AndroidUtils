@@ -1,4 +1,4 @@
-package com.jueggs.utils.extensions
+package com.jueggs.utils.extension
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,11 +7,8 @@ import android.support.annotation.ArrayRes
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import com.jueggs.utils.createSharedElement
 import org.jetbrains.anko.connectivityManager
 
