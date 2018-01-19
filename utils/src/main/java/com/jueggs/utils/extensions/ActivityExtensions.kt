@@ -10,7 +10,7 @@ import android.transition.TransitionInflater
 import android.view.View
 import com.jueggs.utils.INVALID_VALUE
 import com.jueggs.utils.R
-import com.jueggs.utils.isLollipopOrAbove
+import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.inputMethodManager
 import java.security.InvalidParameterException
 
@@ -46,34 +46,37 @@ fun Activity.hideStatusBar() {
 
 fun Activity.hideSoftKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
 
-fun Activity.setNavigationTransitions(@TransitionRes enterResId: Int = R.transition.fade, @TransitionRes exitResId: Int = R.transition.fade,
-                                      @TransitionRes reenterResId: Int = R.transition.fade, @TransitionRes returnResId: Int = R.transition.fade) {
-    if (isLollipopOrAbove()) {
+fun Activity.setNavigationTransitions(@TransitionRes enterResId: Int?, @TransitionRes exitResId: Int?, @TransitionRes reenterResId: Int?, @TransitionRes returnResId: Int?) {
+    if (isLollipopOrAboveUtil()) {
         val transitionInflater = TransitionInflater.from(this)
-        window.enterTransition = transitionInflater.inflateTransition(enterResId)
-        window.exitTransition = transitionInflater.inflateTransition(exitResId)
-        window.reenterTransition = transitionInflater.inflateTransition(reenterResId)
-        window.returnTransition = transitionInflater.inflateTransition(returnResId)
+        if (enterResId != null)
+            window.enterTransition = transitionInflater.inflateTransition(enterResId)
+        if (exitResId != null)
+            window.exitTransition = transitionInflater.inflateTransition(exitResId)
+        if (reenterResId != null)
+            window.reenterTransition = transitionInflater.inflateTransition(reenterResId)
+        if (returnResId != null)
+            window.returnTransition = transitionInflater.inflateTransition(returnResId)
     }
 }
 
 fun Activity.setEnterTransition(@TransitionRes resId: Int = R.transition.fade) {
-    if (isLollipopOrAbove())
+    if (isLollipopOrAboveUtil())
         window.enterTransition = TransitionInflater.from(this).inflateTransition(resId)
 }
 
 fun Activity.setExitTransition(@TransitionRes resId: Int = R.transition.fade) {
-    if (isLollipopOrAbove())
+    if (isLollipopOrAboveUtil())
         window.exitTransition = TransitionInflater.from(this).inflateTransition(resId)
 }
 
 fun Activity.setReenterTransition(@TransitionRes resId: Int = R.transition.fade) {
-    if (isLollipopOrAbove())
+    if (isLollipopOrAboveUtil())
         window.reenterTransition = TransitionInflater.from(this).inflateTransition(resId)
 }
 
 fun Activity.setReturnTransition(@TransitionRes resId: Int = R.transition.fade) {
-    if (isLollipopOrAbove())
+    if (isLollipopOrAboveUtil())
         window.returnTransition = TransitionInflater.from(this).inflateTransition(resId)
 }
 
