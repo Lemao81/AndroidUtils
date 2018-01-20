@@ -3,6 +3,7 @@ package com.jueggs.utils.base
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View
 import com.jueggs.utils.R
 import com.jueggs.utils.extension.setNavigationTransitions
 
@@ -36,7 +37,7 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
 
     private fun setupToolbar() {
         val toolbar = toolbar()
-        if (toolbar != null) {
+        if (toolbar != null && toolbar is Toolbar) {
             setSupportActionBar(toolbar)
             supportActionBar?.title = getString(toolbarTitle())
             if (shallToolbarNavigateBack()) {
@@ -46,7 +47,7 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
         }
     }
 
-    abstract fun toolbar(): Toolbar?
+    abstract fun toolbar(): View?
     open fun toolbarTitle(): Int = R.string.empty_string
     open fun shallToolbarNavigateBack(): Boolean = true
 
