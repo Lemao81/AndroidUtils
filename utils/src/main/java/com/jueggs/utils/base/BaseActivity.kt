@@ -13,8 +13,9 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
         setContentView(layout())
         inject()
         presenter().view = self()
+        presenter().getExtras(intent)
+        presenter().initialize()
 
-        fetchExtras()
         setupToolbar()
         initialize()
         initializeViews()
@@ -32,8 +33,6 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
     abstract fun inject(): Unit?
     abstract fun presenter(): BasePresenter<TView>
     abstract fun self(): TView
-
-    open fun fetchExtras() {}
 
     private fun setupToolbar() {
         val toolbar = toolbar()

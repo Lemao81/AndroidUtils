@@ -106,6 +106,11 @@ inline fun <reified T : Any> Activity.startActivityForResultWithTransition(reque
 //AppCompatActivity
 fun AppCompatActivity.setHomeAsBackIcon(@DrawableRes resId: Int) = supportActionBar?.setHomeAsUpIndicator(resId)
 
+fun AppCompatActivity.setPaddingToStatusBarHeight(view: View) {
+    val resId = resources.getIdentifier("status_bar_height", "dimen", "android")
+    if (resId <= 0) return
+    view.setPadding(0, resources.getDimensionPixelSize(resId), 0, 0)
+}
 
 //FragmentActivity
 fun FragmentActivity.finishAfterTransitionCompat() {
