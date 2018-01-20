@@ -1,10 +1,13 @@
 package com.jueggs.utils.extension
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Parcelable
 import android.support.annotation.DrawableRes
 import android.support.annotation.TransitionRes
+import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
@@ -12,6 +15,7 @@ import com.jueggs.utils.INVALID_VALUE
 import com.jueggs.utils.R
 import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.inputMethodManager
+import org.jetbrains.anko.intentFor
 import java.security.InvalidParameterException
 
 //Activity
@@ -80,6 +84,33 @@ fun Activity.setReturnTransition(@TransitionRes resId: Int = R.transition.fade) 
         window.returnTransition = TransitionInflater.from(this).inflateTransition(resId)
 }
 
+@SuppressLint("NewApi")
+inline fun <reified T : Any> Activity.startActivityWithTransition(sharedElements: List<Pair<View, String>>, vararg extras: Pair<String, Any?>) {
+    if (isLollipopOrAboveUtil()) {
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { android.util.Pair(it.first, it.second) }.toTypedArray()).toBundle()
+        startActivity(intentFor<T>(*extras), options)
+    } else
+        startActivity(intentFor<T>(*extras))
+}
+
+@SuppressLint("NewApi")
+inline fun <reified T : Any> Activity.startActivityForResultWithTransition(requestCode: Int, sharedElements: List<Pair<View, String>>, vararg extras: Pair<String, Any?>) {
+    if (isLollipopOrAboveUtil()) {
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { android.util.Pair(it.first, it.second) }.toTypedArray()).toBundle()
+        startActivityForResult(intentFor<T>(*extras), requestCode, options)
+    } else
+        startActivityForResult(intentFor<T>(*extras), requestCode)
+}
+
 
 //AppCompatActivity
 fun AppCompatActivity.setHomeAsBackIcon(@DrawableRes resId: Int) = supportActionBar?.setHomeAsUpIndicator(resId)
+
+
+//FragmentActivity
+fun FragmentActivity.finishAfterTransitionCompat() {
+    if (isLollipopOrAboveUtil())
+        finishAfterTransition()
+    else
+        supportFinishAfterTransition()
+}

@@ -56,6 +56,12 @@ fun RecyclerView.setTheAdapter(adapter: RecyclerView.Adapter<*>): RecyclerView {
 
 fun RecyclerView.setSimpleDivider() = addItemDecoration(SimpleDivider(context, R.drawable.simple_divider))
 
+fun <T> RecyclerView.Adapter<*>.setAdapterListItems(newItems: List<T>, currentItems: MutableList<T>, notifyChange: Boolean = true) {
+    currentItems.clear()
+    currentItems.addAll(newItems)
+    if (notifyChange) notifyDataSetChanged()
+}
+
 fun Spinner.setSimpleAdapter(vararg elements: String): Spinner {
     adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
     return this
