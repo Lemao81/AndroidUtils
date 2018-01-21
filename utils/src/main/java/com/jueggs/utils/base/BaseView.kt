@@ -8,11 +8,11 @@ import android.widget.Toast
 interface BaseView : LifecycleOwner {
     fun longToast(@StringRes resId: Int): Toast = TODO("not implemented")
     fun longToast(msg: String): Toast = TODO("not implemented")
-    fun finish() {
+    fun finishView() {
         TODO("not implemented")
     }
 
-    fun finishAfterTransitionCompat() {
+    fun finishViewAfterTransition() {
         TODO("not implemented")
     }
 
