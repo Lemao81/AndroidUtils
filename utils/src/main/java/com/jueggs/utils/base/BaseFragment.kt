@@ -57,10 +57,10 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
     open fun restoreState(savedInstanceState: Bundle) {}
 
     override fun onDetach() {
+        super.onDetach()
         ctx = context!!.applicationContext
         presenter().view = presenter().viewStub()
         presenter().activity = null
         presenter().ctx = context!!.applicationContext
-        super.onDetach()
     }
 }
