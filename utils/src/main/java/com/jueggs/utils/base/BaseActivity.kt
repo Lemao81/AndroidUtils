@@ -15,6 +15,7 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
         setupToolbar()
 
         presenter().view = self()
+        presenter().ctx = this
         presenter().getExtras(intent)
         presenter().initialize()
         initialize()
@@ -69,7 +70,8 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter().view = null
+        presenter().ctx = application
+        super.onDestroy()
     }
 }

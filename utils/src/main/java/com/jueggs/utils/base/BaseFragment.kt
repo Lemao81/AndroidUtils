@@ -40,6 +40,7 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
         super.onAttach(context)
         checkNotNull(this.context)
         ctx = this.context!!
+        presenter().ctx = this.context!!
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -59,6 +60,7 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
         ctx = context!!.applicationContext
         presenter().view = null
         presenter().activity = null
+        presenter().ctx = context!!.applicationContext
         super.onDetach()
     }
 }

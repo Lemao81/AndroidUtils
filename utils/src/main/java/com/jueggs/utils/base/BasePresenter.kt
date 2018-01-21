@@ -3,9 +3,11 @@ package com.jueggs.utils.base
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
+import android.content.Context
 
 abstract class BasePresenter<TView : BaseView> : LifecycleObserver {
     var view: TView? = null
+    lateinit var ctx: Context
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
