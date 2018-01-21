@@ -3,7 +3,6 @@ package com.jueggs.utils.base
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
-import android.content.Intent
 
 abstract class BasePresenter<TView : BaseView> : LifecycleObserver {
     var view: TView? = null
@@ -32,9 +31,8 @@ abstract class BasePresenter<TView : BaseView> : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     open fun onDestroy() {
-        view = null
     }
 
-    open fun getExtras(intent: Intent){}
     open fun initialize() {}
+    open fun initializeViews() {}
 }

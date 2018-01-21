@@ -12,12 +12,13 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout())
         inject()
+        setupToolbar()
+
         presenter().view = self()
         presenter().getExtras(intent)
         presenter().initialize()
-
-        setupToolbar()
         initialize()
+        presenter().initializeViews()
         initializeViews()
         setListeners()
 
@@ -31,9 +32,6 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
 
     abstract fun layout(): Int
     abstract fun inject(): Unit?
-    abstract fun presenter(): BasePresenter<TView>
-    abstract fun self(): TView
-
     private fun setupToolbar() {
         val toolbar = toolbar()
         if (toolbar != null && toolbar is Toolbar) {
@@ -50,6 +48,9 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
     open fun toolbarTitle(): Int = R.string.empty_string
     open fun shallToolbarNavigateBack(): Boolean = true
 
+    abstract fun presenter(): BaseActivityPresenter<TView>
+    abstract fun self(): TView
+
     open fun initialize() {}
     open fun initializeViews() {}
     open fun setListeners() {}
@@ -65,5 +66,10 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         if (shallToolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter().view = null
     }
 }

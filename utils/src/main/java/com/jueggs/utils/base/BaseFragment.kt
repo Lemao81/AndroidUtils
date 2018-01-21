@@ -1,7 +1,6 @@
 package com.jueggs.utils.base
 
 import android.content.Context
-import android.net.http.SslCertificate.restoreState
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -15,11 +14,13 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
         super.onCreate(savedInstanceState)
         inject()
         presenter().view = self()
+        if (arguments != null)
+            presenter().getArguments(arguments!!)
         initialize()
     }
 
     abstract fun inject(): Unit?
-    abstract fun presenter(): BasePresenter<TView>
+    abstract fun presenter(): BaseFragmentPresenter<TView>
     abstract fun self(): TView
     open fun initialize() {}
 
@@ -27,6 +28,7 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
     abstract fun layout(): Int
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        presenter().initializeViews()
         initializeViews()
         setListeners()
     }
@@ -42,6 +44,8 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        presenter().activity = activity
+
         if (savedInstanceState == null)
             onInitialStart()
         else
@@ -53,6 +57,8 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
 
     override fun onDetach() {
         ctx = context!!.applicationContext
+        presenter().view = null
+        presenter().activity = null
         super.onDetach()
     }
 }
