@@ -33,6 +33,7 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
 
     abstract fun layout(): Int
     abstract fun inject(): Unit?
+
     private fun setupToolbar() {
         val toolbar = toolbar()
         if (toolbar != null && toolbar is Toolbar) {
@@ -70,8 +71,8 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter().view = presenter().viewStub()
         presenter().ctx = application
+        super.onDestroy()
     }
 }
