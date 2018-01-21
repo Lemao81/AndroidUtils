@@ -70,7 +70,7 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        presenter().view = null
+        presenter().view = presenter().viewStub()
         presenter().ctx = application
         super.onDestroy()
     }

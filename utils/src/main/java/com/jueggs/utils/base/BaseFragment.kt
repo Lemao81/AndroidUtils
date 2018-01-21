@@ -58,7 +58,7 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
 
     override fun onDetach() {
         ctx = context!!.applicationContext
-        presenter().view = null
+        presenter().view = presenter().viewStub()
         presenter().activity = null
         presenter().ctx = context!!.applicationContext
         super.onDetach()
