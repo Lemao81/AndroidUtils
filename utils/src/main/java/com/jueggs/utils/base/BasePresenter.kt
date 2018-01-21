@@ -11,7 +11,7 @@ abstract class BasePresenter<TView : BaseView> : LifecycleObserver {
     lateinit var ctx: Context
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    fun onCreate() {
+    open fun onCreate() {
         checkNotNull(view)
         view.lifecycle.addObserver(this)
     }
