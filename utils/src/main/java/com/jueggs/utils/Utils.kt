@@ -22,9 +22,13 @@ fun logDebug(text: Any, prefix: String = EMPTY_STRING) = logTagged(TAG_DEBUG, LO
 
 fun logNetwork(text: Any, prefix: String = EMPTY_STRING) = logTagged(TAG_NETWORK, LOG_DEBUG, text, prefix)
 
-fun logUnhandledException(throwable: Throwable) {
-    logTagged(TAG_UNHANDLED_EXCEPTION, LOG_ERROR, "${throwable.message}\n", EMPTY_STRING)
-    logTagged(TAG_UNHANDLED_EXCEPTION, LOG_ERROR, throwable.stackTrace.joinToString("\n", transform = { it.toString() }), EMPTY_STRING)
+fun logUnhandledException(throwable: Throwable) = logExceptionInternal(TAG_UNHANDLED_EXCEPTION, throwable)
+
+fun logException(throwable: Throwable) = logExceptionInternal(TAG_EXCEPTION, throwable)
+
+private fun logExceptionInternal(tag: String, throwable: Throwable) {
+    logTagged(tag, LOG_ERROR, "${throwable.message}\n", EMPTY_STRING)
+    logTagged(tag, LOG_ERROR, throwable.stackTrace.joinToString("\n", transform = { it.toString() }), EMPTY_STRING)
 }
 
 fun isLollipopOrAboveUtil(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP

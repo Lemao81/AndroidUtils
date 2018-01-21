@@ -7,5 +7,4 @@ import android.widget.Toast
 interface BaseView : LifecycleOwner {
     fun longToast(@StringRes resId: Int): Toast
     fun longToast(msg: String): Toast
-    fun finish()
 }

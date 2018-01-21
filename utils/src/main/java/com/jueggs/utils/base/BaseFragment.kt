@@ -15,11 +15,13 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
         super.onCreate(savedInstanceState)
         inject()
         presenter().view = self()
+        initialize()
     }
 
     abstract fun inject(): Unit?
     abstract fun presenter(): BasePresenter<TView>
     abstract fun self(): TView
+    open fun initialize() {}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(layout(), container, false)
     abstract fun layout(): Int
