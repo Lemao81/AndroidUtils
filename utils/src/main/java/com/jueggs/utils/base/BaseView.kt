@@ -6,8 +6,8 @@ import android.support.annotation.StringRes
 import android.widget.Toast
 
 interface BaseView : LifecycleOwner {
-    fun longToast(@StringRes resId: Int): Toast = TODO("not implemented")
-    fun longToast(msg: String): Toast = TODO("not implemented")
+    fun showLongToast(@StringRes resId: Int): Toast = TODO("not implemented")
+    fun showLongToast(msg: String): Toast = TODO("not implemented")
     fun finishView() {
         TODO("not implemented")
     }

@@ -2,12 +2,18 @@ package com.jueggs.utils.base
 
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat.finishAfterTransition
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.jueggs.utils.isLollipopOrAboveUtil
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.support.v4.act
+import org.jetbrains.anko.support.v4.longToast
 
-abstract class BaseFragment<TView : BaseView> : Fragment() {
+abstract class BaseFragment<TView : BaseView> : Fragment(), BaseView {
     protected lateinit var ctx: Context
 
     override fun onAttach(context: Context?) {
@@ -57,6 +63,18 @@ abstract class BaseFragment<TView : BaseView> : Fragment() {
 
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}
+
+    override fun finishView() {
+        activity?.finish()
+    }
+
+    override fun finishViewAfterTransition() {
+        if (isLollipopOrAboveUtil()) activity?.finishAfterTransition()
+        else activity?.finish()
+    }
+
+    override fun showLongToast(msg: String): Toast = longToast(msg)
+    override fun showLongToast(resId: Int): Toast = longToast(resId)
 
     override fun onDetach() {
         ctx = context!!.applicationContext

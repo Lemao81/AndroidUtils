@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
+import android.widget.Toast
 import com.jueggs.utils.R
 import com.jueggs.utils.extension.setNavigationTransitions
+import com.jueggs.utils.isLollipopOrAboveUtil
+import org.jetbrains.anko.longToast
 
-abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
+abstract class BaseActivity<TView : BaseView> : AppCompatActivity(), BaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout())
@@ -64,6 +67,15 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity() {
     open fun getExitTransition(): Int? = R.transition.fade
     open fun getReenterTransition(): Int? = R.transition.fade
     open fun getReturnTransition(): Int? = R.transition.fade
+
+    override fun finishView() = finish()
+    override fun finishViewAfterTransition() {
+        if (isLollipopOrAboveUtil()) finishAfterTransition()
+        else finish()
+    }
+
+    override fun showLongToast(msg: String): Toast = longToast(msg)
+    override fun showLongToast(resId: Int): Toast = longToast(resId)
 
     override fun onSupportNavigateUp(): Boolean {
         if (shallToolbarNavigateBack()) onBackPressed()
