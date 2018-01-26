@@ -4,9 +4,13 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.support.annotation.StringRes
+import android.support.v4.app.FragmentActivity
 
 abstract class BasePresenter<TView : BaseView> : LifecycleObserver {
+    var activity: FragmentActivity? = null
     lateinit var view: TView
     lateinit var ctx: Context
 
@@ -40,6 +44,8 @@ abstract class BasePresenter<TView : BaseView> : LifecycleObserver {
 
     abstract fun viewStub(): TView
 
+    open fun getExtras(intent: Intent) {}
+    open fun getArguments(bundle: Bundle) {}
     open fun initialize() {}
     open fun initializeViews() {}
 }

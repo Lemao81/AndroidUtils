@@ -2,15 +2,12 @@ package com.jueggs.utils.base
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat.finishAfterTransition
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.jueggs.utils.isLollipopOrAboveUtil
-import org.jetbrains.anko.longToast
-import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.longToast
 
 abstract class BaseFragment<TView : BaseView> : Fragment(), BaseView {
@@ -21,12 +18,13 @@ abstract class BaseFragment<TView : BaseView> : Fragment(), BaseView {
         inject()
         checkNotNull(this.context)
         ctx = this.context!!
+
         presenter().ctx = this.context!!
         presenter().view = self()
     }
 
     abstract fun inject(): Unit?
-    abstract fun presenter(): BaseFragmentPresenter<TView>
+    abstract fun presenter(): BasePresenter<TView>
     abstract fun self(): TView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,8 +77,8 @@ abstract class BaseFragment<TView : BaseView> : Fragment(), BaseView {
     override fun onDetach() {
         ctx = context!!.applicationContext
         presenter().view = presenter().viewStub()
-        presenter().activity = null
         presenter().ctx = context!!.applicationContext
+        presenter().activity = null
         super.onDetach()
     }
 }

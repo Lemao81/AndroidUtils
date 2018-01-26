@@ -17,3 +17,6 @@ const val TAG_NETWORK = "NETWORK"
 //log
 const val LOG_DEBUG = 0
 const val LOG_ERROR = 1
+
+//divers
+const val STATE_VIEWMODEL = "STATE_VIEWMODEL"

@@ -1,41 +1,52 @@
 package com.jueggs.utils.base
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.Toast
 import com.jueggs.utils.R
+import com.jueggs.utils.STATE_VIEWMODEL
 import com.jueggs.utils.extension.setNavigationTransitions
 import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.longToast
 
-abstract class BaseActivity<TView : BaseView> : AppCompatActivity(), BaseView {
+abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppCompatActivity(), BaseView {
+    private lateinit var viewModel: TViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout())
         inject()
         setupToolbar()
+        initialize()
 
         presenter().view = self()
         presenter().ctx = this
+        presenter().activity = this
+
         presenter().getExtras(intent)
         presenter().initialize()
-        initialize()
         presenter().initializeViews()
-        initializeViews()
-        setListeners()
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
+            viewModel = viewModel()
             onInitialStart()
-        else
+        } else {
+            viewModel = savedInstanceState.getParcelable(STATE_VIEWMODEL)
             restoreState(savedInstanceState)
+        }
+
+        initializeViews(viewModel)
+        setListeners()
 
         setNavigationTransitions(getEnterTransition(), getExitTransition(), getReenterTransition(), getReturnTransition())
     }
 
     abstract fun layout(): Int
     abstract fun inject(): Unit?
+    open fun initialize() {}
 
     private fun setupToolbar() {
         val toolbar = toolbar()
@@ -53,15 +64,15 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity(), BaseView {
     open fun toolbarTitle(): Int = R.string.empty_string
     open fun shallToolbarNavigateBack(): Boolean = true
 
-    abstract fun presenter(): BaseActivityPresenter<TView>
+    abstract fun presenter(): BasePresenter<TView>
     abstract fun self(): TView
 
-    open fun initialize() {}
-    open fun initializeViews() {}
-    open fun setListeners() {}
-
+    abstract fun viewModel(): TViewModel
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}
+
+    open fun initializeViews(viewModel: TViewModel) {}
+    open fun setListeners() {}
 
     open fun getEnterTransition(): Int? = R.transition.fade
     open fun getExitTransition(): Int? = R.transition.fade
@@ -82,9 +93,15 @@ abstract class BaseActivity<TView : BaseView> : AppCompatActivity(), BaseView {
         return super.onSupportNavigateUp()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(STATE_VIEWMODEL, viewModel)
+    }
+
     override fun onDestroy() {
         presenter().view = presenter().viewStub()
         presenter().ctx = application
+        presenter().activity = null
         super.onDestroy()
     }
 }
