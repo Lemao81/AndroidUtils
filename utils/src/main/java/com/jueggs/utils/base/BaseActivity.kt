@@ -19,16 +19,14 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
         super.onCreate(savedInstanceState)
         setContentView(layout())
         inject()
-        setupToolbar()
         initialize()
+        setupToolbar()
 
-        presenter().view = self()
-        presenter().ctx = this
-        presenter().activity = this
+        val presenter = presenter()
+        presenter.view = self()
+        presenter.ctx = this
+        presenter.activity = this
 
-        presenter().getExtras(intent)
-        presenter().initialize()
-        presenter().initializeViews()
 
         if (savedInstanceState == null) {
             viewModel = viewModel()
@@ -40,6 +38,7 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
 
         initializeViews(viewModel)
         setListeners()
+        presenter.initialize(viewModel)
 
         setNavigationTransitions(getEnterTransition(), getExitTransition(), getReenterTransition(), getReturnTransition())
     }
@@ -64,7 +63,7 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
     open fun toolbarTitle(): Int = R.string.empty_string
     open fun shallToolbarNavigateBack(): Boolean = true
 
-    abstract fun presenter(): BasePresenter<TView>
+    abstract fun presenter(): BasePresenter<TView, TViewModel>
     abstract fun self(): TView
 
     abstract fun viewModel(): TViewModel
@@ -74,6 +73,11 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
     open fun initializeViews(viewModel: TViewModel) {}
     open fun setListeners() {}
 
+    open fun getEnterTransition(): Int? = R.transition.fade
+    open fun getExitTransition(): Int? = R.transition.fade
+    open fun getReenterTransition(): Int? = R.transition.fade
+    open fun getReturnTransition(): Int? = R.transition.fade
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         storeState(viewModel)
@@ -82,12 +86,9 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
 
     open fun storeState(viewModel: TViewModel) {}
 
-    open fun getEnterTransition(): Int? = R.transition.fade
-    open fun getExitTransition(): Int? = R.transition.fade
-    open fun getReenterTransition(): Int? = R.transition.fade
-    open fun getReturnTransition(): Int? = R.transition.fade
-
+    //region baseview
     override fun finishView() = finish()
+
     override fun finishViewAfterTransition() {
         if (isLollipopOrAboveUtil()) finishAfterTransition()
         else finish()
@@ -95,16 +96,10 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
 
     override fun showLongToast(msg: String): Toast = longToast(msg)
     override fun showLongToast(resId: Int): Toast = longToast(resId)
+    //endregion
 
     override fun onSupportNavigateUp(): Boolean {
         if (shallToolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
-    }
-
-    override fun onDestroy() {
-        presenter().view = presenter().viewStub()
-        presenter().ctx = application
-        presenter().activity = null
-        super.onDestroy()
     }
 }

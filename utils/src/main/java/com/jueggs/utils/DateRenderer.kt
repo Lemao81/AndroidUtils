@@ -1,42 +1,45 @@
 package com.jueggs.utils
 
-import org.joda.time.DateTime
-import org.joda.time.DateTimeFieldType
-import org.joda.time.Hours
-import org.joda.time.Minutes
+import org.joda.time.*
 
 class DateRenderer {
-    private fun render(date: DateTime): String {
+    fun render(millis: Long) = render(DateTime(millis))
+
+    fun render(then: DateTime): String {
+        val now = DateTime()
         return when {
-            date.isWithinLastMinute() -> "just now"
-            date.isWithinLastHour() -> {
-                val passedMinutes = date.passedMinutes()
-                val minuteString = if (passedMinutes == 1) "minute" else "minutes"
-                "$passedMinutes $minuteString ago"
+            then.isWithinLastMinute(now) -> "just now"
+            then.isWithinLastHour(now) -> {
+                val minutes = now.passedMinutesSince(then)
+                "$minutes ${renderMinute(minutes)} ago"
             }
-            date.isCurrentDay() -> {
-                val passedHours = date.passedHours()
-                val hourString = if (passedHours == 1) "hour" else "hours"
-                "$passedHours $hourString ago"
+            then.isCurrentDay(now) -> {
+                val hours = now.passedHoursSince(then)
+                "$hours ${renderHour(hours)} ago"
             }
-            else -> date.toString("dd.MM.yyyy - hh:mm")
+            then.isYesterday(now) -> {
+                "yesterday"
+            }
+            then.isWithinOneWeek(now) -> {
+                val days = now.passedDaysSince(then)
+                "$days ${renderDays(days)} ago"
+            }
+            else -> then.toString("dd.MM.yyyy - hh:mm")
         }
     }
 
-    fun render(millis: Long): String = render(DateTime(millis))
+    private fun renderMinute(count: Int) = if (count == 1) "minute" else "minutes"
+    private fun renderHour(count: Int) = if (count == 1) "hour" else "hours"
+    private fun renderDays(count: Int) = if (count == 1) "hour" else "hours"
 }
 
-private fun DateTime.passedHours(): Int = Hours.hoursBetween(this.toInstant(), DateTime().toInstant()).hours
+private fun DateTime.passedHoursSince(now: DateTime) = Hours.hoursBetween(now.toInstant(), toInstant()).hours
+private fun DateTime.passedMinutesSince(now: DateTime) = Minutes.minutesBetween(now.toInstant(), toInstant()).minutes
+private fun DateTime.passedDaysSince(now: DateTime) = Days.daysBetween(now.toInstant(), toInstant()).days
 
-private fun DateTime.isCurrentDay(): Boolean {
-    val now = DateTime()
-    val dayOfYearNow = now.get(DateTimeFieldType.dayOfYear())
-    val yearNow = now.get(DateTimeFieldType.year())
-    return dayOfYearNow == get(DateTimeFieldType.dayOfYear()) && yearNow == get(DateTimeFieldType.year())
-}
+private fun DateTime.isWithinLastMinute(now: DateTime) = now.minusMinutes(1).isBefore(toInstant())
+private fun DateTime.isWithinLastHour(now: DateTime) = now.minusHours(1).isBefore(toInstant())
+private fun DateTime.isWithinOneWeek(now: DateTime) = now.minusWeeks(1).isBefore(toInstant())
 
-private fun DateTime.isWithinLastMinute(): Boolean = DateTime().minusMinutes(1).isBefore(toInstant())
-
-private fun DateTime.isWithinLastHour(): Boolean = DateTime().minusHours(1).isBefore(toInstant())
-
-private fun DateTime.passedMinutes(): Int = Minutes.minutesBetween(this.toInstant(), DateTime().toInstant()).minutes
+private fun DateTime.isCurrentDay(now: DateTime) = dayOfMonth == now.dayOfMonth && monthOfYear == now.monthOfYear && year == now.year
+private fun DateTime.isYesterday(now: DateTime) = plusDays(1).dayOfMonth == now.dayOfMonth && monthOfYear == now.monthOfYear && year == now.year

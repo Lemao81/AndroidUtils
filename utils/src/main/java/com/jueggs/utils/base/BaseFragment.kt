@@ -22,18 +22,17 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
         checkNotNull(this.context)
         ctx = this.context!!
 
-        presenter().ctx = this.context!!
-        presenter().view = self()
+        val presenter = presenter()
+        presenter.ctx = this.context!!
+        presenter.view = self()
     }
 
     abstract fun inject(): Unit?
-    abstract fun presenter(): BasePresenter<TView>
+    abstract fun presenter(): BasePresenter<TView, TViewModel>
     abstract fun self(): TView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (arguments != null)
-            presenter().getArguments(arguments!!)
         initialize()
     }
 
@@ -43,13 +42,10 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
 
     abstract fun layout(): Int
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        presenter().initializeViews()
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        presenter().activity = activity
+        val presenter = presenter()
+        presenter.activity = activity
 
         if (savedInstanceState == null) {
             viewModel = viewModel()
@@ -61,6 +57,7 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
 
         initializeViews(viewModel)
         setListeners()
+        presenter.initialize(viewModel)
     }
 
     abstract fun viewModel(): TViewModel
@@ -78,6 +75,7 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
 
     open fun storeState(viewModel: TViewModel) {}
 
+    //region baseview
     override fun finishView() {
         activity?.finish()
     }
@@ -89,12 +87,10 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
 
     override fun showLongToast(msg: String): Toast = longToast(msg)
     override fun showLongToast(resId: Int): Toast = longToast(resId)
+    //endregion
 
-    override fun onDetach() {
+    override fun onDestroy() {
         ctx = context!!.applicationContext
-        presenter().view = presenter().viewStub()
-        presenter().ctx = context!!.applicationContext
-        presenter().activity = null
-        super.onDetach()
+        super.onDestroy()
     }
 }
