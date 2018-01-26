@@ -74,6 +74,14 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
     open fun initializeViews(viewModel: TViewModel) {}
     open fun setListeners() {}
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        storeState(viewModel)
+        outState.putParcelable(STATE_VIEWMODEL, viewModel)
+    }
+
+    open fun storeState(viewModel: TViewModel) {}
+
     open fun getEnterTransition(): Int? = R.transition.fade
     open fun getExitTransition(): Int? = R.transition.fade
     open fun getReenterTransition(): Int? = R.transition.fade
@@ -91,11 +99,6 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
     override fun onSupportNavigateUp(): Boolean {
         if (shallToolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(STATE_VIEWMODEL, viewModel)
     }
 
     override fun onDestroy() {

@@ -2,15 +2,18 @@ package com.jueggs.utils.base
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.jueggs.utils.STATE_VIEWMODEL
 import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.support.v4.longToast
 
-abstract class BaseFragment<TView : BaseView> : Fragment(), BaseView {
+abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragment(), BaseView {
+    private lateinit var viewModel: TViewModel
     protected lateinit var ctx: Context
 
     override fun onAttach(context: Context?) {
@@ -42,25 +45,38 @@ abstract class BaseFragment<TView : BaseView> : Fragment(), BaseView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         presenter().initializeViews()
-        initializeViews()
-        setListeners()
     }
-
-    open fun initializeViews() {}
-    open fun setListeners() {}
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         presenter().activity = activity
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
+            viewModel = viewModel()
             onInitialStart()
-        else
+        } else {
+            viewModel = savedInstanceState.getParcelable(STATE_VIEWMODEL)
             restoreState(savedInstanceState)
+        }
+
+        initializeViews(viewModel)
+        setListeners()
     }
 
+    abstract fun viewModel(): TViewModel
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}
+
+    open fun initializeViews(viewModel: TViewModel) {}
+    open fun setListeners() {}
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        storeState(viewModel)
+        outState.putParcelable(STATE_VIEWMODEL, viewModel)
+    }
+
+    open fun storeState(viewModel: TViewModel) {}
 
     override fun finishView() {
         activity?.finish()
