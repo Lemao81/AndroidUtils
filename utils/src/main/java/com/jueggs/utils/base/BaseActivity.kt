@@ -22,12 +22,6 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
         initialize()
         setupToolbar()
 
-        val presenter = presenter()
-        presenter.view = self()
-        presenter.ctx = this
-        presenter.activity = this
-
-
         if (savedInstanceState == null) {
             viewModel = viewModel()
             onInitialStart()
@@ -36,9 +30,15 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
             restoreState(savedInstanceState)
         }
 
+        val presenter = presenter()
+        presenter.view = self()
+        presenter.ctx = this
+        presenter.activity = this
+        presenter.viewModel = viewModel
+
         initializeViews(viewModel)
         setListeners()
-        presenter.initialize(viewModel)
+        presenter.initialize()
 
         setNavigationTransitions(getEnterTransition(), getExitTransition(), getReenterTransition(), getReturnTransition())
     }
@@ -70,7 +70,7 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}
 
-    open fun initializeViews(viewModel: TViewModel) {}
+    open fun initializeViews(model: TViewModel) {}
     open fun setListeners() {}
 
     open fun getEnterTransition(): Int? = R.transition.fade

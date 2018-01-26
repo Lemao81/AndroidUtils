@@ -44,8 +44,6 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val presenter = presenter()
-        presenter.activity = activity
 
         if (savedInstanceState == null) {
             viewModel = viewModel()
@@ -55,16 +53,20 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
             restoreState(savedInstanceState)
         }
 
+        val presenter = presenter()
+        presenter.activity = activity
+        presenter.viewModel = viewModel
+
         initializeViews(viewModel)
         setListeners()
-        presenter.initialize(viewModel)
+        presenter.initialize()
     }
 
     abstract fun viewModel(): TViewModel
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}
 
-    open fun initializeViews(viewModel: TViewModel) {}
+    open fun initializeViews(model: TViewModel) {}
     open fun setListeners() {}
 
     override fun onSaveInstanceState(outState: Bundle) {

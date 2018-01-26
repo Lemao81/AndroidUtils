@@ -8,9 +8,9 @@ import android.os.Parcelable
 import android.support.annotation.StringRes
 import android.support.v4.app.FragmentActivity
 
-abstract class BasePresenter<TView : BaseView, in TViewModel : Parcelable> : LifecycleObserver {
-    private var viewModel: TViewModel? = null
+abstract class BasePresenter<TView : BaseView, TViewModel : Parcelable> : LifecycleObserver {
     var activity: FragmentActivity? = null
+    lateinit var viewModel: TViewModel
     lateinit var view: TView
     lateinit var ctx: Context
 
@@ -20,7 +20,7 @@ abstract class BasePresenter<TView : BaseView, in TViewModel : Parcelable> : Lif
         view.lifecycle.addObserver(this)
     }
 
-    open fun initialize(viewModel: TViewModel) {}
+    open fun initialize() {}
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     open fun onStart() {
