@@ -13,7 +13,7 @@ import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.support.v4.longToast
 
 abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragment(), BaseView {
-    private lateinit var viewModel: TViewModel
+    protected lateinit var viewModel: TViewModel
     protected lateinit var ctx: Context
 
     override fun onAttach(context: Context?) {

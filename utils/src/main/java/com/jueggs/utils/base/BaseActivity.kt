@@ -13,7 +13,7 @@ import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.longToast
 
 abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppCompatActivity(), BaseView {
-    private lateinit var viewModel: TViewModel
+    protected lateinit var viewModel: TViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
