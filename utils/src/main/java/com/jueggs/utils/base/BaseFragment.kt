@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.jueggs.utils.STATE_VIEWMODEL
+import com.jueggs.utils.extension.hideSoftKeyboardExt
 import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.support.v4.longToast
 
@@ -89,6 +90,8 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
 
     override fun showLongToast(msg: String): Toast = longToast(msg)
     override fun showLongToast(resId: Int): Toast = longToast(resId)
+
+    override fun hideSoftKeyboard() = activity?.hideSoftKeyboardExt() ?: false
     //endregion
 
     override fun onDestroy() {

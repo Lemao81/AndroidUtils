@@ -48,7 +48,7 @@ fun Activity.hideStatusBar() {
     window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 }
 
-fun Activity.hideSoftKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+fun Activity.hideSoftKeyboardExt() = inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
 
 fun Activity.setNavigationTransitions(@TransitionRes enterResId: Int?, @TransitionRes exitResId: Int?, @TransitionRes reenterResId: Int?, @TransitionRes returnResId: Int?) {
     if (isLollipopOrAboveUtil()) {
@@ -104,7 +104,7 @@ inline fun <reified T : Any> Activity.startActivityForResultWithTransition(reque
 
 
 //AppCompatActivity
-fun AppCompatActivity.setHomeAsBackIcon(@DrawableRes resId: Int) = supportActionBar?.setHomeAsUpIndicator(resId)
+fun AppCompatActivity.setHomeBackIcon(@DrawableRes resId: Int) = supportActionBar?.setHomeAsUpIndicator(resId)
 
 fun AppCompatActivity.setPaddingToStatusBarHeight(view: View) {
     val resId = resources.getIdentifier("status_bar_height", "dimen", "android")

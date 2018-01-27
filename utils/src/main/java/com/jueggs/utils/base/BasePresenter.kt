@@ -4,9 +4,12 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
+import android.content.Intent
 import android.os.Parcelable
+import android.support.annotation.DimenRes
 import android.support.annotation.StringRes
 import android.support.v4.app.FragmentActivity
+import com.jueggs.utils.R
 
 abstract class BasePresenter<TView : BaseView, TViewModel : Parcelable> : LifecycleObserver {
     var activity: FragmentActivity? = null
@@ -43,6 +46,8 @@ abstract class BasePresenter<TView : BaseView, TViewModel : Parcelable> : Lifecy
         dispose()
     }
 
+    open fun onResult(request: Int, result: Int, data: Intent?) {}
+
     private fun dispose() {
         activity = null
         view = viewStub()
@@ -52,4 +57,5 @@ abstract class BasePresenter<TView : BaseView, TViewModel : Parcelable> : Lifecy
     abstract fun viewStub(): TView
 
     fun resString(@StringRes resId: Int) = ctx.getString(resId)
+    fun resDimen(@DimenRes resId: Int) = ctx.resources.getDimensionPixelSize(resId)
 }

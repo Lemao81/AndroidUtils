@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.jueggs.utils.R
 import com.jueggs.utils.STATE_VIEWMODEL
+import com.jueggs.utils.extension.hideSoftKeyboardExt
 import com.jueggs.utils.extension.setNavigationTransitions
 import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.longToast
@@ -96,6 +97,8 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
 
     override fun showLongToast(msg: String): Toast = longToast(msg)
     override fun showLongToast(resId: Int): Toast = longToast(resId)
+
+    override fun hideSoftKeyboard() = hideSoftKeyboardExt()
     //endregion
 
     override fun onSupportNavigateUp(): Boolean {

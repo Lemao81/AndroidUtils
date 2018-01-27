@@ -26,4 +26,8 @@ interface BaseView : LifecycleOwner {
     fun hideProgress() {
         TODO("not implemented")
     }
+
+    fun hideSoftKeyboard(): Boolean {
+        TODO("not implemented")
+    }
 }

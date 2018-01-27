@@ -1,5 +1,7 @@
 package com.jueggs.utils
 
+import android.app.Activity
+
 //default values
 const val INVALID_VALUE = -1
 const val INVALID_VALUE_L = -1L
@@ -20,3 +22,5 @@ const val LOG_ERROR = 1
 
 //divers
 const val STATE_VIEWMODEL = "STATE_VIEWMODEL"
+const val RESULT_OK = Activity.RESULT_OK
+const val RESULT_NOK = Activity.RESULT_CANCELED
