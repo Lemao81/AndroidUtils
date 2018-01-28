@@ -46,8 +46,6 @@ abstract class BasePresenter<TView : BaseView, TViewModel : Parcelable> : Lifecy
         dispose()
     }
 
-    open fun onResult(request: Int, result: Int, data: Intent?) {}
-
     private fun dispose() {
         activity = null
         view = viewStub()

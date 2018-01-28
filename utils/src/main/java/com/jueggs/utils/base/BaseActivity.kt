@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.jueggs.utils.R
@@ -86,6 +87,10 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
     }
 
     open fun storeState(viewModel: TViewModel) {}
+
+    override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
+
+    open fun onMenuItemSelected(id: Int): Boolean? = null
 
     //region baseview
     override fun finishView() = finish()

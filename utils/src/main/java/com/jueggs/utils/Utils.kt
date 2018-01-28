@@ -73,3 +73,7 @@ fun measureView(widthMeasureSpec: Int, heightMeasureSpec: Int, desiredWidth: Int
 
     setMeasuredDimension(width, height)
 }
+
+inline fun <reified T> checkCast(obj: Any) {
+    if (!T::class.java.isAssignableFrom(obj::class.java)) throw TypeCastException("class ${obj::class.java.simpleName} must be assignable from ${T::class.java.simpleName}")
+}

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.jueggs.utils.R
 import com.jueggs.utils.accessory.SimpleDivider
+import com.jueggs.utils.isLollipopOrAboveUtil
 
 fun ViewGroup.inflate(@LayoutRes resId: Int): View = LayoutInflater.from(context).inflate(resId, this, false)
 
@@ -30,14 +31,17 @@ fun ViewGroup.collectCheckedCheckboxes(): List<CheckBox> {
     return result
 }
 
+fun ViewGroup.layoutInflater(): LayoutInflater = LayoutInflater.from(context)
+
+inline fun <reified T : View> ViewGroup.findViews(): List<T> = (0..childCount).filter { getChildAt(it) is T }.map { it as T }
+
 fun TextView.asString(): String = text.toString()
+
 fun TextView.asInt(): Int = text.toString().toInt()
 
 fun AdapterView<*>.asStringOrNull(): String? = if (selectedItem != null) selectedItem.toString() else null
 
 fun AdapterView<*>.asString(): String = selectedItem.toString()
-
-fun ViewGroup.layoutInflater(): LayoutInflater = LayoutInflater.from(context)
 
 fun RecyclerView.setVerticalLinearLayoutManager(): RecyclerView {
     layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
@@ -89,4 +93,10 @@ fun View.invisible() {
 
 fun View.visible() {
     visibility = View.VISIBLE
+}
+
+fun View.withTransitionName(name: String): View {
+    if (isLollipopOrAboveUtil())
+        transitionName = name
+    return this
 }
