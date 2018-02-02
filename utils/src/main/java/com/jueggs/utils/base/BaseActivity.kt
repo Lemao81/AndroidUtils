@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.Toast
 import com.jueggs.utils.R
 import com.jueggs.utils.STATE_VIEWMODEL
@@ -63,6 +62,7 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
 
     abstract fun toolbar(): View?
     open fun toolbarTitle(): Int = R.string.empty_string
+    open fun optionsMenu(): Int? = null
     open fun shallToolbarNavigateBack(): Boolean = true
 
     abstract fun presenter(): BasePresenter<TView, TViewModel>
@@ -88,6 +88,15 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
 
     open fun storeState(viewModel: TViewModel) {}
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val resId = optionsMenu()
+        if (resId != null) {
+            menuInflater.inflate(resId, menu)
+            return true
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
 
     open fun onMenuItemSelected(id: Int): Boolean? = null
@@ -101,7 +110,13 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
     }
 
     override fun showLongToast(msg: String): Toast = longToast(msg)
-    override fun showLongToast(resId: Int): Toast = longToast(resId)
+    override fun showLongToast(resId: Int, vararg formatArgs: Any): Toast {
+        return if (formatArgs.any()) {
+            val msg = getString(resId, formatArgs)
+            longToast(msg)
+        } else
+            longToast(resId)
+    }
 
     override fun hideSoftKeyboard() = hideSoftKeyboardExt()
     //endregion

@@ -115,8 +115,16 @@ fun AppCompatActivity.setPaddingToStatusBarHeight(view: View) {
 
 //FragmentActivity
 fun FragmentActivity.finishAfterTransitionCompat() {
-    if (isLollipopOrAboveUtil())
-        finishAfterTransition()
-    else
-        supportFinishAfterTransition()
+    if (isLollipopOrAboveUtil()) finishAfterTransition()
+    else supportFinishAfterTransition()
+}
+
+fun FragmentActivity.postponeEnterTransitionCompat() {
+    if (isLollipopOrAboveUtil()) postponeEnterTransition()
+    else supportPostponeEnterTransition()
+}
+
+fun FragmentActivity.startPostponedEnterTransitionCompat() {
+    if (isLollipopOrAboveUtil()) startPostponedEnterTransition()
+    else supportStartPostponedEnterTransition()
 }

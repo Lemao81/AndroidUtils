@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.jueggs.utils.STATE_VIEWMODEL
 import com.jueggs.utils.extension.hideSoftKeyboardExt
 import com.jueggs.utils.isLollipopOrAboveUtil
+import org.jetbrains.anko.longToast
 import org.jetbrains.anko.support.v4.longToast
 
 abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragment(), BaseView {
@@ -94,7 +95,13 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
     }
 
     override fun showLongToast(msg: String): Toast = longToast(msg)
-    override fun showLongToast(resId: Int): Toast = longToast(resId)
+    override fun showLongToast(resId: Int, vararg formatArgs: Any): Toast {
+        return if (formatArgs.any()) {
+            val msg = getString(resId, formatArgs)
+            longToast(msg)
+        } else
+            longToast(resId)
+    }
 
     override fun hideSoftKeyboard() = activity?.hideSoftKeyboardExt() ?: false
     //endregion

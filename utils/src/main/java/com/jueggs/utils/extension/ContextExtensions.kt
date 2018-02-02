@@ -21,5 +21,6 @@ fun <T> Context.createSimpleSpinnerAdapter(elements: Array<T>): ArrayAdapter<T> 
 fun Context.createSimpleSpinnerAdapter(@ArrayRes arrayResId: Int): ArrayAdapter<String> = createSimpleSpinnerAdapter(getStringArray(arrayResId))
 
 fun Context.getStringArray(@ArrayRes resId: Int): Array<String> = resources.getStringArray(resId)
+fun Context.getIntArray(@ArrayRes resId: Int): IntArray = resources.getIntArray(resId)
 fun Context.getDrawableCompat(@DrawableRes resId: Int): Drawable? = ContextCompat.getDrawable(this, resId)
 fun Context.createSharedElement(view: View, @StringRes resId: Int): android.util.Pair<View, String> = createSharedElement(view, resources.getString(resId))
