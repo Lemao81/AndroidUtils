@@ -34,7 +34,6 @@ dependencies {
     implementation "joda-time:joda-time:$joda_time_version"
     implementation "com.google.android.gms:play-services-base:$google_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
