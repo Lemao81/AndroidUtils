@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Typeface
 import java.io.IOException
 
-
 class FontCache(private var context: Context) {
     init {
         try {
