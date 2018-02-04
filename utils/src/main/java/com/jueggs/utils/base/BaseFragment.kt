@@ -4,10 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import com.jueggs.utils.STATE_VIEWMODEL
 import com.jueggs.utils.extension.hideSoftKeyboardExt
@@ -79,6 +76,15 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
     }
 
     open fun storeState(viewModel: TViewModel) {}
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        val resId = optionsMenu()
+        if (resId != null)
+            inflater?.inflate(resId, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    open fun optionsMenu(): Int? = null
 
     override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
 
