@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import java.util.*
 
 var random = Random(System.currentTimeMillis())
@@ -77,3 +78,5 @@ fun measureView(widthMeasureSpec: Int, heightMeasureSpec: Int, desiredWidth: Int
 inline fun <reified T> checkCast(obj: Any) {
     if (!T::class.java.isAssignableFrom(obj::class.java)) throw TypeCastException("class ${obj::class.java.simpleName} must be assignable from ${T::class.java.simpleName}")
 }
+
+fun hasText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.isNullOrEmpty() }
