@@ -28,3 +28,6 @@ const val RESULT_NOK = Activity.RESULT_CANCELED
 
 //directory
 const val FONT_DIR = "fonts"
+
+//file type
+const val CONTENT_IMAGE_TYPE = "image/*"

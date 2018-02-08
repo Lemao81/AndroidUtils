@@ -27,7 +27,7 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
         presenter.view = self()
     }
 
-    abstract fun inject(): Unit?
+    open fun inject(): Unit? = null
     abstract fun presenter(): BasePresenter<TView, TViewModel>
     abstract fun self(): TView
 
