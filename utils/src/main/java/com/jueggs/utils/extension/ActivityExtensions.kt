@@ -86,9 +86,9 @@ fun Activity.setReturnTransition(@TransitionRes resId: Int = R.transition.fade) 
 }
 
 @SuppressLint("NewApi")
-inline fun <reified T : Any> Activity.startActivityWithTransition(sharedElements: List<Pair<View, String>>, vararg extras: Pair<String, Any?>) {
+inline fun <reified T : Any> Activity.startActivityWithTransition(sharedElements: List<View>, vararg extras: Pair<String, Any?>) {
     if (isLollipopOrAboveUtil()) {
-        val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { android.util.Pair(it.first, it.second) }.toTypedArray()).toBundle()
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { android.util.Pair(it, it.transitionName) }.toTypedArray()).toBundle()
         startActivity(intentFor<T>(*extras), options)
     } else
         startActivity(intentFor<T>(*extras))

@@ -45,7 +45,7 @@ abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppComp
     }
 
     abstract fun layout(): Int
-    abstract fun inject(): Unit?
+    open fun inject(): Unit? = null
     open fun initialize() {}
 
     private fun setupToolbar() {

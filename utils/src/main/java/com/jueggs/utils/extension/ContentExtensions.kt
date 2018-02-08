@@ -5,8 +5,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.annotation.ArrayRes
-import android.support.annotation.StringRes
+import android.support.annotation.*
+import android.support.v4.content.ContextCompat
 import java.security.InvalidParameterException
 
 fun SharedPreferences.getBoolean(context: Context, @StringRes resId: Int): Boolean = getBoolean(context.getString(resId), false)
@@ -17,6 +17,8 @@ fun SharedPreferences.getListPreferenceEntry(context: Context, @StringRes resIdK
     val index = getString(context, resIdKey).toInt()
     return context.getStringArray(resIdEntryArray)[index]
 }
+
+fun Context.getColorCompat(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
 
 fun Intent.withExtra(vararg extras: Pair<String, Any>): Intent {
     extras.forEach { extra ->
