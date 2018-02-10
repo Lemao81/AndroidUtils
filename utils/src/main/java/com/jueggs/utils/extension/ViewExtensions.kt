@@ -104,7 +104,6 @@ fun View.withTransitionName(name: String): View {
 fun View.withTransitionName(@StringRes resId: Int): View = withTransitionName(context.getString(resId))
 
 fun View.addEnableTextWatcher(vararg inputFields: EditText) {
-    isEnabled = hasText(*inputFields)
     val watcher = object : TextWatcherAdapter() {
         override fun afterTextChanged(text: Editable?) {
             isEnabled = hasText(*inputFields)
