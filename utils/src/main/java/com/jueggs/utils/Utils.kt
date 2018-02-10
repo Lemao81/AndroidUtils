@@ -45,13 +45,9 @@ fun randomBoolean() = random.nextBoolean()
 
 fun newGuid(): String = UUID.randomUUID().toString()
 
-fun viewsVisibleIf(condition: Boolean, vararg views: View) {
-    views.forEach { if (condition) it.visibility = View.VISIBLE else it.visibility = View.GONE }
-}
+fun viewsVisibleIf(condition: Boolean, vararg views: View) = views.forEach { if (condition) it.visibility = View.VISIBLE else it.visibility = View.GONE }
 
-fun viewsGoneIf(condition: Boolean, vararg views: View) {
-    views.forEach { if (condition) it.visibility = View.GONE else it.visibility = View.VISIBLE }
-}
+fun viewsGoneIf(condition: Boolean, vararg views: View) = views.forEach { if (condition) it.visibility = View.GONE else it.visibility = View.VISIBLE }
 
 fun measureView(widthMeasureSpec: Int, heightMeasureSpec: Int, desiredWidth: Int, desiredHeight: Int, setMeasuredDimension: (Int, Int) -> Unit) {
     val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
