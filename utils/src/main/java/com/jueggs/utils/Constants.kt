@@ -31,7 +31,3 @@ const val FONT_DIR = "fonts"
 
 //file type
 const val CONTENT_IMAGE_TYPE = "image/*"
-
-//named annotation
-const val NAMED_APP_CONTEXT = "NAMED_APP_CONTEXT"
-const val NAMED_ACTIVITY_CONTEXT = "NAMED_ACTIVITY_CONTEXT"

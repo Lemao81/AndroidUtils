@@ -17,7 +17,9 @@ class DateRenderer {
                 val hours = now.passedHoursSince(then)
                 "$hours ${renderHour(hours)} ago"
             }
-            then.isYesterday(now) -> "yesterday"
+            then.isYesterday(now) -> {
+                "yesterday"
+            }
             then.isWithinOneWeek(now) -> {
                 val days = now.passedDaysSince(then)
                 "$days ${renderDays(days)} ago"
