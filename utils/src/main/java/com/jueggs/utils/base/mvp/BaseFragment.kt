@@ -1,4 +1,4 @@
-package com.jueggs.utils.base
+package com.jueggs.utils.base.mvp
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.widget.Toast
 import com.jueggs.utils.STATE_VIEWMODEL
 import com.jueggs.utils.extension.hideSoftKeyboardExt
 import com.jueggs.utils.isLollipopOrAboveUtil
-import org.jetbrains.anko.longToast
 import org.jetbrains.anko.support.v4.longToast
 
 abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragment(), BaseView {

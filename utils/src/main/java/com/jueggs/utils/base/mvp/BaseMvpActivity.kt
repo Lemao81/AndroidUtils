@@ -1,4 +1,4 @@
-package com.jueggs.utils.base
+package com.jueggs.utils.base.mvp
 
 import android.os.Bundle
 import android.os.Parcelable
@@ -13,7 +13,7 @@ import com.jueggs.utils.extension.setNavigationTransitions
 import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.longToast
 
-abstract class BaseActivity<TView : BaseView, TViewModel : Parcelable> : AppCompatActivity(), BaseView {
+abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppCompatActivity(), BaseView {
     protected lateinit var viewModel: TViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

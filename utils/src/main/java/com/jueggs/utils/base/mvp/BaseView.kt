@@ -1,4 +1,4 @@
-package com.jueggs.utils.base
+package com.jueggs.utils.base.mvp
 
 import android.arch.lifecycle.LifecycleOwner
 import android.content.Context

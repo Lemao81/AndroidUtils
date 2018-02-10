@@ -1,4 +1,4 @@
-package com.jueggs.utils.base
+package com.jueggs.utils.base.mvp
 
 import android.app.Application
 import com.jueggs.utils.logUnhandledException
