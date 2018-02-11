@@ -1,8 +1,9 @@
-package com.jueggs.utils
+package com.jueggs.utils.helper
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
+import com.jueggs.utils.*
 import java.io.IOException
 
 class FontCache(private var context: Context) {
@@ -33,7 +34,7 @@ class FontCache(private var context: Context) {
         return if (cache.containsKey(fontFilename)) {
             cache[fontFilename]
         } else {
-            val typeface = Typeface.createFromAsset(context.assets, "$FONT_DIR/$fontFilename")
+            val typeface = Typeface.createFromAsset(context.assets, "${FONT_DIR}/$fontFilename")
             cache[fontFilename!!] = typeface
             typeface
         }

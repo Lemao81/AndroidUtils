@@ -22,6 +22,9 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
         else
             onRecreated(savedInstanceState)
 
+        initializeViews()
+        setListeners()
+
         setNavigationTransitions(getEnterTransition(), getExitTransition(), getReenterTransition(), getReturnTransition())
     }
 
@@ -50,6 +53,8 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
 
     open fun onInitialStart() {}
     open fun onRecreated(savedInstanceState: Bundle) {}
+    open fun initializeViews() {}
+    open fun setListeners() {}
 
     open fun getEnterTransition(): Int? = R.transition.fade
     open fun getExitTransition(): Int? = R.transition.fade

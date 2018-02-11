@@ -1,4 +1,4 @@
-package com.jueggs.utils
+package com.jueggs.utils.helper
 
 import org.joda.time.*
 
