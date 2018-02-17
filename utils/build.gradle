@@ -37,6 +37,9 @@ dependencies {
     implementation "com.google.android.gms:play-services-base:$google_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "com.hannesdorfmann.mosby3:mvi:$mosby_version"
+    implementation "commons-validator:commons-validator:$apache_validator"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

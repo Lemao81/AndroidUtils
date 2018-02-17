@@ -1,6 +1,7 @@
 package com.jueggs.utils.base.mvi
 
 import android.os.Bundle
+import android.support.annotation.CallSuper
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.hannesdorfmann.mosby3.mvi.*
@@ -10,6 +11,7 @@ import com.jueggs.utils.extension.*
 
 abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviActivity<TView, TPresenter>() {
 
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout())
@@ -61,6 +63,7 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
     open fun getReenterTransition(): Int? = R.transition.fade
     open fun getReturnTransition(): Int? = R.transition.fade
 
+    @CallSuper
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val resId = optionsMenu()
         if (resId != null) {
@@ -72,10 +75,12 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
 
     open fun optionsMenu(): Int? = null
 
+    @CallSuper
     override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
 
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
+    @CallSuper
     override fun onSupportNavigateUp(): Boolean {
         if (shallToolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()

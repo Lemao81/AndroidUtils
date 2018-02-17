@@ -5,23 +5,26 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import org.apache.commons.validator.routines.EmailValidator
 import java.util.*
 
 var random = Random(System.currentTimeMillis())
 
 fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = android.util.Pair(view, transitionName)
 
-fun logTagged(tag: String, level: Int, text: Any, prefix: String = EMPTY_STRING) {
-    val msg = if (!prefix.isEmpty()) "$prefix:    $text" else text.toString()
+fun logTagged(tag: String, level: Int, text: Any?, prefix: String = EMPTY_STRING) {
+    val msg = if (text == null) "<null>" else if (prefix.isNotBlank()) "$prefix:\t\t\t$text" else text.toString()
     when (level) {
         LOG_LEVEL_DEBUG -> Log.d(tag, msg)
         LOG_LEVEL_ERROR -> Log.e(tag, msg)
     }
 }
 
-fun logDebug(text: Any, prefix: String = EMPTY_STRING) = logTagged(TAG_DEBUG, LOG_LEVEL_DEBUG, text, prefix)
+fun logDebug(text: Any?, prefix: String = EMPTY_STRING) = logTagged(TAG_DEBUG, LOG_LEVEL_DEBUG, text, prefix)
 
-fun logNetwork(text: Any, prefix: String = EMPTY_STRING) = logTagged(TAG_NETWORK, LOG_LEVEL_DEBUG, text, prefix)
+fun logError(text: Any?, prefix: String = EMPTY_STRING) = logTagged(TAG_ERROR, LOG_LEVEL_ERROR, text, prefix)
+
+fun logNetwork(text: Any?, prefix: String = EMPTY_STRING) = logTagged(TAG_NETWORK, LOG_LEVEL_DEBUG, text, prefix)
 
 fun logUnhandledException(throwable: Throwable) = logExceptionInternal(TAG_UNHANDLED_EXCEPTION, throwable)
 
@@ -76,3 +79,5 @@ inline fun <reified T> checkCast(obj: Any) {
 }
 
 fun hasText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.isNullOrEmpty() }
+
+fun isValidEmailAddress(email: String) = EmailValidator.getInstance().isValid(email)

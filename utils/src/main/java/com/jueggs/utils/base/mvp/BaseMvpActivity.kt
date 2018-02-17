@@ -2,6 +2,7 @@ package com.jueggs.utils.base.mvp
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
@@ -16,6 +17,7 @@ import org.jetbrains.anko.longToast
 abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppCompatActivity(), BaseView {
     protected lateinit var viewModel: TViewModel
 
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout())
@@ -80,6 +82,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
     open fun getReenterTransition(): Int? = R.transition.fade
     open fun getReturnTransition(): Int? = R.transition.fade
 
+    @CallSuper
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         storeState(viewModel)
@@ -88,6 +91,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
 
     open fun storeState(viewModel: TViewModel) {}
 
+    @CallSuper
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val resId = optionsMenu()
         if (resId != null) {
@@ -97,9 +101,16 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
         return super.onCreateOptionsMenu(menu)
     }
 
+    @CallSuper
     override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
 
     open fun onMenuItemSelected(id: Int): Boolean? = null
+
+    @CallSuper
+    override fun onSupportNavigateUp(): Boolean {
+        if (shallToolbarNavigateBack()) onBackPressed()
+        return super.onSupportNavigateUp()
+    }
 
     //region baseview
     override fun finishView() = finish()
@@ -108,8 +119,8 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
         if (isLollipopOrAboveUtil()) finishAfterTransition()
         else finish()
     }
-
     override fun showLongToast(msg: String): Toast = longToast(msg)
+
     override fun showLongToast(resId: Int, vararg formatArgs: Any): Toast {
         return if (formatArgs.any()) {
             val msg = getString(resId, formatArgs)
@@ -117,12 +128,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
         } else
             longToast(resId)
     }
-
     override fun hideSoftKeyboard() = hideSoftKeyboardExt()
-    //endregion
 
-    override fun onSupportNavigateUp(): Boolean {
-        if (shallToolbarNavigateBack()) onBackPressed()
-        return super.onSupportNavigateUp()
-    }
+    //endregion
 }
