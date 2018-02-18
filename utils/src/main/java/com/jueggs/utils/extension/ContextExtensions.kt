@@ -10,7 +10,7 @@ import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.ArrayAdapter
 import com.jueggs.utils.createSharedElement
-import org.jetbrains.anko.connectivityManager
+import org.jetbrains.anko.*
 
 @SuppressLint("MissingPermission")
 fun Context.isNetworkConnected(): Boolean = connectivityManager.activeNetworkInfo.isConnectedOrConnecting
@@ -24,3 +24,12 @@ fun Context.getStringArray(@ArrayRes resId: Int): Array<String> = resources.getS
 fun Context.getIntArray(@ArrayRes resId: Int): IntArray = resources.getIntArray(resId)
 fun Context.getDrawableCompat(@DrawableRes resId: Int): Drawable? = ContextCompat.getDrawable(this, resId)
 fun Context.createSharedElement(view: View, @StringRes resId: Int): android.util.Pair<View, String> = createSharedElement(view, resources.getString(resId))
+
+fun Context.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
+        alert(message, title) {
+            yesButton { confirmAction() }
+            noButton { denyAction() }
+        }.show()
+
+fun Context.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
+        showConfirmDialog(if (titleResId != null) getString(titleResId) else null, getString(messageResId), confirmAction, denyAction)

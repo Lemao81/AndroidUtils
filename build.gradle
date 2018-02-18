@@ -12,6 +12,7 @@ buildscript {
     ext.apache_validator = '1.6'
     ext.rxjava = '2.1.9'
     ext.rxandroid = '2.0.1'
+    ext.constraint_layout = '1.0.2'
 
     repositories {
         google()

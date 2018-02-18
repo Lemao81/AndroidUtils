@@ -81,3 +81,5 @@ inline fun <reified T> checkCast(obj: Any) {
 fun hasText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.isNullOrEmpty() }
 
 fun isValidEmailAddress(email: String) = EmailValidator.getInstance().isValid(email)
+
+fun isInvalidEmailAddress(email: String) = !isValidEmailAddress(email)

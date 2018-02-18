@@ -63,7 +63,6 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
     open fun getReenterTransition(): Int? = R.transition.fade
     open fun getReturnTransition(): Int? = R.transition.fade
 
-    @CallSuper
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val resId = optionsMenu()
         if (resId != null) {

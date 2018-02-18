@@ -18,10 +18,10 @@ interface BaseView : LifecycleOwner {
         TODO("not implemented")
     }
 
-    fun showAlertDialog(context: Context, @StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
-            showAlertDialog(context, if (titleResId != null) context.getString(titleResId) else null, context.getString(messageResId), confirmAction, denyAction)
+    fun showConfirmDialog(context: Context, @StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
+            showConfirmDialog(context, if (titleResId != null) context.getString(titleResId) else null, context.getString(messageResId), confirmAction, denyAction)
 
-    fun showAlertDialog(context: Context, title: CharSequence?, message: CharSequence, confirmAction: () -> Unit, denyAction: () -> Unit = {}) {
+    fun showConfirmDialog(context: Context, title: CharSequence?, message: CharSequence, confirmAction: () -> Unit, denyAction: () -> Unit = {}) {
         context.alert(message, title) {
             yesButton { confirmAction() }
             noButton { denyAction() }

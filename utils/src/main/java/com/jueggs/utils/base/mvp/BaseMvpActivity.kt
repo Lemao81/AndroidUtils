@@ -91,7 +91,6 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
 
     open fun storeState(viewModel: TViewModel) {}
 
-    @CallSuper
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val resId = optionsMenu()
         if (resId != null) {
