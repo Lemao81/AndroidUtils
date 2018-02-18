@@ -11,7 +11,7 @@ import com.jueggs.utils.extension.hideSoftKeyboardExt
 import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.support.v4.longToast
 
-abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragment(), BaseView {
+abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Fragment(), BaseView {
     protected lateinit var viewModel: TViewModel
     protected lateinit var ctx: Context
 
@@ -27,7 +27,7 @@ abstract class BaseFragment<TView : BaseView, TViewModel : Parcelable> : Fragmen
     }
 
     open fun inject(): Unit? = null
-    abstract fun presenter(): BasePresenter<TView, TViewModel>
+    abstract fun presenter(): BaseMvpPresenter<TView, TViewModel>
     abstract fun self(): TView
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -8,7 +8,7 @@ import android.os.Parcelable
 import android.support.annotation.*
 import android.support.v4.app.FragmentActivity
 
-abstract class BasePresenter<TView : BaseView, TViewModel : Parcelable> : LifecycleObserver {
+abstract class BaseMvpPresenter<TView : BaseView, TViewModel : Parcelable> : LifecycleObserver {
     var activity: FragmentActivity? = null
     lateinit var viewModel: TViewModel
     lateinit var view: TView

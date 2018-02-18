@@ -67,7 +67,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
     open fun optionsMenu(): Int? = null
     open fun shallToolbarNavigateBack(): Boolean = true
 
-    abstract fun presenter(): BasePresenter<TView, TViewModel>
+    abstract fun presenter(): BaseMvpPresenter<TView, TViewModel>
     abstract fun self(): TView
 
     abstract fun viewModel(): TViewModel
