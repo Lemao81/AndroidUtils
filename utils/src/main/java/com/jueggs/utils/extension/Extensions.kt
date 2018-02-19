@@ -23,8 +23,3 @@ fun Bitmap.toByteArray(format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPE
     compress(Bitmap.CompressFormat.JPEG, 100, baos)
     return baos.toByteArray()
 }
-
-fun GlideRequests.loadOrDefault(photoUrl: String?, resIdDefault: Int): GlideRequest<Drawable> {
-    return if (!photoUrl.isNullOrEmpty()) load(photoUrl)
-    else load(resIdDefault)
-}
