@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
@@ -32,15 +33,16 @@ dependencies {
     implementation "com.android.support:support-v4:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support:design:$support_version"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_layout"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
     implementation "org.jetbrains.anko:anko:$anko_version"
     implementation "joda-time:joda-time:$joda_time_version"
     implementation "com.google.android.gms:play-services-base:$google_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "com.hannesdorfmann.mosby3:mvi:$mosby_version"
-    implementation "commons-validator:commons-validator:$apache_validator"
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid"
+    implementation "commons-validator:commons-validator:$apache_validator_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

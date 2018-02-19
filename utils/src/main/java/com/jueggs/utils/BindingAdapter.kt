@@ -3,14 +3,8 @@ package com.jueggs.utils
 import android.databinding.BindingAdapter
 import android.view.View
 import android.view.View.*
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 import android.widget.TextView
 import com.jueggs.utils.helper.FontCache
-
-
-@BindingAdapter("imageUrl")
-fun ImageView.setImageUrl(url: String?) = Glide.with(context).load(url).into(this)
 
 @set:BindingAdapter("visibleOrGone")
 var View.visibleOrGone

@@ -2,7 +2,9 @@ package com.jueggs.utils.extension
 
 import android.app.Activity
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import com.google.android.gms.common.api.*
+import com.jueggs.utils.*
 import java.io.ByteArrayOutputStream
 import java.lang.reflect.Field
 import java.lang.reflect.Method
@@ -20,4 +22,9 @@ fun Bitmap.toByteArray(format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPE
     val baos = ByteArrayOutputStream()
     compress(Bitmap.CompressFormat.JPEG, 100, baos)
     return baos.toByteArray()
+}
+
+fun GlideRequests.loadOrDefault(photoUrl: String?, resIdDefault: Int): GlideRequest<Drawable> {
+    return if (!photoUrl.isNullOrEmpty()) load(photoUrl)
+    else load(resIdDefault)
 }
