@@ -37,7 +37,7 @@ var View.gone
 /**
  * Attribute to set the font typeface by data binding. Usage: app:typeface="@{`<fontnamewithoutfileextension>`}"
  */
-@BindingAdapter("bind:typeface")
-fun TextView.setTypefaceBinded(textView: TextView, fontName: String) {
-    typeface = FontCache.getInstance(textView.context)[fontName]
+@BindingAdapter("typeface")
+fun TextView.setTypefaceBinded(fontName: String) {
+    typeface = FontCache.getInstance(context)[fontName]
 }
