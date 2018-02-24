@@ -28,13 +28,13 @@ abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView,
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        initializeViews()
 
         if (savedInstanceState == null)
             onInitialStart()
         else
             restoreState(savedInstanceState)
 
-        initializeViews()
         setListeners()
     }
 

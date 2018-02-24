@@ -95,6 +95,9 @@ inline fun <reified T : Any> Activity.startActivityWithTransition(sharedElements
 }
 
 @SuppressLint("NewApi")
+inline fun <reified T : Any> Activity.startActivityWithTransition(sharedElements: List<View>, extras: List<Pair<String, Any?>>) = startActivityWithTransition<T>(sharedElements, *extras.toTypedArray())
+
+@SuppressLint("NewApi")
 inline fun <reified T : Any> Activity.startActivityForResultWithTransition(requestCode: Int, sharedElements: List<View>, vararg extras: Pair<String, Any?>) {
     if (isLollipopOrAboveUtil()) {
         val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { android.util.Pair(it, it.transitionName) }.toTypedArray()).toBundle()

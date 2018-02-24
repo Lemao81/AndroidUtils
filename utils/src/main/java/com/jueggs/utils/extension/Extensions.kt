@@ -24,7 +24,12 @@ fun Bitmap.toByteArray(format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPE
     return baos.toByteArray()
 }
 
-fun GlideRequests.loadOrDefault(photoUrl: String?, resIdDefault: Int): GlideRequest<Drawable> {
-    return if (!photoUrl.isNullOrEmpty()) load(photoUrl)
-    else load(resIdDefault)
+fun GlideRequests.loadOrDefault(url: String?, defaultResId: Int): GlideRequest<Drawable> {
+    return if (!url.isNullOrEmpty()) load(url)
+    else load(defaultResId)
+}
+
+fun GlideRequests.loadOrDefault(url: String?, default: Drawable): GlideRequest<Drawable> {
+    return if (!url.isNullOrEmpty()) load(url)
+    else load(default)
 }
