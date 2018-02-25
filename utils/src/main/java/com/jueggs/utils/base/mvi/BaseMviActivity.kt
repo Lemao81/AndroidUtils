@@ -7,11 +7,8 @@ import com.hannesdorfmann.mosby3.mvi.*
 import com.hannesdorfmann.mosby3.mvp.*
 import com.jueggs.utils.R
 import com.jueggs.utils.extension.*
-import io.reactivex.subjects.PublishSubject
 
-abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>, TStore> : MviActivity<TView, TPresenter>() {
-    protected val storeIntent = PublishSubject.create<TStore>()
-    protected val restoreIntent = PublishSubject.create<Boolean>()
+abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviActivity<TView, TPresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,10 +22,8 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
 
         if (savedInstanceState == null)
             onInitialStart()
-        else {
+        else
             onRecreated(savedInstanceState)
-            restoreIntent.onNext(true)
-        }
     }
 
     abstract fun layout(): Int
@@ -47,7 +42,7 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
         }
     }
 
-    abstract fun toolbar(): View?
+    open fun toolbar(): View? = null
     open fun toolbarTitle(): Int = R.string.empty_string
     open fun shallToolbarNavigateBack(): Boolean = true
 
@@ -84,12 +79,4 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
         if (shallToolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
     }
-
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-        val state = storeState()
-        if (state != null) storeIntent.onNext(state)
-    }
-
-    open fun storeState(): TStore? = null
 }

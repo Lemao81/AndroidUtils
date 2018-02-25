@@ -62,7 +62,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
         }
     }
 
-    abstract fun toolbar(): View?
+    open fun toolbar(): View? = null
     open fun toolbarTitle(): Int = R.string.empty_string
     open fun optionsMenu(): Int? = null
     open fun shallToolbarNavigateBack(): Boolean = true
@@ -118,6 +118,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
         if (isLollipopOrAboveUtil()) finishAfterTransition()
         else finish()
     }
+
     override fun showLongToast(msg: String): Toast = longToast(msg)
 
     override fun showLongToast(resId: Int, vararg formatArgs: Any): Toast {
@@ -127,6 +128,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
         } else
             longToast(resId)
     }
+
     override fun hideSoftKeyboard() = hideSoftKeyboardExt()
 
     //endregion

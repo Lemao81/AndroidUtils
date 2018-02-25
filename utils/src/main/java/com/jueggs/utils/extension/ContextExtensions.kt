@@ -1,7 +1,7 @@
 package com.jueggs.utils.extension
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.*
 import android.graphics.drawable.Drawable
 import android.support.annotation.ArrayRes
 import android.support.annotation.DrawableRes
@@ -33,3 +33,15 @@ fun Context.showConfirmDialog(title: CharSequence?, message: CharSequence, confi
 
 fun Context.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
         showConfirmDialog(if (titleResId != null) getString(titleResId) else null, getString(messageResId), confirmAction, denyAction)
+
+fun Context.showSelection(title: CharSequence?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
+        selector(title, items, { _, index ->
+            onSelectIndex(index)
+            onSelectString(items[index].toString())
+        })
+
+fun Context.showSelection(@StringRes titleResId: Int?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
+        showSelection(if (titleResId != null) getString(titleResId) else null, items, onSelectIndex, onSelectString)
+
+fun Context.showSelection(@StringRes titleResId: Int?, @ArrayRes arrayResId: Int, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
+        showSelection(if (titleResId != null) getString(titleResId) else null, getStringArray(arrayResId).asList(), onSelectIndex, onSelectString)
