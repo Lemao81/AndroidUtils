@@ -1,12 +1,15 @@
 package com.jueggs.utils.base.mvi
 
-import io.reactivex.Observable
+import io.reactivex.*
 
-abstract class BaseMviInteractor<TviewState>(var viewState: TviewState) {
-    fun updateViewState(state: TviewState): Observable<TviewState> {
+abstract class BaseMviInteractor<TViewState>(var viewState: TViewState) {
+
+    fun updateViewState(state: TViewState): TViewState {
         viewState = state
-        return Observable.just(viewState)
+        return viewState
     }
 
-    fun just(state: TviewState): Observable<TviewState> = Observable.just(state)
+    fun just(state: TViewState): Observable<TViewState> = Observable.just(state)
+
+    fun single(state: TViewState): Single<TViewState> = Single.just(state)
 }

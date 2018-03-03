@@ -7,12 +7,11 @@ import android.content.Intent
 import android.os.Parcelable
 import android.support.annotation.DrawableRes
 import android.support.annotation.TransitionRes
-import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
-import com.jueggs.utils.INVALID_VALUE
+import com.jueggs.jutils.INVALID_VALUE
 import com.jueggs.utils.R
 import com.jueggs.utils.isLollipopOrAboveUtil
 import org.jetbrains.anko.inputMethodManager

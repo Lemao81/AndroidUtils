@@ -1,6 +1,6 @@
 package com.jueggs.utils.helper
 
-import com.jueggs.utils.EMPTY_STRING
+import com.jueggs.jutils.EMPTY_STRING
 import java.text.SimpleDateFormat
 import java.util.*
 

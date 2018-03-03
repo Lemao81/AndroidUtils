@@ -2,11 +2,6 @@ package com.jueggs.utils
 
 import android.app.Activity
 
-//default values
-const val INVALID_VALUE = -1
-const val INVALID_VALUE_L = -1L
-const val EMPTY_STRING = ""
-
 //tags
 const val TAG_UNHANDLED_EXCEPTION = "UNHANDLED_EXCEPTION"
 const val TAG_EXCEPTION = "EXCEPTION"
@@ -25,8 +20,10 @@ const val LOG_LEVEL_ERROR = 1
 //divers
 const val STATE_VIEWMODEL = "STATE_VIEWMODEL"
 const val RESULT_OK = Activity.RESULT_OK
-const val RESULT_NOK = Activity.RESULT_CANCELED
+const val RESULT_CANCELED = Activity.RESULT_CANCELED
 const val SCROLL_DIRECTION_TOP = -1
+const val DBTYPE_MODEL = 0
+const val DBTYPE_LIST = 1
 
 //directory
 const val FONT_DIR = "fonts"

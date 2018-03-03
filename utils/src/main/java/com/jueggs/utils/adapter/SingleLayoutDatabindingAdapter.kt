@@ -1,8 +1,10 @@
 package com.jueggs.utils.adapter
 
-import com.jueggs.utils.extension.setAdapterListItems
+import android.support.v7.util.DiffUtil
+import com.jueggs.utils.helper.DiffUtilCallback
+import kotlin.reflect.*
 
-abstract class SingleLayoutDatabindingAdapter<in T : Any>(
+abstract class SingleLayoutDatabindingAdapter<T : Any, in R>(
         private val layoutId: Int,
         private val items: MutableList<T> = arrayListOf(),
         layoutIncluded: Boolean = false) : BaseDatabindingAdapter(layoutIncluded) {
@@ -13,5 +15,8 @@ abstract class SingleLayoutDatabindingAdapter<in T : Any>(
 
     override fun getItemAmount(): Int = items.size
 
-    fun setItems(newItems: List<T>) = setAdapterListItems(newItems, items)
+    fun setItems(newItems: List<T>, idProperty: KProperty1<T, R>) {
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(items, newItems, idProperty))
+        diffResult.dispatchUpdatesTo(this)
+    }
 }

@@ -5,6 +5,7 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import com.jueggs.jutils.EMPTY_STRING
 import org.apache.commons.validator.routines.EmailValidator
 import java.util.*
 
@@ -80,6 +81,6 @@ inline fun <reified T> checkCast(obj: Any) {
 
 fun hasText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.isNullOrEmpty() }
 
-fun isValidEmailAddress(email: String) = EmailValidator.getInstance().isValid(email)
+fun isValidEmailAddress(email: CharSequence?) = !email.isNullOrBlank() && EmailValidator.getInstance().isValid(email.toString())
 
-fun isInvalidEmailAddress(email: String) = !isValidEmailAddress(email)
+fun isInvalidEmailAddress(email: CharSequence?) = !isValidEmailAddress(email)

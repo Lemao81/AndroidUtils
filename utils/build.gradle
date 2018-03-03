@@ -3,23 +3,22 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName version
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
+
     dataBinding {
         enabled = true
     }
 
     buildTypes {
-        debug {}
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -28,7 +27,12 @@ android {
 }
 
 dependencies {
+    implementation project(":jutils")
     provided fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation libs.rxJava
+    implementation libs.kotlinStd
+    implementation libs.kotlinReflect
 
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:support-v4:$support_version"
@@ -41,19 +45,9 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation "com.hannesdorfmann.mosby3:mvi:$mosby_version"
     implementation "commons-validator:commons-validator:$apache_validator_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     kapt "com.android.databinding:compiler:$android_plugin_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-
-repositories {
-    mavenCentral()
 }
 
 task sourcesJar(type: Jar) {
