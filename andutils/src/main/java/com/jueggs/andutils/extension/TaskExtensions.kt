@@ -1,7 +1,7 @@
-package com.jueggs.utils.extension
+package com.jueggs.andutils.extension
 
 import com.google.android.gms.tasks.Task
-import com.jueggs.utils.logException
+import com.jueggs.andutils.util.logException
 
 fun Task<Void>.then(action: () -> Unit) = addOnCompleteListener { action() }
 

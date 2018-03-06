@@ -1,7 +1,7 @@
 package com.jueggs.utils.base
 
 import android.app.Application
-import com.jueggs.utils.logUnhandledException
+import com.jueggs.andutils.util.logUnhandledException
 
 abstract class BaseApplication : Application() {
     override fun onCreate() {

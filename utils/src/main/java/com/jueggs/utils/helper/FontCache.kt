@@ -3,6 +3,8 @@ package com.jueggs.utils.helper
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
+import com.jueggs.andutils.*
+import com.jueggs.andutils.util.logTagged
 import com.jueggs.utils.*
 import java.io.IOException
 

@@ -6,19 +6,20 @@ ext {
     versionName = "1.0"
 
     libs = [
-            rxJava       : ('io.reactivex.rxjava2:rxjava:' + rxJavaVersion),
-            kotlinStd    : ('org.jetbrains.kotlin:kotlin-stdlib-jre7:' + kotlinVersion),
-            kotlinReflect: ('org.jetbrains.kotlin:kotlin-reflect:' + kotlinVersion)
+            rxJava          : ("io.reactivex.rxjava2:rxjava:$rxJavaVersion"),
+            kotlinStd       : ("org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"),
+            kotlinReflect   : ("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"),
+            playServicesBase: ("com.google.android.gms:play-services-base:$playServicesVersion")
     ]
 }
 
 buildscript {
     ext {
         kotlinVersion = '1.2.30'
-        support_version = '27.0.2'
+        supportVersion = '27.1.0'
         anko_version = '0.10.3'
         android_plugin_version = '3.0.1'
-        google_version = '11.8.0'
+        playServicesVersion = '11.8.0'
         glide_version = '4.5.0'
         joda_time_version = '2.9.9'
         mosby_version = '3.1.0'
@@ -39,9 +40,6 @@ buildscript {
         classpath "com.android.tools.build:gradle:$android_plugin_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.google.gms:google-services:3.1.0'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 

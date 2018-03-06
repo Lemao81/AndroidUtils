@@ -10,7 +10,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -23,12 +23,7 @@ android {
 
 dependencies {
     implementation project(":jutils")
-    implementation project(':andutils')
 
-    implementation libs.rxJava
+    implementation libs.playServicesBase
     implementation libs.kotlinStd
-    implementation libs.kotlinReflect
-
-    implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:$firebaseVersion"
 }

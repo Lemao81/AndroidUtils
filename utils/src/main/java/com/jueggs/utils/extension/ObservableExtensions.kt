@@ -1,6 +1,6 @@
 package com.jueggs.utils.extension
 
-import com.jueggs.utils.logDebug
+import com.jueggs.andutils.util.logDebug
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

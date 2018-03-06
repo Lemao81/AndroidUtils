@@ -1,8 +1,8 @@
-package com.jueggs.utils.helper
+package com.jueggs.jutils.helper
 
 import java.util.*
 
-class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = Random(), symbols: String = alphanum) {
+class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = Random(System.currentTimeMillis()), symbols: String = alphanum) {
     private val random: Random
     private val symbols: CharArray
     private val buffer: CharArray
