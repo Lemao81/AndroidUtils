@@ -10,7 +10,7 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -30,15 +30,14 @@ android {
 }
 
 dependencies {
-    implementation project(":jutils")
     implementation project(':andutils')
 
-    implementation libs.rxJava
     implementation libs.kotlinStd
-    implementation libs.kotlinReflect
+    implementation libs.recyclerView
 
-    implementation "com.google.firebase:firebase-core:$firebaseVersion"
-    implementation "com.google.firebase:firebase-database:$firebaseVersion"
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation "com.android.support:support-v4:$supportVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
 }
 
 task copyArtefact(type: Copy) {

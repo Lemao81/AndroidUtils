@@ -6,7 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/andutils/andutils.iml" filepath="$PROJECT_DIR$/andutils/andutils.iml" />
       <module fileurl="file://$PROJECT_DIR$/firebaseutils/firebaseutils.iml" filepath="$PROJECT_DIR$/firebaseutils/firebaseutils.iml" />
       <module fileurl="file://$PROJECT_DIR$/jutils/jutils.iml" filepath="$PROJECT_DIR$/jutils/jutils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/resutils/resutils.iml" filepath="$PROJECT_DIR$/resutils/resutils.iml" />
     </modules>
   </component>
 </project>

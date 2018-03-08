@@ -29,3 +29,9 @@ compileTestKotlin {
         jvmTarget = "1.8"
     }
 }
+
+task copyArtefact(type: Copy) {
+    from 'build/libs'
+    into 'C:\\Users\\Jueggs\\AndroidStudioProjects\\AndroidUtils\\output'
+}
+assemble.finalizedBy copyArtefact

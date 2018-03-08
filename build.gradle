@@ -4,12 +4,14 @@ ext {
     targetSdkVersion = 27
     versionCode = 1
     versionName = "1.0"
+    outputPath = "C:\\Users\\Jueggs\\AndroidStudioProjects\\AndroidUtils\\output"
 
     libs = [
             rxJava          : ("io.reactivex.rxjava2:rxjava:$rxJavaVersion"),
             kotlinStd       : ("org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"),
             kotlinReflect   : ("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"),
-            playServicesBase: ("com.google.android.gms:play-services-base:$playServicesVersion")
+            playServicesBase: ("com.google.android.gms:play-services-base:$playServicesVersion"),
+            recyclerView    : ("com.android.support:recyclerview-v7:$supportVersion")
     ]
 }
 

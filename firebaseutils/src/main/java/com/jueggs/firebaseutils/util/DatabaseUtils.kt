@@ -4,9 +4,9 @@ import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.database.*
-import com.jueggs.andutils.extension.then
 import com.jueggs.firebaseutils.*
 import com.jueggs.firebaseutils.extension.*
+import com.jueggs.andutils.extension.then
 
 //region find multiple
 inline fun <reified T : Any, reified U : Any> findMultiple(ref1: Pair<DatabaseReference, Int>, ref2: Pair<DatabaseReference, Int>, crossinline action: (Any?, Any?) -> Unit) {
