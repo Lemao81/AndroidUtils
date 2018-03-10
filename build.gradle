@@ -1,47 +1,19 @@
 ext {
-    compileSdkVersion = 27
-    minSdkVersion = 19
-    targetSdkVersion = 27
-    versionCode = 1
-    versionName = "1.0"
     outputPath = "C:\\Users\\Jueggs\\AndroidStudioProjects\\AndroidUtils\\output"
-
-    libs = [
-            rxJava          : ("io.reactivex.rxjava2:rxjava:$rxJavaVersion"),
-            kotlinStd       : ("org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"),
-            kotlinReflect   : ("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"),
-            playServicesBase: ("com.google.android.gms:play-services-base:$playServicesVersion"),
-            recyclerView    : ("com.android.support:recyclerview-v7:$supportVersion")
-    ]
+    create = "debug"
+    ignore = "release"
 }
 
 buildscript {
-    ext {
-        kotlinVersion = '1.2.30'
-        supportVersion = '27.1.0'
-        anko_version = '0.10.3'
-        android_plugin_version = '3.0.1'
-        playServicesVersion = '11.8.0'
-        glide_version = '4.5.0'
-        joda_time_version = '2.9.9'
-        mosby_version = '3.1.0'
-        apache_validator_version = '1.6'
-        rxjava_version = '2.1.9'
-        rxandroid_version = '2.0.1'
-        constraint_layout_version = '1.0.2'
-        firebaseVersion = '11.8.0'
-        rxJavaVersion = '2.1.9'
-    }
-
     repositories {
         google()
         jcenter()
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:$android_plugin_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.google.gms:google-services:3.1.0'
+        classpath Plugins.gradle
+        classpath Plugins.kotlin
+        classpath Plugins.gms
     }
 }
 

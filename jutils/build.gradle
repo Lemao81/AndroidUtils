@@ -2,11 +2,11 @@ apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation libs.kotlinStd
+    implementation Libs.kotlinStd
 }
 
-sourceCompatibility = "1.8"
-targetCompatibility = "1.8"
+sourceCompatibility = Versions.java
+targetCompatibility = Versions.java
 
 buildscript {
     repositories {
@@ -14,24 +14,24 @@ buildscript {
     }
 
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath Plugins.kotlin
     }
 }
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.java
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.java
     }
 }
 
 task copyArtefact(type: Copy) {
     from 'build/libs'
-    into 'C:\\Users\\Jueggs\\AndroidStudioProjects\\AndroidUtils\\output'
+    into rootProject.ext.outputPath
 }
 assemble.finalizedBy copyArtefact

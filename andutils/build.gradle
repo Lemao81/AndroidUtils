@@ -3,13 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion Versions.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionCode Versions.versionCode
+        versionName Versions.versionName
 
         multiDexEnabled true
     }
@@ -30,11 +30,16 @@ android {
     }
 
     libraryVariants.all { variant ->
-        if (variant.name == 'debug') {
+        if (variant.name == rootProject.ext.create) {
             variant.outputs.each { output ->
                 output.outputFileName = "${archivesBaseName}.aar"
             }
         }
+    }
+
+    variantFilter { variant ->
+        if (variant.buildType.name == rootProject.ext.ignore)
+            variant.setIgnore(true)
     }
 }
 
@@ -43,21 +48,20 @@ dependencies {
 
     implementation project(':jutils')
 
-    implementation libs.rxJava
-    implementation libs.kotlinStd
-    implementation libs.kotlinReflect
-    implementation libs.playServicesBase
-    implementation libs.recyclerView
-
-    implementation "com.android.support:design:$supportVersion"
-    implementation "org.jetbrains.anko:anko:$anko_version"
-    implementation "joda-time:joda-time:$joda_time_version"
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    implementation "com.hannesdorfmann.mosby3:mvi:$mosby_version"
-    implementation "commons-validator:commons-validator:$apache_validator_version"
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
-    kapt "com.android.databinding:compiler:$android_plugin_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    implementation Libs.rxJava
+    implementation Libs.kotlinStd
+    implementation Libs.kotlinReflect
+    implementation Libs.gmsBase
+    implementation Libs.recyclerView
+    implementation Libs.design
+    implementation Libs.anko
+    implementation Libs.joda
+    implementation Libs.glide
+    implementation Libs.mosbyMvi
+    implementation Libs.apacheValidator
+    implementation Libs.rxJavaAndroid
+    kapt Libs.databindingCompiler
+    kapt Libs.glideCompiler
 }
 
 task sourcesJar(type: Jar) {
@@ -78,7 +82,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 task copyArtefact(dependsOn: 'assemble', type: Copy) {
     from 'build/outputs/aar'
-    into 'C:\\Users\\Jueggs\\AndroidStudioProjects\\AndroidUtils\\output'
+    into rootProject.ext.outputPath
 }
 assemble.finalizedBy copyArtefact
 

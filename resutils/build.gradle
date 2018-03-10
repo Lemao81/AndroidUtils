@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion Versions.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
+        minSdkVersion Versions.minSdkVersion
+        targetSdkVersion Versions.targetSdkVersion
+        versionCode Versions.versionCode
+        versionName Versions.versionName
 
         multiDexEnabled true
     }
@@ -21,27 +21,31 @@ android {
     }
 
     libraryVariants.all { variant ->
-        if (variant.name == 'debug') {
+        if (variant.name == rootProject.ext.create) {
             variant.outputs.each { output ->
                 output.outputFileName = "${archivesBaseName}.aar"
             }
         }
+    }
+
+    variantFilter { variant ->
+        if (variant.buildType.name == rootProject.ext.ignore)
+            variant.setIgnore(true)
     }
 }
 
 dependencies {
     implementation project(':andutils')
 
-    implementation libs.kotlinStd
-    implementation libs.recyclerView
-
-    implementation "com.android.support:appcompat-v7:$supportVersion"
-    implementation "com.android.support:support-v4:$supportVersion"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation Libs.kotlinStd
+    implementation Libs.recyclerView
+    implementation Libs.appcompat
+    implementation Libs.supportV4
+    implementation Libs.constraintLayout
 }
 
 task copyArtefact(type: Copy) {
     from 'build/outputs/aar'
-    into 'C:\\Users\\Jueggs\\AndroidStudioProjects\\AndroidUtils\\output'
+    into rootProject.ext.outputPath
 }
 assemble.finalizedBy copyArtefact
