@@ -1,19 +1,30 @@
 package com.jueggs.andutils.base.mvi
 
 import android.os.Bundle
+import android.support.annotation.IdRes
+import android.support.v4.app.*
 import android.support.v7.widget.Toolbar
 import android.view.*
 import com.hannesdorfmann.mosby3.mvi.*
 import com.hannesdorfmann.mosby3.mvp.*
 import com.jueggs.andutils.R
+import com.jueggs.andutils.dagger.BaseActivityModule
 import com.jueggs.andutils.extension.*
+import dagger.android.*
+import dagger.android.support.HasSupportFragmentInjector
+import javax.inject.*
 
-abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviActivity<TView, TPresenter>() {
+abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviActivity<TView, TPresenter>(), HasSupportFragmentInjector {
+    @Inject
+    @Named(BaseActivityModule.ACTIVITY_FRAGMENT_MANAGER)
+    protected lateinit var fragManager: FragmentManager
+    @Inject
+    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(layout())
-        inject()
         initialize()
         setupToolbar()
         initializeViews()
@@ -27,7 +38,6 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
     }
 
     abstract fun layout(): Int
-    open fun inject(): Unit? = null
     open fun initialize() {}
 
     private fun setupToolbar() {
@@ -79,4 +89,9 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
         if (shallToolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
     }
+
+    protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = fragManager.beginTransaction().add(containerViewId, fragment).commit()
+    protected fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = fragManager.beginTransaction().replace(containerViewId, fragment).commit()
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
 }

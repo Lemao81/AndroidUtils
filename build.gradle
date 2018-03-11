@@ -1,5 +1,4 @@
 ext {
-    outputPath = "C:\\Users\\Jueggs\\AndroidStudioProjects\\AndroidUtils\\output"
     create = "debug"
     ignore = "release"
 }

@@ -53,6 +53,7 @@ dependencies {
     implementation Libs.kotlinReflect
     implementation Libs.gmsBase
     implementation Libs.recyclerView
+    implementation Libs.supportV4
     implementation Libs.design
     implementation Libs.anko
     implementation Libs.joda
@@ -60,6 +61,8 @@ dependencies {
     implementation Libs.mosbyMvi
     implementation Libs.apacheValidator
     implementation Libs.rxJavaAndroid
+    implementation Libs.dagger
+    implementation Libs.daggerSupport
     kapt Libs.databindingCompiler
     kapt Libs.glideCompiler
 }
@@ -68,25 +71,27 @@ task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
-
 task javadoc(type: Javadoc) {
     failOnError false
     source = android.sourceSets.main.java.sourceFiles
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
-
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
 }
-
-task copyArtefact(dependsOn: 'assemble', type: Copy) {
-    from 'build/outputs/aar'
-    into rootProject.ext.outputPath
-}
-assemble.finalizedBy copyArtefact
-
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+task copyArtefactAndSource(dependsOn: ['sourcesJar', 'javadocJar'], type: Copy) {
+    copy {
+        from Paths.buildPathAar
+        into Paths.outputPath
+    }
+    copy {
+        from Paths.buildPathJar
+        into Paths.outputPath
+    }
 }

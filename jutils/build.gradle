@@ -30,8 +30,22 @@ compileTestKotlin {
     }
 }
 
-task copyArtefact(type: Copy) {
-    from 'build/libs'
-    into rootProject.ext.outputPath
+task sourcesJar(type: Jar, dependsOn: classes) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
 }
-assemble.finalizedBy copyArtefact
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    from javadoc.destinationDir
+    classifier = 'javadoc'
+}
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+task copyArtefactAndSource(dependsOn: ['sourcesJar', 'javadocJar'], type: Copy) {
+    copy {
+        from Paths.buildPathJar
+        into Paths.outputPath
+    }
+}

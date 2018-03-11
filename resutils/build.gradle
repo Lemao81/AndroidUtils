@@ -44,8 +44,31 @@ dependencies {
     implementation Libs.constraintLayout
 }
 
-task copyArtefact(type: Copy) {
-    from 'build/outputs/aar'
-    into rootProject.ext.outputPath
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
 }
-assemble.finalizedBy copyArtefact
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+task copyArtefactAndSource(dependsOn: ['sourcesJar', 'javadocJar'], type: Copy) {
+    copy {
+        from Paths.buildPathAar
+        into Paths.outputPath
+    }
+    copy {
+        from Paths.buildPathJar
+        into Paths.outputPath
+    }
+}
