@@ -1,9 +1,13 @@
 package com.jueggs.andutils
 
+import android.animation.ValueAnimator
+import android.content.Context
 import android.os.Build
 import android.os.Handler
+import android.support.annotation.ColorRes
 import android.view.View
 import android.widget.EditText
+import com.jueggs.andutils.extension.getColorCompat
 import org.apache.commons.validator.routines.EmailValidator
 
 fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = android.util.Pair(view, transitionName)

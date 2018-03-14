@@ -1,31 +1,15 @@
 package com.jueggs.andutils.base.mvi
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.*
 import android.view.*
 import com.hannesdorfmann.mosby3.mvi.*
 import com.hannesdorfmann.mosby3.mvp.MvpView
-import com.jueggs.andutils.dagger.BaseFragmentModule
-import dagger.android.*
-import dagger.android.support.*
-import javax.inject.*
+import com.jueggs.andutils.R
+import com.jueggs.andutils.extension.setNavigationTransitions
 
-abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviFragment<TView, TPresenter>(), HasSupportFragmentInjector {
-    @Inject
-    protected lateinit var activityContext: Context
-    @Inject
-    @Named(BaseFragmentModule.CHILD_FRAGMENT_MANAGER)
-    protected lateinit var childFragManager: FragmentManager
-    @Inject
-    lateinit var childFragmentInjector: DispatchingAndroidInjector<Fragment>
-
-    override fun onAttach(context: Context?) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
+abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviFragment<TView, TPresenter>() {
 
     override fun createPresenter(): TPresenter = presenter()
     abstract fun presenter(): TPresenter
@@ -33,9 +17,15 @@ abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initialize()
+        setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
     }
 
     open fun initialize() {}
+
+    open fun enterTransition(): Int? = R.transition.fade
+    open fun exitTransition(): Int? = R.transition.fade
+    open fun reenterTransition(): Int? = R.transition.fade
+    open fun returnTransition(): Int? = R.transition.fade
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? = inflater.inflate(layout(), container, false)
     abstract fun layout(): Int
@@ -71,6 +61,4 @@ abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView,
 
     protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = childFragmentManager.beginTransaction().add(containerViewId, fragment).commit()
     protected fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = childFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = childFragmentInjector
 }

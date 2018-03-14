@@ -49,3 +49,4 @@ task copyArtefactAndSource(dependsOn: ['sourcesJar', 'javadocJar'], type: Copy) 
         into Paths.outputPath
     }
 }
+build.finalizedBy copyArtefactAndSource

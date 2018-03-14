@@ -5,8 +5,7 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Parcelable
-import android.support.annotation.DrawableRes
-import android.support.annotation.TransitionRes
+import android.support.annotation.*
 import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
@@ -104,6 +103,13 @@ inline fun <reified T : Any> Activity.startActivityForResultWithTransition(reque
     } else
         startActivityForResult(intentFor<T>(*extras), requestCode)
 }
+
+fun Activity.setStatusbarColor(@ColorRes resId: Int) {
+    if (isLollipopOrAboveUtil())
+        window.statusBarColor = getColorCompat(resId)
+}
+
+fun Activity.isFragmentVisible(@LayoutRes resId: Int) = fragmentManager.findFragmentById(resId) != null
 
 
 //AppCompatActivity

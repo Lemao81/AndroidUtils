@@ -1,15 +1,15 @@
 package com.jueggs.andutils.extension
 
+import android.animation.*
 import android.annotation.SuppressLint
 import android.content.*
 import android.graphics.drawable.Drawable
-import android.support.annotation.ArrayRes
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
+import android.support.annotation.*
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.widget.ArrayAdapter
-import com.jueggs.andutils.createSharedElement
+import com.jueggs.andutils.*
+import com.jueggs.andutils.helper.ColorAnimator
 import org.jetbrains.anko.*
 
 @SuppressLint("MissingPermission")
@@ -45,3 +45,14 @@ fun Context.showSelection(@StringRes titleResId: Int?, items: List<CharSequence>
 
 fun Context.showSelection(@StringRes titleResId: Int?, @ArrayRes arrayResId: Int, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
         showSelection(if (titleResId != null) getString(titleResId) else null, getStringArray(arrayResId).asList(), onSelectIndex, onSelectString)
+
+fun Context.animateColor(@ColorRes from: Int, @ColorRes to: Int): ColorAnimator {
+    return if (isLollipopOrAboveUtil()) {
+        ColorAnimator(ValueAnimator.ofArgb(getColorCompat(from), getColorCompat(to)))
+    } else {
+        val anim = ValueAnimator()
+        anim.setIntValues(from, to)
+        anim.setEvaluator(ArgbEvaluator())
+        return ColorAnimator(anim)
+    }
+}

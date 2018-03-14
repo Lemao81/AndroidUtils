@@ -61,8 +61,6 @@ dependencies {
     implementation Libs.mosbyMvi
     implementation Libs.apacheValidator
     implementation Libs.rxJavaAndroid
-    implementation Libs.dagger
-    implementation Libs.daggerSupport
     kapt Libs.databindingCompiler
     kapt Libs.glideCompiler
 }
@@ -95,3 +93,4 @@ task copyArtefactAndSource(dependsOn: ['sourcesJar', 'javadocJar'], type: Copy) 
         into Paths.outputPath
     }
 }
+build.finalizedBy copyArtefactAndSource

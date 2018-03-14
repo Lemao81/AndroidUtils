@@ -1,13 +1,16 @@
 package com.jueggs.andutils.extension
 
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import com.google.android.gms.common.api.*
 import com.jueggs.andutils.*
+import com.jueggs.andutils.helper.ColorAnimator
 import java.io.ByteArrayOutputStream
 import java.lang.reflect.Field
 import java.lang.reflect.Method
+import kotlin.reflect.*
 
 fun Any.findDeclaredMethod(name: String, modifiers: Int = 0x11111111): Method? = javaClass.declaredMethods.singleOrNull { it.name == name && (it.modifiers and modifiers) != 0 }
 
@@ -32,4 +35,16 @@ fun GlideRequests.loadOrDefault(url: String?, defaultResId: Int): GlideRequest<D
 fun GlideRequests.loadOrDefault(url: String?, default: Drawable): GlideRequest<Drawable> {
     return if (!url.isNullOrEmpty()) load(url)
     else load(default)
+}
+
+fun ColorAnimator.update(func: KFunction1<Int, Unit>): ValueAnimator {
+    valueAnimator.addUpdateListener {
+        func(it.animatedValue as Int)
+    }
+    return valueAnimator
+}
+
+fun ValueAnimator.startDelayed(delay: Long) {
+    startDelay = delay
+    start()
 }

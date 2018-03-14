@@ -38,6 +38,7 @@ object Versions {
     const val espresso = "3.0.1"
     const val crashLytics = "2.7.1@aar"
     const val apacheValidator = "1.6"
+    const val javaxInject = "1"
 }
 
 object Libs {
@@ -52,6 +53,7 @@ object Libs {
     const val recyclerView = "com.android.support:recyclerview-v7:${Versions.support}"
     const val cardView = "com.android.support:cardview-v7:${Versions.support}"
     const val supportV4 = "com.android.support:support-v4:${Versions.support}"
+    const val supportAnnotations = "com.android.support:support-annotations:${Versions.support}"
     const val exifinterface = "com.android.support:exifinterface:${Versions.support}"
     const val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
     const val databindingCompiler = "com.android.databinding:compiler:${Versions.databindingCompiler}"
@@ -89,6 +91,7 @@ object Libs {
     const val crashLytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashLytics}"
     const val apacheValidator = "commons-validator:commons-validator:${Versions.apacheValidator}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    const val javaxInject = "javax.inject:javax.inject:${Versions.javaxInject}"
 }
 
 object Plugins {

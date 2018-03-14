@@ -8,28 +8,18 @@ import android.view.*
 import com.hannesdorfmann.mosby3.mvi.*
 import com.hannesdorfmann.mosby3.mvp.*
 import com.jueggs.andutils.R
-import com.jueggs.andutils.dagger.BaseActivityModule
 import com.jueggs.andutils.extension.*
-import dagger.android.*
-import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.*
 
-abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviActivity<TView, TPresenter>(), HasSupportFragmentInjector {
-    @Inject
-    @Named(BaseActivityModule.ACTIVITY_FRAGMENT_MANAGER)
-    protected lateinit var fragManager: FragmentManager
-    @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviActivity<TView, TPresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(layout())
         initialize()
         setupToolbar()
         initializeViews()
         setListeners()
-        setNavigationTransitions(getEnterTransition(), getExitTransition(), getReenterTransition(), getReturnTransition())
+        setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
 
         if (savedInstanceState == null)
             onInitialStart()
@@ -62,10 +52,10 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
     open fun initializeViews() {}
     open fun setListeners() {}
 
-    open fun getEnterTransition(): Int? = R.transition.fade
-    open fun getExitTransition(): Int? = R.transition.fade
-    open fun getReenterTransition(): Int? = R.transition.fade
-    open fun getReturnTransition(): Int? = R.transition.fade
+    open fun enterTransition(): Int? = R.transition.fade
+    open fun exitTransition(): Int? = R.transition.fade
+    open fun reenterTransition(): Int? = R.transition.fade
+    open fun returnTransition(): Int? = R.transition.fade
 
     open fun onInitialStart() {}
     open fun onRecreated(savedInstanceState: Bundle) {}
@@ -90,8 +80,6 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
         return super.onSupportNavigateUp()
     }
 
-    protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = fragManager.beginTransaction().add(containerViewId, fragment).commit()
-    protected fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = fragManager.beginTransaction().replace(containerViewId, fragment).commit()
-
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+    protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().add(containerViewId, fragment).commit()
+    protected fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
 }
