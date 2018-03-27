@@ -39,6 +39,8 @@ object Versions {
     const val crashLytics = "2.7.1@aar"
     const val apacheValidator = "1.6"
     const val javaxInject = "1"
+    const val koin = "0.9.1"
+    const val room = "1.0.0"
 }
 
 object Libs {
@@ -92,6 +94,9 @@ object Libs {
     const val apacheValidator = "commons-validator:commons-validator:${Versions.apacheValidator}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
     const val javaxInject = "javax.inject:javax.inject:${Versions.javaxInject}"
+    const val koin = "org.koin:koin-android:${Versions.koin}"
+    const val roomRuntime = "android.arch.persistence.room:runtime:${Versions.room}"
+    const val roomCompiler = "android.arch.persistence.room:compiler:${Versions.room}"
 }
 
 object Plugins {

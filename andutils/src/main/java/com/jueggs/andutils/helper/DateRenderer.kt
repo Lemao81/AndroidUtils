@@ -8,7 +8,7 @@ class DateRenderer {
     fun render(then: DateTime): String {
         val now = DateTime()
         return when {
-            then.isWithinLastMinute(now) -> "just now"
+            then.isWithinLastMinute(now) -> "justWithUpdate now"
             then.isWithinLastHour(now) -> {
                 val minutes = now.passedMinutesSince(then)
                 "$minutes ${renderMinute(minutes)} ago"

@@ -16,7 +16,7 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
         super.onCreate(savedInstanceState)
         setContentView(layout())
         initialize()
-        setupToolbar()
+        setToolbar(toolbar(), toolbarTitle(), shallToolbarNavigateBack())
         initializeViews()
         setListeners()
         setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
@@ -30,12 +30,12 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
     abstract fun layout(): Int
     open fun initialize() {}
 
-    private fun setupToolbar() {
-        val toolbar = toolbar()
+    fun setToolbar(toolbar: View?, title: Int? = null, shallNavigateBack: Boolean = true) {
         if (toolbar != null && toolbar is Toolbar) {
             setSupportActionBar(toolbar)
-            supportActionBar?.title = getString(toolbarTitle())
-            if (shallToolbarNavigateBack()) {
+            if (title != null)
+                supportActionBar?.title = getString(title)
+            if (shallNavigateBack) {
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 supportActionBar?.setDisplayShowHomeEnabled(true)
             }
@@ -43,7 +43,7 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
     }
 
     open fun toolbar(): View? = null
-    open fun toolbarTitle(): Int = R.string.empty_string
+    open fun toolbarTitle(): Int? = null
     open fun shallToolbarNavigateBack(): Boolean = true
 
     override fun createPresenter(): TPresenter = presenter()
@@ -59,6 +59,13 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
 
     open fun onInitialStart() {}
     open fun onRecreated(savedInstanceState: Bundle) {}
+
+    override fun onStart() {
+        super.onStart()
+        initialIntents()
+    }
+
+    open fun initialIntents() {}
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val resId = optionsMenu()
@@ -80,6 +87,7 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
         return super.onSupportNavigateUp()
     }
 
-    protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().add(containerViewId, fragment).commit()
+    protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().add(containerViewId, fragment).addToBackStack(fragment::class.simpleName).commit()
     protected fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
+    fun popFragment() = supportFragmentManager.popBackStack()
 }

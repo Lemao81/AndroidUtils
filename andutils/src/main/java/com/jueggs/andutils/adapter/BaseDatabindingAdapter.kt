@@ -13,10 +13,7 @@ abstract class BaseDatabindingAdapter(private var layoutIncluded: Boolean = fals
     private var eventHandler: Any? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, layoutId: Int): BaseDatabindingAdapter.ViewHolder = BaseDatabindingAdapter.ViewHolder(
-            DataBindingUtil.inflate(parent.layoutInflater(), layoutId, parent, false), getBindingVariableId(),
-            eventHandler,
-            getEventhandlerVariableId(),
-            layoutIncluded)
+            DataBindingUtil.inflate(parent.layoutInflater(), layoutId, parent, false), getBindingVariableId(), eventHandler, getEventhandlerVariableId(), layoutIncluded)
 
     override fun onBindViewHolder(holder: BaseDatabindingAdapter.ViewHolder, position: Int) = holder.bind(getItemForPosition(position))
 

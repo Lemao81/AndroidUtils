@@ -4,9 +4,9 @@ import android.support.v7.util.DiffUtil
 import com.jueggs.andutils.helper.DiffUtilCallback
 import kotlin.reflect.*
 
-abstract class SingleLayoutDatabindingAdapter<T : Any, in R>(
+abstract class SingleLayoutDatabindingAdapter<TItems : Any, in TIdProperty>(
         private val layoutId: Int,
-        private val items: MutableList<T> = arrayListOf(),
+        private val items: MutableList<TItems> = arrayListOf(),
         layoutIncluded: Boolean = false) : BaseDatabindingAdapter(layoutIncluded) {
 
     override fun getLayoutIdForPosition(position: Int): Int = layoutId
@@ -15,8 +15,10 @@ abstract class SingleLayoutDatabindingAdapter<T : Any, in R>(
 
     override fun getItemAmount(): Int = items.size
 
-    fun setItems(newItems: List<T>, idProperty: KProperty1<T, R>) {
+    fun setItems(newItems: List<TItems>, idProperty: KProperty1<TItems, TIdProperty>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(items, newItems, idProperty))
+        items.clear()
+        items.addAll(newItems)
         diffResult.dispatchUpdatesTo(this)
     }
 }

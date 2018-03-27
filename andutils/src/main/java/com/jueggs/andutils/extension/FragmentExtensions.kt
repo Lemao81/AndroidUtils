@@ -1,10 +1,19 @@
 package com.jueggs.andutils.extension
 
-import android.app.Activity
+import android.os.Bundle
 import android.support.annotation.*
 import android.support.v4.app.Fragment
 import android.transition.TransitionInflater
-import com.jueggs.andutils.isLollipopOrAboveUtil
+import org.jetbrains.anko.*
+
+fun Fragment.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) =
+        context?.alert(message, title) {
+            yesButton { confirmAction(Unit) }
+            noButton { denyAction(Unit) }
+        }?.show()
+
+fun Fragment.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) =
+        showConfirmDialog(if (titleResId != null) getString(titleResId) else null, getString(messageResId), confirmAction, denyAction)
 
 fun Fragment.showSelection(title: CharSequence?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
         context?.showSelection(title, items, onSelectIndex, onSelectString)
@@ -25,4 +34,9 @@ fun Fragment.setNavigationTransitions(@TransitionRes enterResId: Int?, @Transiti
         reenterTransition = transitionInflater.inflateTransition(reenterResId)
     if (returnResId != null)
         returnTransition = transitionInflater.inflateTransition(returnResId)
+}
+
+fun Fragment.withArguments(vararg arguments: Pair<String, Any>): Fragment {
+    setArguments(Bundle().withData(*arguments))
+    return this
 }
