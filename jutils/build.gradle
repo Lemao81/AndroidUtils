@@ -3,6 +3,7 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation Libs.kotlinStd
+    implementation Libs.mockito
 }
 
 sourceCompatibility = Versions.java

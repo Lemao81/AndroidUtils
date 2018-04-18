@@ -23,7 +23,7 @@ fun ApiException.startResolutionForResult(activity: Activity, requestCode: Int) 
 
 fun Bitmap.toByteArray(format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): ByteArray {
     val baos = ByteArrayOutputStream()
-    compress(Bitmap.CompressFormat.JPEG, 100, baos)
+    compress(format, 100, baos)
     return baos.toByteArray()
 }
 

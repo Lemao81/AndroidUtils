@@ -3,9 +3,10 @@ package com.jueggs.andutils.extension
 import android.animation.*
 import android.annotation.SuppressLint
 import android.content.*
-import android.graphics.drawable.Drawable
+import android.graphics.drawable.*
 import android.support.annotation.*
 import android.support.v4.content.ContextCompat
+import android.util.TypedValue
 import android.view.View
 import android.widget.ArrayAdapter
 import com.jueggs.andutils.*
@@ -57,3 +58,9 @@ fun Context.animateColor(@ColorRes from: Int, @ColorRes to: Int): ColorAnimator 
         return ColorAnimator(anim)
     }
 }
+
+fun Context.drawableAsByteArray(@DrawableRes resId: Int): ByteArray? = (ContextCompat.getDrawable(this, resId) as? BitmapDrawable)?.bitmap?.toByteArray()
+
+fun Context.dpToPixel(dips: Int): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dips.toFloat(), resources.displayMetrics).toInt()
+
+fun Context.getColorCompat(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)

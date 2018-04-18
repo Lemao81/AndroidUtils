@@ -18,8 +18,6 @@ fun SharedPreferences.getListPreferenceEntry(context: Context, @StringRes resIdK
     return context.getStringArray(resIdEntryArray)[index]
 }
 
-fun Context.getColorCompat(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
-
 fun Intent.withExtra(vararg extras: Pair<String, Any>): Intent {
     extras.forEach { extra ->
         when {

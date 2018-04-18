@@ -17,7 +17,6 @@ import org.jetbrains.anko.longToast
 abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppCompatActivity(), BaseView {
     protected lateinit var viewModel: TViewModel
 
-    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout())
@@ -82,7 +81,6 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
     open fun getReenterTransition(): Int? = R.transition.fade
     open fun getReturnTransition(): Int? = R.transition.fade
 
-    @CallSuper
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         storeState(viewModel)
@@ -100,12 +98,10 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
         return super.onCreateOptionsMenu(menu)
     }
 
-    @CallSuper
     override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
 
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
-    @CallSuper
     override fun onSupportNavigateUp(): Boolean {
         if (shallToolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
