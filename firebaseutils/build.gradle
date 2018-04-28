@@ -1,34 +1,21 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven'
 
 android {
     compileSdkVersion Versions.compileSdkVersion
-
     defaultConfig {
         minSdkVersion Versions.minSdkVersion
         targetSdkVersion Versions.targetSdkVersion
         versionCode Versions.versionCode
         versionName Versions.versionName
     }
-
+    lintOptions { abortOnError false }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-    }
-
-    libraryVariants.all { variant ->
-        if (variant.name == rootProject.ext.create) {
-            variant.outputs.each { output ->
-                output.outputFileName = "${archivesBaseName}.aar"
-            }
-        }
-    }
-
-    variantFilter { variant ->
-        if (variant.buildType.name == rootProject.ext.ignore)
-            variant.setIgnore(true)
     }
 }
 
@@ -37,38 +24,14 @@ dependencies {
     implementation project(':andutils')
 
     implementation Libs.rxJava
-    implementation Libs.kotlinStd
+    implementation Libs.kotlinStd8
     implementation Libs.kotlinReflect
     implementation Libs.firebaseCore
     implementation Libs.firebaseDatabase
 }
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
-task copyArtefactAndSource(dependsOn: ['sourcesJar', 'javadocJar'], type: Copy) {
-    copy {
-        from Paths.buildPathAar
-        into Paths.outputPath
-    }
-    copy {
-        from Paths.buildPathJar
-        into Paths.outputPath
-    }
-}
-build.finalizedBy copyArtefactAndSource
+ext.artefactId = "firebaseutils"
+apply plugin: 'custom-archivaupload'
+uploadArchives { repositories { mavenDeployer() } }
+archivaUpload.finalizedBy uploadArchives
+uploadArchives.finalizedBy incrementVersion

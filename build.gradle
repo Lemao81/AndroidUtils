@@ -1,18 +1,17 @@
-ext {
-    create = "debug"
-    ignore = "release"
-}
-
 buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url Urls.mavenLocalInternal
+        }
     }
 
     dependencies {
         classpath Plugins.gradle
         classpath Plugins.kotlin
         classpath Plugins.gms
+        classpath Plugins.custom
     }
 }
 
@@ -20,7 +19,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        mavenCentral()
     }
 }
 

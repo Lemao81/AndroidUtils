@@ -5,18 +5,25 @@ object Versions {
     const val versionCode = 1
     const val versionName = "1.0"
 
+    const val customPlugins = "1.0.0"
     const val gmsPlugin = "3.1.0"
-    const val gradlePlugin = "3.0.1"
+    const val gradlePlugin = "3.1.1"
     const val fabricPlugin = "1.24.4"
 
-    const val java = "1.8"
+    const val andutils = "1.0.0"
+    const val jutils = "1.0.0"
+    const val firebaseutils = "1.0.0"
+    const val resutils = "1.0.0"
+    const val rangebar = "1.0.0"
+
+    const val java7 = "1.7"
+    const val java8 = "1.8"
     const val kotlin = "1.2.30"
     const val anko = "0.10.3"
     const val gms = "11.8.0"
     const val firebase = "11.8.0"
-    const val support = "27.1.0"
-    const val androidPlugin = "3.0.1"
-    const val databindingCompiler = "3.0.1"
+    const val support = "27.1.1"
+    const val androidPlugin = "3.1.0"
     const val glide = "4.5.0"
     const val rxJava = "2.1.9"
     const val rxJavaAndroid = "2.0.1"
@@ -46,7 +53,14 @@ object Versions {
 }
 
 object Libs {
-    const val kotlinStd = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Versions.kotlin}"
+    const val andutils = "com.jueggs:andutils:${Versions.andutils}"
+    const val jutils = "com.jueggs:jutils:${Versions.jutils}"
+    const val firebaseutils = "com.jueggs:firebaseutils:${Versions.firebaseutils}"
+    const val resutils = "com.jueggs:resutils:${Versions.resutils}"
+    const val rangebar = "com.jueggs.customview:rangebar:${Versions.rangebar}"
+
+    const val kotlinStd7 = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Versions.kotlin}"
+    const val kotlinStd8 = "org.jetbrains.kotlin:kotlin-stdlib-jre8:${Versions.kotlin}"
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
     const val rxJavaAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxJavaAndroid}"
@@ -60,7 +74,9 @@ object Libs {
     const val supportAnnotations = "com.android.support:support-annotations:${Versions.support}"
     const val exifinterface = "com.android.support:exifinterface:${Versions.support}"
     const val constraintLayout = "com.android.support.constraint:constraint-layout:${Versions.constraintLayout}"
-    const val databindingCompiler = "com.android.databinding:compiler:${Versions.databindingCompiler}"
+    const val gridLayout = "com.android.support:gridlayout-v7:${Versions.support}"
+    // must equal gradle plugin version
+    const val databindingCompiler = "com.android.databinding:compiler:${Versions.gradlePlugin}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebase}"
     const val firebaseDatabase = "com.google.firebase:firebase-database:${Versions.firebase}"
     const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebase}"
@@ -104,6 +120,7 @@ object Libs {
 }
 
 object Plugins {
+    const val custom = "com.jueggs:gradleplugins:${Versions.customPlugins}"
     const val gradle = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val gms = "com.google.gms:google-services:${Versions.gmsPlugin}"
@@ -111,6 +128,8 @@ object Plugins {
 }
 
 object Urls {
+    const val mavenLocalSnapshot = "http://localhost:8080/repository/snapshots"
+    const val mavenLocalInternal = "http://localhost:8080/repository/internal"
     const val fabric = "https://maven.fabric.io/public"
     const val jitpack = "https://jitpack.io"
     const val maven = "https://maven.google.com/"

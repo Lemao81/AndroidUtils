@@ -1,53 +1,36 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
-
-dependencies {
-    implementation Libs.kotlinStd
-    implementation Libs.mockito
-}
-
-sourceCompatibility = Versions.java
-targetCompatibility = Versions.java
+apply plugin: 'maven'
 
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
-
     dependencies {
         classpath Plugins.kotlin
     }
 }
 
+sourceCompatibility = Versions.java8
+targetCompatibility = Versions.java8
+
 compileKotlin {
     kotlinOptions {
-        jvmTarget = Versions.java
+        jvmTarget = Versions.java8
     }
 }
-
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = Versions.java
+        jvmTarget = Versions.java8
     }
 }
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    from javadoc.destinationDir
-    classifier = 'javadoc'
-}
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+dependencies {
+    implementation Libs.kotlinStd8
+    implementation Libs.mockito
 }
 
-task copyArtefactAndSource(dependsOn: ['sourcesJar', 'javadocJar'], type: Copy) {
-    copy {
-        from Paths.buildPathJar
-        into Paths.outputPath
-    }
-}
-build.finalizedBy copyArtefactAndSource
+ext.artefactId = "jutils"
+apply plugin: 'custom-archivaupload'
+uploadArchives { repositories { mavenDeployer() } }
+archivaUpload.finalizedBy uploadArchives
+uploadArchives.finalizedBy incrementVersion
