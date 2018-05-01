@@ -1,6 +1,5 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
-apply plugin: 'maven'
 
 buildscript {
     repositories {
@@ -30,6 +29,8 @@ dependencies {
 }
 
 ext.artefactId = "jutils"
+ext.packaging = "jar"
+apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
 uploadArchives { repositories { mavenDeployer() } }
 archivaUpload.finalizedBy uploadArchives

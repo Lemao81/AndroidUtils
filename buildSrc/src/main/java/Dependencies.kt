@@ -10,10 +10,10 @@ object Versions {
     const val gradlePlugin = "3.1.1"
     const val fabricPlugin = "1.24.4"
 
-    const val andutils = "1.0.0"
-    const val jutils = "1.0.0"
-    const val firebaseutils = "1.0.0"
-    const val resutils = "1.0.0"
+    const val andutils = "1.0.3"
+    const val jutils = "1.0.1"
+    const val firebaseutils = "1.0.1"
+    const val resutils = "1.0.1"
     const val rangebar = "1.0.0"
 
     const val java7 = "1.7"

@@ -35,21 +35,3 @@ fun Intent.withExtra(vararg extras: Pair<String, Any>): Intent {
     }
     return this
 }
-
-fun Bundle.withData(vararg data: Pair<String, Any>): Bundle {
-    data.forEach { datum ->
-        when {
-            datum.second is Parcelable -> putParcelable(datum.first, datum.second as Parcelable)
-            datum.second is Int -> putInt(datum.first, datum.second as Int)
-            datum.second is Double -> putDouble(datum.first, datum.second as Double)
-            datum.second is Boolean -> putBoolean(datum.first, datum.second as Boolean)
-            datum.second is String -> putString(datum.first, datum.second as String)
-            datum.second is ArrayList<*> -> {
-                if ((datum.second as ArrayList<*>).any() && (datum.second as ArrayList<*>)[0] is String)
-                    putStringArrayList(datum.first, datum.second as ArrayList<String>)
-            }
-            else -> throw InvalidParameterException("Unknown value type, extend extension method")
-        }
-    }
-    return this
-}

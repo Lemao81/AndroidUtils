@@ -28,17 +28,9 @@ fun <T> Spinner.withSimpleAdapter(elements: Array<T>): Spinner {
 
 fun Spinner.withSimpleAdapter(@ArrayRes arrayResId: Int): Spinner = withSimpleAdapter(context.getStringArray(arrayResId))
 
-fun View.gone() {
-    visibility = View.GONE
-}
-
-fun View.invisible() {
-    visibility = View.INVISIBLE
-}
-
-fun View.visible() {
-    visibility = View.VISIBLE
-}
+inline fun View.visible() = apply { visibility = View.VISIBLE }
+inline fun View.invisible() = apply { visibility = View.INVISIBLE }
+inline fun View.gone() = apply { visibility = View.GONE }
 
 fun View.withTransitionName(name: String): View {
     if (isLollipopOrAboveUtil())

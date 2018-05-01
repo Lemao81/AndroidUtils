@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'maven'
 
 android {
     compileSdkVersion Versions.compileSdkVersion
@@ -25,8 +24,7 @@ android {
 dependencies {
     compileOnly fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation project(':jutils')
-
+    implementation Libs.appcompat
     implementation Libs.rxJava
     implementation Libs.kotlinStd8
     implementation Libs.kotlinReflect
@@ -40,11 +38,13 @@ dependencies {
     implementation Libs.mosbyMvi
     implementation Libs.apacheValidator
     implementation Libs.rxJavaAndroid
+    implementation Libs.jutils
     kapt Libs.databindingCompiler
     kapt Libs.glideCompiler
 }
 
 ext.artefactId = "andutils"
+apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
 uploadArchives { repositories { mavenDeployer() } }
 archivaUpload.finalizedBy uploadArchives

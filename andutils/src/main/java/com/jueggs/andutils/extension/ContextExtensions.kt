@@ -2,8 +2,10 @@ package com.jueggs.andutils.extension
 
 import android.animation.*
 import android.annotation.SuppressLint
+import android.app.AlarmManager
 import android.content.*
 import android.graphics.drawable.*
+import android.os.Build
 import android.support.annotation.*
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
@@ -64,3 +66,11 @@ fun Context.drawableAsByteArray(@DrawableRes resId: Int): ByteArray? = (ContextC
 fun Context.dpToPixel(dips: Int): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dips.toFloat(), resources.displayMetrics).toInt()
 
 fun Context.getColorCompat(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
+
+inline val Context.alarmManager: AlarmManager
+    get() {
+        return if (isMarshmallowOrAboveUtil())
+            getSystemService(AlarmManager::class.java)
+        else
+            getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    }

@@ -10,9 +10,9 @@ import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
+import com.jueggs.andutils.*
 import com.jueggs.jutils.INVALID_VALUE
-import com.jueggs.andutils.R
-import com.jueggs.andutils.isLollipopOrAboveUtil
+import org.jetbrains.anko.collections.toAndroidPair
 import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.intentFor
 import java.security.InvalidParameterException
@@ -86,7 +86,7 @@ fun Activity.setReturnTransition(@TransitionRes resId: Int = R.transition.fade) 
 @SuppressLint("NewApi")
 inline fun <reified T : Any> Activity.startActivityWithTransition(sharedElements: List<View>, vararg extras: Pair<String, Any?>) {
     if (isLollipopOrAboveUtil()) {
-        val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { android.util.Pair(it, it.transitionName) }.toTypedArray()).toBundle()
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { pairOf(it, it.transitionName).toAndroidPair() }.toTypedArray()).toBundle()
         startActivity(intentFor<T>(*extras), options)
     } else
         startActivity(intentFor<T>(*extras))
@@ -98,7 +98,7 @@ inline fun <reified T : Any> Activity.startActivityWithTransition(sharedElements
 @SuppressLint("NewApi")
 inline fun <reified T : Any> Activity.startActivityForResultWithTransition(requestCode: Int, sharedElements: List<View>, vararg extras: Pair<String, Any?>) {
     if (isLollipopOrAboveUtil()) {
-        val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { android.util.Pair(it, it.transitionName) }.toTypedArray()).toBundle()
+        val options = ActivityOptions.makeSceneTransitionAnimation(this, *sharedElements.map { pairOf(it, it.transitionName).toAndroidPair() }.toTypedArray()).toBundle()
         startActivityForResult(intentFor<T>(*extras), requestCode, options)
     } else
         startActivityForResult(intentFor<T>(*extras), requestCode)

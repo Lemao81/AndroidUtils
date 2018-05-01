@@ -7,11 +7,14 @@ import android.view.View
 import android.widget.EditText
 import com.jueggs.jutils.randomInt
 import org.apache.commons.validator.routines.EmailValidator
+import org.jetbrains.anko.collections.toAndroidPair
 import java.time.*
 
-fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = android.util.Pair(view, transitionName)
+fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = pairOf(view, transitionName).toAndroidPair()
 
 fun isLollipopOrAboveUtil(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+
+fun isMarshmallowOrAboveUtil(): Boolean = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
 
 fun executeDelayed(milliseconds: Long, action: () -> Unit) = Handler().postDelayed(action, milliseconds)
 
@@ -28,3 +31,5 @@ fun hasText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.
 fun isValidEmailAddress(email: CharSequence?) = !email.isNullOrBlank() && EmailValidator.getInstance().isValid(email.toString())
 
 fun isInvalidEmailAddress(email: CharSequence?) = !isValidEmailAddress(email)
+
+fun <A, B> pairOf(first: A, second: B): Pair<A, B> = Pair(first, second)
