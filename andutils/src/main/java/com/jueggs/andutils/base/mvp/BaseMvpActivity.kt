@@ -2,7 +2,6 @@ package com.jueggs.andutils.base.mvp
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.annotation.CallSuper
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
@@ -54,7 +53,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
         if (toolbar != null && toolbar is Toolbar) {
             setSupportActionBar(toolbar)
             supportActionBar?.title = getString(toolbarTitle())
-            if (shallToolbarNavigateBack()) {
+            if (toolbarNavigateBack()) {
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 supportActionBar?.setDisplayShowHomeEnabled(true)
             }
@@ -64,7 +63,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
     open fun toolbar(): View? = null
     open fun toolbarTitle(): Int = R.string.empty_string
     open fun optionsMenu(): Int? = null
-    open fun shallToolbarNavigateBack(): Boolean = true
+    open fun toolbarNavigateBack(): Boolean = true
 
     abstract fun presenter(): BaseMvpPresenter<TView, TViewModel>
     abstract fun self(): TView
@@ -103,7 +102,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     override fun onSupportNavigateUp(): Boolean {
-        if (shallToolbarNavigateBack()) onBackPressed()
+        if (toolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
     }
 

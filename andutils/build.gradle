@@ -39,13 +39,16 @@ dependencies {
     implementation Libs.apacheValidator
     implementation Libs.rxJavaAndroid
     implementation Libs.jutils
+    implementation Libs.koin
+    implementation Libs.androidKtx
+    implementation Libs.archLifecycle
     kapt Libs.databindingCompiler
     kapt Libs.glideCompiler
 }
 
-ext.artefactId = "andutils"
 apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
+archiva { artifactId = "andutils" }
 uploadArchives { repositories { mavenDeployer() } }
 archivaUpload.finalizedBy uploadArchives
 uploadArchives.finalizedBy incrementVersion

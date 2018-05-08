@@ -5,16 +5,17 @@ object Versions {
     const val versionCode = 1
     const val versionName = "1.0"
 
-    const val customPlugins = "1.0.0"
+    const val customPlugins = "1.0.1"
     const val gmsPlugin = "3.1.0"
     const val gradlePlugin = "3.1.1"
     const val fabricPlugin = "1.24.4"
+    const val hugoPlugin = "1.2.1"
 
-    const val andutils = "1.0.3"
+    const val andutils = "1.0.9"
     const val jutils = "1.0.1"
     const val firebaseutils = "1.0.1"
     const val resutils = "1.0.1"
-    const val rangebar = "1.0.0"
+    const val rangebar = "1.0.1"
 
     const val java7 = "1.7"
     const val java8 = "1.8"
@@ -46,10 +47,15 @@ object Versions {
     const val crashLytics = "2.7.1@aar"
     const val apacheValidator = "1.6"
     const val javaxInject = "1"
-    const val koin = "0.9.1"
+    const val koin = "0.9.2"
     const val room = "1.0.0"
     const val mockito = "2.7.22"
     const val powermock = "1.6.5"
+    const val androidKtx = "0.3"
+    const val frodo = "0.8.3"
+    const val retrofit2 = "2.4.0"
+    const val buildTimeTracker = "0.11.0"
+    const val archLifecycle = "1.1.1"
 }
 
 object Libs {
@@ -113,10 +119,18 @@ object Libs {
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
     const val javaxInject = "javax.inject:javax.inject:${Versions.javaxInject}"
     const val koin = "org.koin:koin-android:${Versions.koin}"
+    const val koinAndroid = "org.koin:koin-android:${Versions.koin}"
+    const val koinAndroidArchitecture = "org.koin:koin-android-architecture:${Versions.koin}"
     const val roomRuntime = "android.arch.persistence.room:runtime:${Versions.room}"
     const val roomCompiler = "android.arch.persistence.room:compiler:${Versions.room}"
+    const val roomRxJava = "android.arch.persistence.room:rxjava2:${Versions.room}"
+    const val archLifecycle = "android.arch.lifecycle:extensions:${Versions.archLifecycle}"
+    const val archLifecycleCompiler = "android.arch.lifecycle:compiler:${Versions.archLifecycle}"
     const val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     const val powermock = "org.powermock:powermock:${Versions.powermock}"
+    const val androidKtx = "androidx.core:core-ktx:${Versions.androidKtx}"
+    const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"
+    const val retrofit2GsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit2}"
 }
 
 object Plugins {
@@ -125,6 +139,9 @@ object Plugins {
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val gms = "com.google.gms:google-services:${Versions.gmsPlugin}"
     const val fabric = "io.fabric.tools:gradle:${Versions.fabricPlugin}"
+    const val hugo = "com.jakewharton.hugo:hugo-plugin:${Versions.hugoPlugin}"
+    const val frodo = "com.fernandocejas.frodo:frodo-plugin:${Versions.frodo}"
+    const val buildTimeTracker = "net.rdrei.android.buildtimetracker:gradle-plugin:${Versions.buildTimeTracker}"
 }
 
 object Urls {

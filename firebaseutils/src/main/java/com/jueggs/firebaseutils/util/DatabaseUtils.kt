@@ -95,15 +95,16 @@ inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any, 
 }
 
 inline fun <reified T : Any> addTask(ref: Pair<DatabaseReference, Int>, tasks: ArrayList<Task<*>>) {
-    when (ref.second) {
+    val (reference, type) = ref
+    when (type) {
         DBTYPE_MODEL -> {
             val taskSource = TaskCompletionSource<T>()
-            ref.first.readModel<T>().subscribe({ taskSource.setResult(it) }, { taskSource.setException(Exception(it)) })
+            reference.readModel<T>().subscribe({ taskSource.setResult(it) }, { taskSource.setException(Exception(it)) })
             tasks.add(taskSource.task)
         }
         DBTYPE_LIST -> {
             val taskSource = TaskCompletionSource<List<T>>()
-            ref.first.readList<T>().subscribe({ taskSource.setResult(it) }, { taskSource.setException(Exception(it)) })
+            reference.readList<T>().subscribe({ taskSource.setResult(it) }, { taskSource.setException(Exception(it)) })
             tasks.add(taskSource.task)
         }
     }

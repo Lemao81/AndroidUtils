@@ -1,3 +1,5 @@
+import com.android.build.gradle.BaseExtension
+
 buildscript {
     repositories {
         google()
@@ -21,6 +23,19 @@ allprojects {
         jcenter()
         maven {
             url Urls.mavenLocalInternal
+        }
+    }
+    tasks.whenTaskAdded { task ->
+        if (task.name.startsWith("lint"))
+            task.enabled = false
+    }
+    afterEvaluate { project ->
+        def android = project.extensions.findByName("android") as BaseExtension
+        if (android != null) {
+            android.variantFilter { variant ->
+                if (variant.buildType.name == 'debug')
+                    variant.setIgnore(true)
+            }
         }
     }
 }

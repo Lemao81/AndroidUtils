@@ -8,6 +8,7 @@ android {
         targetSdkVersion Versions.targetSdkVersion
         versionCode Versions.versionCode
         versionName Versions.versionName
+
         multiDexEnabled true
     }
     buildTypes {
@@ -27,9 +28,9 @@ dependencies {
     implementation Libs.andutils
 }
 
-ext.artefactId = "resutils"
 apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
+archiva { artifactId = "resutils" }
 uploadArchives { repositories { mavenDeployer() } }
 archivaUpload.finalizedBy uploadArchives
 uploadArchives.finalizedBy incrementVersion

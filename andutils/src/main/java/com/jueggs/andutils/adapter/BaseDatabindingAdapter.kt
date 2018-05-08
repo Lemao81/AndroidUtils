@@ -10,7 +10,7 @@ import com.jueggs.andutils.extension.layoutInflater
 import java.lang.reflect.Modifier
 
 abstract class BaseDatabindingAdapter(private var layoutIncluded: Boolean = false) : RecyclerView.Adapter<BaseDatabindingAdapter.ViewHolder>() {
-    private var eventHandler: Any? = null
+    var eventHandler: Any? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, layoutId: Int): BaseDatabindingAdapter.ViewHolder = BaseDatabindingAdapter.ViewHolder(
             DataBindingUtil.inflate(parent.layoutInflater(), layoutId, parent, false), getBindingVariableId(), eventHandler, getEventhandlerVariableId(), layoutIncluded)
@@ -20,11 +20,6 @@ abstract class BaseDatabindingAdapter(private var layoutIncluded: Boolean = fals
     override fun getItemViewType(position: Int): Int = getLayoutIdForPosition(position)
 
     override fun getItemCount(): Int = getItemAmount()
-
-    fun withEventHandler(eventHandler: Any): BaseDatabindingAdapter {
-        this.eventHandler = eventHandler
-        return this
-    }
 
     abstract fun getLayoutIdForPosition(position: Int): Int
 

@@ -28,9 +28,9 @@ dependencies {
     implementation Libs.andutils
 }
 
-ext.artefactId = "firebaseutils"
 apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
+archiva { artifactId = "firebaseutils" }
 uploadArchives { repositories { mavenDeployer() } }
 archivaUpload.finalizedBy uploadArchives
 uploadArchives.finalizedBy incrementVersion

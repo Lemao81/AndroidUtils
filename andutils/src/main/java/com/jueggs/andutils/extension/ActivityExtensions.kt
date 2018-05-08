@@ -33,11 +33,11 @@ fun Activity.getStringArrayListExtra(key: String) = intent.getStringArrayListExt
 inline fun <reified T> Activity.setResultOk(vararg data: Pair<String, T>) {
     val intent = Intent()
     when {
-        Parcelable::class.java.isAssignableFrom(T::class.java) -> data.forEach { intent.putExtra(it.first, it.second as Parcelable) }
-        T::class == Int::class -> data.forEach { intent.putExtra(it.first, it.second as Int) }
-        T::class == Double::class -> data.forEach { intent.putExtra(it.first, it.second as Double) }
-        T::class == String::class -> data.forEach { intent.putExtra(it.first, it.second as String) }
-        T::class == Boolean::class -> data.forEach { intent.putExtra(it.first, it.second as Boolean) }
+        Parcelable::class.java.isAssignableFrom(T::class.java) -> data.forEach { (key, value) -> intent.putExtra(key, value as Parcelable) }
+        T::class == Int::class -> data.forEach { (key, value) -> intent.putExtra(key, value as Int) }
+        T::class == Double::class -> data.forEach { (key, value) -> intent.putExtra(key, value as Double) }
+        T::class == String::class -> data.forEach { (key, value) -> intent.putExtra(key, value as String) }
+        T::class == Boolean::class -> data.forEach { (key, value) -> intent.putExtra(key, value as Boolean) }
         else -> throw InvalidParameterException("Unknown type ${T::class.java.simpleName}, extend when control")
     }
     setResult(Activity.RESULT_OK, intent)

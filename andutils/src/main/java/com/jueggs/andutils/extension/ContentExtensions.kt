@@ -19,16 +19,16 @@ fun SharedPreferences.getListPreferenceEntry(context: Context, @StringRes resIdK
 }
 
 fun Intent.withExtra(vararg extras: Pair<String, Any>): Intent {
-    extras.forEach { extra ->
-        when {
-            extra.second is Parcelable -> putExtra(extra.first, extra.second as Parcelable)
-            extra.second is Int -> putExtra(extra.first, extra.second as Int)
-            extra.second is Double -> putExtra(extra.first, extra.second as Double)
-            extra.second is Boolean -> putExtra(extra.first, extra.second as Boolean)
-            extra.second is String -> putExtra(extra.first, extra.second as String)
-            extra.second is ArrayList<*> -> {
-                if ((extra.second as ArrayList<*>).any() && (extra.second as ArrayList<*>)[0] is String)
-                    putStringArrayListExtra(extra.first, extra.second as ArrayList<String>)
+    extras.forEach { (key, value) ->
+        when (value) {
+            is Parcelable -> putExtra(key, value)
+            is Int -> putExtra(key, value)
+            is Double -> putExtra(key, value)
+            is Boolean -> putExtra(key, value)
+            is String -> putExtra(key, value)
+            is ArrayList<*> -> {
+                if (value.any() && value[0] is String)
+                    putStringArrayListExtra(key, value as ArrayList<String>)
             }
             else -> throw InvalidParameterException("Unknown value type, extend extension method")
         }

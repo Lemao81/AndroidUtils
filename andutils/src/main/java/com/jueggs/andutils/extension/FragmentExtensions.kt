@@ -1,6 +1,5 @@
 package com.jueggs.andutils.extension
 
-import android.os.Bundle
 import android.support.annotation.*
 import android.support.v4.app.Fragment
 import android.transition.TransitionInflater
@@ -36,7 +35,4 @@ fun Fragment.setNavigationTransitions(@TransitionRes enterResId: Int?, @Transiti
         returnTransition = transitionInflater.inflateTransition(returnResId)
 }
 
-fun Fragment.withArguments(vararg arguments: Pair<String, Any>): Fragment {
-    setArguments(Bundle().withData(*arguments))
-    return this
-}
+fun Fragment.withArguments(vararg arguments: Pair<String, Any>): Fragment = apply { setArguments(bundleOf(*arguments)) }

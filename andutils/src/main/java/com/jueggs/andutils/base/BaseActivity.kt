@@ -6,8 +6,9 @@ import android.support.annotation.IdRes
 import android.support.v4.app.*
 import android.support.v7.widget.Toolbar
 import android.view.*
-import com.jueggs.andutils.R
+import com.jueggs.andutils.*
 import com.jueggs.andutils.extension.*
+import com.jueggs.andutils.util.AppMode
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -15,15 +16,17 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout())
         initialize()
-        setToolbar(toolbar(), toolbarTitle(), shallToolbarNavigateBack())
+        setToolbar(toolbar(), toolbarTitle(), toolbarNavigateBack())
         initializeViews()
         setListeners()
         setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
+            addFragments()
             onInitialStart()
-        else
+        } else {
             onRecreated(savedInstanceState)
+        }
     }
 
     abstract fun layout(): Int
@@ -43,7 +46,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun toolbar(): View? = null
     open fun toolbarTitle(): Int? = null
-    open fun shallToolbarNavigateBack(): Boolean = true
+    open fun toolbarNavigateBack(): Boolean = true
 
     open fun initializeViews() {}
     open fun setListeners() {}
@@ -52,6 +55,27 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun exitTransition(): Int? = R.transition.fade
     open fun reenterTransition(): Int? = R.transition.fade
     open fun returnTransition(): Int? = R.transition.fade
+
+    private fun addFragments() {
+        if (AppMode.singlePane) {
+            val singlePane = singlePaneFragment()
+            if (singlePane != null) {
+                val (id, fragment) = singlePane
+                addFragment(id, fragment)
+            }
+        } else {
+            val twoPane = twoPaneFragments()
+            if (twoPane != null) {
+                val (id1, fragment1) = twoPane.first
+                val (id2, fragment2) = twoPane.second
+                addFragment(id1, fragment1)
+                addFragment(id2, fragment2)
+            }
+        }
+    }
+
+    open fun singlePaneFragment(): Pair<Int, Fragment>? = null
+    open fun twoPaneFragments(): Pair<Pair<Int, Fragment>, Pair<Int, Fragment>>? = null
 
     open fun onInitialStart() {}
     open fun onRecreated(savedInstanceState: Bundle) {}
@@ -72,11 +96,23 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     override fun onSupportNavigateUp(): Boolean {
-        if (shallToolbarNavigateBack()) onBackPressed()
+        if (toolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
     }
 
-    protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().add(containerViewId, fragment).addToBackStack(fragment::class.simpleName).commit()
-    protected fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
+    fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().add(containerViewId, fragment).addToBackStack(fragment::class.simpleName).commit()
+    fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
     fun popFragment() = supportFragmentManager.popBackStack()
+
+    inline fun <reified T> findFragment(@IdRes id: Int): T {
+        val fragment = supportFragmentManager.findFragmentById(id)
+        checkCast<T>(fragment)
+        return fragment as T
+    }
+
+    inline fun <reified T> findFragment(tag: String): T {
+        val fragment = supportFragmentManager.findFragmentByTag(tag)
+        checkCast<T>(fragment)
+        return fragment as T
+    }
 }

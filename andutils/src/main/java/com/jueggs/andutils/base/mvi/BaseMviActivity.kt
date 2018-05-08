@@ -16,7 +16,7 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
         super.onCreate(savedInstanceState)
         setContentView(layout())
         initialize()
-        setToolbar(toolbar(), toolbarTitle(), shallToolbarNavigateBack())
+        setToolbar(toolbar(), toolbarTitle(), toolbarNavigateBack())
         initializeViews()
         setListeners()
         setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
@@ -44,7 +44,7 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
 
     open fun toolbar(): View? = null
     open fun toolbarTitle(): Int? = null
-    open fun shallToolbarNavigateBack(): Boolean = true
+    open fun toolbarNavigateBack(): Boolean = true
 
     override fun createPresenter(): TPresenter = presenter()
     abstract fun presenter(): TPresenter
@@ -83,7 +83,7 @@ abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView,
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     override fun onSupportNavigateUp(): Boolean {
-        if (shallToolbarNavigateBack()) onBackPressed()
+        if (toolbarNavigateBack()) onBackPressed()
         return super.onSupportNavigateUp()
     }
 

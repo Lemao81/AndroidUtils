@@ -2,11 +2,14 @@ package com.jueggs.andutils.extension
 
 import android.animation.ValueAnimator
 import android.app.Activity
+import android.arch.lifecycle.*
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.os.*
 import com.google.android.gms.common.api.*
 import com.jueggs.andutils.*
 import com.jueggs.andutils.helper.ColorAnimator
+import com.jueggs.andutils.observable.NonNullMediatorLiveData
 import java.io.ByteArrayOutputStream
 import java.lang.reflect.Field
 import java.lang.reflect.Method
@@ -48,3 +51,11 @@ fun ValueAnimator.startDelayed(delay: Long) {
     startDelay = delay
     start()
 }
+
+fun <T> LiveData<T>.nonNull(): NonNullMediatorLiveData<T> {
+    val mediator = NonNullMediatorLiveData<T>()
+    mediator.addSource(this, { it?.let { mediator.value = it } })
+    return mediator
+}
+
+fun <T> NonNullMediatorLiveData<T>.observe(owner: LifecycleOwner, observer: (t: T) -> Unit) = this.observe(owner, Observer { it?.let(observer) })

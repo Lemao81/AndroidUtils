@@ -28,10 +28,12 @@ dependencies {
     implementation Libs.mockito
 }
 
-ext.artefactId = "jutils"
-ext.packaging = "jar"
 apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
+archiva {
+    artifactId = "jutils"
+    packaging = "jar"
+}
 uploadArchives { repositories { mavenDeployer() } }
 archivaUpload.finalizedBy uploadArchives
 uploadArchives.finalizedBy incrementVersion

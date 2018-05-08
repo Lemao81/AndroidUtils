@@ -1,24 +1,16 @@
-package com.jueggs.andutils.base.mvi
+package com.jueggs.andutils.base
 
-import android.app.Activity
 import android.content.Context
 import android.databinding.*
 import android.os.Bundle
 import android.support.annotation.IdRes
-import android.support.v4.app.*
+import android.support.v4.app.Fragment
 import android.view.*
-import com.hannesdorfmann.mosby3.mvi.*
-import com.hannesdorfmann.mosby3.mvp.MvpView
 import com.jueggs.andutils.R
-import com.jueggs.andutils.base.BackPressHandler
 import com.jueggs.andutils.extension.setNavigationTransitions
 
-abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView, *>, TFragmentListener : Activity> : MviFragment<TView, TPresenter>(), BackPressHandler {
+abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHandler {
     protected var listener: TFragmentListener? = null
-    protected var isInitialStart: Boolean = false
-
-    override fun createPresenter(): TPresenter = presenter()
-    abstract fun presenter(): TPresenter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -28,12 +20,14 @@ abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState == null) isInitialStart = true
         if (optionsMenu() != null) setHasOptionsMenu(true)
         setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
+
+        pullArguments(arguments)
         initialize()
     }
 
+    open fun pullArguments(arguments: Bundle?) {}
     open fun initialize() {}
 
     open fun enterTransition(): Int? = R.transition.fade
@@ -72,13 +66,6 @@ abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView,
 
     open fun initializeViews() {}
     open fun setListeners() {}
-
-    override fun onStart() {
-        super.onStart()
-        initialIntents()
-    }
-
-    open fun initialIntents() {}
 
     override fun onBackPressed() {}
 
