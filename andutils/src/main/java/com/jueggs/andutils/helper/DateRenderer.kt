@@ -2,13 +2,13 @@ package com.jueggs.andutils.helper
 
 import org.joda.time.*
 
-class DateRenderer {
+class DateRenderer(val format: String = "dd.MM.yyyy - hh:mm") {
     fun render(millis: Long) = render(DateTime(millis))
 
     fun render(then: DateTime): String {
         val now = DateTime()
         return when {
-            then.isWithinLastMinute(now) -> "justWithUpdate now"
+            then.isWithinLastMinute(now) -> "just now"
             then.isWithinLastHour(now) -> {
                 val minutes = now.passedMinutesSince(then)
                 "$minutes ${renderMinute(minutes)} ago"
@@ -22,7 +22,7 @@ class DateRenderer {
                 val days = now.passedDaysSince(then)
                 "$days ${renderDays(days)} ago"
             }
-            else -> then.toString("dd.MM.yyyy - hh:mm")
+            else -> then.toString(format)
         }
     }
 

@@ -36,12 +36,12 @@ dependencies {
     implementation Libs.joda
     implementation Libs.glide
     implementation Libs.mosbyMvi
-    implementation Libs.apacheValidator
     implementation Libs.rxJavaAndroid
     implementation Libs.jutils
     implementation Libs.koin
     implementation Libs.androidKtx
     implementation Libs.archLifecycle
+    implementation Libs.roomRuntime
     kapt Libs.databindingCompiler
     kapt Libs.glideCompiler
 }

@@ -28,6 +28,11 @@ fun <T> Spinner.withSimpleAdapter(elements: Array<T>): Spinner {
 
 fun Spinner.withSimpleAdapter(@ArrayRes arrayResId: Int): Spinner = withSimpleAdapter(context.getStringArray(arrayResId))
 
+fun <T> AutoCompleteTextView.withSimpleAdapter(elements: List<T>): AutoCompleteTextView {
+    setAdapter(ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, elements))
+    return this
+}
+
 inline fun View.visible() = apply { visibility = View.VISIBLE }
 inline fun View.invisible() = apply { visibility = View.INVISIBLE }
 inline fun View.gone() = apply { visibility = View.GONE }

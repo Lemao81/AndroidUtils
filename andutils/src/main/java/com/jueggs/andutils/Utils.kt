@@ -2,10 +2,10 @@ package com.jueggs.andutils
 
 import android.os.Build
 import android.os.Handler
+import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import androidx.core.os.postDelayed
-import org.apache.commons.validator.routines.EmailValidator
 import org.jetbrains.anko.collections.toAndroidPair
 
 fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = pairOf(view, transitionName).toAndroidPair()
@@ -24,9 +24,11 @@ inline fun <reified T> checkCast(obj: Any) {
 
 fun hasText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.isNullOrEmpty() }
 
-fun isValidEmailAddress(email: CharSequence?) = !email.isNullOrBlank() && EmailValidator.getInstance().isValid(email.toString())
+val CharSequence?.isValidEmail: Boolean
+    get() = !this.isNullOrBlank() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-fun isInvalidEmailAddress(email: CharSequence?) = !isValidEmailAddress(email)
+val CharSequence?.isInvalidEmail: Boolean
+    get() = this.isNullOrBlank() || !Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 fun <A, B> pairOf(first: A, second: B): Pair<A, B> = Pair(first, second)
 
