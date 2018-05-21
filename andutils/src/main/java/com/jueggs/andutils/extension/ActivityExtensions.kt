@@ -6,16 +6,18 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Parcelable
 import android.support.annotation.*
-import android.support.v4.app.FragmentActivity
+import android.support.v4.app.*
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
 import com.jueggs.andutils.*
+import com.jueggs.andutils.helper.DatePicker
 import com.jueggs.jutils.INVALID_VALUE
 import org.jetbrains.anko.collections.toAndroidPair
 import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.intentFor
 import java.security.InvalidParameterException
+import java.util.*
 
 //Activity
 fun Activity.getIntExtra(key: String): Int = intent.getIntExtra(key, INVALID_VALUE)
@@ -47,7 +49,7 @@ fun Activity.hideStatusBar() {
     window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 }
 
-fun Activity.hideSoftKeyboardExt() = inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+fun Activity.hideKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
 
 fun Activity.setNavigationTransitions(@TransitionRes enterResId: Int?, @TransitionRes exitResId: Int?, @TransitionRes reenterResId: Int?, @TransitionRes returnResId: Int?) {
     if (isLollipopOrAboveUtil()) {
@@ -136,3 +138,5 @@ fun FragmentActivity.startPostponedEnterTransitionCompat() {
     if (isLollipopOrAboveUtil()) startPostponedEnterTransition()
     else supportStartPostponedEnterTransition()
 }
+
+fun FragmentActivity.datePicker(date: Date = Date(), action: (Date) -> Unit) = DatePicker(date, action).show(supportFragmentManager)

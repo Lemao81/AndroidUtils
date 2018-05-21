@@ -3,7 +3,9 @@ package com.jueggs.andutils.extension
 import android.support.annotation.*
 import android.support.v4.app.Fragment
 import android.transition.TransitionInflater
+import com.jueggs.andutils.helper.DatePicker
 import org.jetbrains.anko.*
+import java.util.*
 
 fun Fragment.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) =
         context?.alert(message, title) {
@@ -36,3 +38,5 @@ fun Fragment.setNavigationTransitions(@TransitionRes enterResId: Int?, @Transiti
 }
 
 fun Fragment.withArguments(vararg arguments: Pair<String, Any>): Fragment = apply { setArguments(bundleOf(*arguments)) }
+
+fun Fragment.datePicker(date: Date = Date(), action: (Date) -> Unit) = DatePicker(date, action).show(childFragmentManager)

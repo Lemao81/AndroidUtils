@@ -41,6 +41,7 @@ abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHand
         return if (bindingItems != null) {
             val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, layout(), container, false)
             bindingItems.forEach { binding.setVariable(it.key, it.value) }
+            binding.setLifecycleOwner(this)
             binding.root
         } else
             inflater.inflate(layout(), container, false)
@@ -67,7 +68,7 @@ abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHand
     open fun initializeViews() {}
     open fun setListeners() {}
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() = false
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         val resId = optionsMenu()
@@ -82,7 +83,10 @@ abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHand
     }
 
     open fun optionsMenu(): Int? = null
-    override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
+
+    override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == android.R.id.home) onBackPressed()
+    else onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
+
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = childFragmentManager.beginTransaction().add(containerViewId, fragment).addToBackStack(fragment::class.simpleName).commit()

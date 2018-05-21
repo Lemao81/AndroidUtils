@@ -4,57 +4,36 @@ import android.annotation.SuppressLint
 import android.app.*
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentManager
 import android.widget.DatePicker
-import java.text.SimpleDateFormat
+import com.jueggs.andutils.extension.*
+import org.joda.time.LocalDate
 import java.util.*
 
 @SuppressLint("ValidFragment")
-class DatePicker() : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class DatePicker(private val date: Date = Date(), private val action: (Date) -> Unit) : DialogFragment(), DatePickerDialog.OnDateSetListener {
 
-    constructor(date: Date) : this() {
-        this.date = date
-    }
+    constructor(year: Int, month: Int, dayOfMonth: Int, action: (Date) -> Unit) : this(Calendar.getInstance().also { it.set(year, month, dayOfMonth) }.time, action)
 
-    constructor(year: Int, month: Int, dayOfMonth: Int) : this() {
-        this.date = Calendar.getInstance().also { it.set(year, month, dayOfMonth) }.time
-    }
+    constructor(calendar: Calendar, action: (Date) -> Unit) : this(calendar.time, action)
 
-    constructor(calendar: Calendar) : this() {
-        this.date = calendar.time
-    }
+    constructor(time: Long, action: (Date) -> Unit) : this(Date(time), action)
 
-    constructor(time: Long) : this() {
-        this.date = Date(time)
-    }
-
-    var format: String = "MM/dd/yy"
-        set(value) {
-            field = value
-            dateFormat = SimpleDateFormat(value, locale)
-        }
-    var locale: Locale = Locale.US
-        set(value) {
-            field = value
-            dateFormat = SimpleDateFormat(format, value)
-        }
-    private var dateFormat: SimpleDateFormat = SimpleDateFormat(format, locale)
-
-    var date: Date = Date()
-    var time: Long = 0
-        get() = date.time
-    var text: String = ""
-        get() = dateFormat.format(date)
+    constructor(localDate: LocalDate, action: (Date) -> Unit) : this(localDate.toDate(), action)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val calendar = Calendar.getInstance().also { it.time = date }
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        return DatePickerDialog(activity, this, year, month, day)
+        return DatePickerDialog(activity, this, calendar.year, calendar.month, calendar.dayOfMonth)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        date = Calendar.getInstance().also { it.set(year, month, dayOfMonth) }.time
+        action(Calendar.getInstance().also { it.set(year, month, dayOfMonth) }.time)
+        dismiss()
+    }
+
+    fun show(manager: FragmentManager) = show(manager, TAG)
+
+    companion object {
+        const val TAG: String = "com.jueggs.andutils.helper.DatePicker"
     }
 }

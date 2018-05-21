@@ -2,7 +2,7 @@ package com.jueggs.andutils.helper
 
 import org.joda.time.*
 
-class DateRenderer(val format: String = "dd.MM.yyyy - hh:mm") {
+class DateRenderer(private val format: String = "dd.MM.yyyy - hh:mm") {
     fun render(millis: Long) = render(DateTime(millis))
 
     fun render(then: DateTime): String {

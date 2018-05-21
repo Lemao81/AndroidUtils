@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.Toast
 import com.jueggs.andutils.STATE_VIEWMODEL
-import com.jueggs.andutils.extension.hideSoftKeyboardExt
+import com.jueggs.andutils.extension.hideKeyboard
 import com.jueggs.andutils.isLollipopOrAboveUtil
 import org.jetbrains.anko.support.v4.longToast
 
@@ -108,7 +108,7 @@ abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Frag
             longToast(resId)
     }
 
-    override fun hideSoftKeyboard() = activity?.hideSoftKeyboardExt() ?: false
+    override fun hideSoftKeyboard() = activity?.hideKeyboard() ?: false
     //endregion
 
     override fun onDestroy() {

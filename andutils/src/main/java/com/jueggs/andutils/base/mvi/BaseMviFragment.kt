@@ -80,7 +80,7 @@ abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView,
 
     open fun initialIntents() {}
 
-    override fun onBackPressed() {}
+    override fun onBackPressed() = false
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         val resId = optionsMenu()

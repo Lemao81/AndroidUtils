@@ -1,6 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'maven'
+apply plugin: 'custom-archivaupload'
 
 android {
     compileSdkVersion Versions.compileSdkVersion
@@ -46,9 +48,5 @@ dependencies {
     kapt Libs.glideCompiler
 }
 
-apply plugin: 'maven'
-apply plugin: 'custom-archivaupload'
 archiva { artifactId = "andutils" }
 uploadArchives { repositories { mavenDeployer() } }
-archivaUpload.finalizedBy uploadArchives
-uploadArchives.finalizedBy incrementVersion

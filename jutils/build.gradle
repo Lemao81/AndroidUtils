@@ -1,5 +1,7 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
+apply plugin: 'maven'
+apply plugin: 'custom-archivaupload'
 
 buildscript {
     repositories {
@@ -28,12 +30,8 @@ dependencies {
     implementation Libs.mockito
 }
 
-apply plugin: 'maven'
-apply plugin: 'custom-archivaupload'
 archiva {
     artifactId = "jutils"
     packaging = "jar"
 }
 uploadArchives { repositories { mavenDeployer() } }
-archivaUpload.finalizedBy uploadArchives
-uploadArchives.finalizedBy incrementVersion

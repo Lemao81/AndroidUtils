@@ -8,7 +8,7 @@ import android.view.*
 import android.widget.Toast
 import com.jueggs.andutils.R
 import com.jueggs.andutils.STATE_VIEWMODEL
-import com.jueggs.andutils.extension.hideSoftKeyboardExt
+import com.jueggs.andutils.extension.hideKeyboard
 import com.jueggs.andutils.extension.setNavigationTransitions
 import com.jueggs.andutils.isLollipopOrAboveUtil
 import org.jetbrains.anko.longToast
@@ -124,7 +124,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
             longToast(resId)
     }
 
-    override fun hideSoftKeyboard() = hideSoftKeyboardExt()
+    override fun hideSoftKeyboard() = hideKeyboard()
 
     //endregion
 }

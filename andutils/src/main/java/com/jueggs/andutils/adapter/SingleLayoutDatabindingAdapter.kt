@@ -15,8 +15,8 @@ abstract class SingleLayoutDatabindingAdapter<TItems : Any, in TIdProperty>(
 
     override fun getItemAmount(): Int = items.size
 
-    fun setItems(newItems: List<TItems>, idProperty: KProperty1<TItems, TIdProperty>) {
-        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(items, newItems, idProperty))
+    fun setItems(newItems: List<TItems>, idProperty: KProperty1<TItems, TIdProperty>, getChangePayload: ((Int, Int) -> Any?)? = null) {
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallback(items, newItems, idProperty, getChangePayload))
         items.clear()
         items.addAll(newItems)
         diffResult.dispatchUpdatesTo(this)

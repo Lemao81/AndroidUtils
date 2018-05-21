@@ -1,10 +1,14 @@
 package com.jueggs.andutils
 
 import android.databinding.BindingAdapter
+import android.text.Html
 import android.view.View
 import android.view.View.*
 import android.widget.TextView
-import com.jueggs.andutils.helper.FontCache
+import com.jueggs.andutils.helper.*
+import com.jueggs.jutils.extension.join
+import java.text.SimpleDateFormat
+import java.util.*
 
 @set:BindingAdapter("visibleOrGone")
 var View.visibleOrGone
@@ -40,4 +44,29 @@ var View.gone
 @BindingAdapter("typeface")
 fun TextView.setTypefaceBinded(fontName: String) {
     typeface = FontCache.getInstance(context)[fontName]
+}
+
+@BindingAdapter(value = ["date", "dateFormat", "dateLocale"], requireAll = false)
+fun TextView.setDate(date: Date, format: String?, locale: Locale?) {
+    text = SimpleDateFormat(format ?: "MM/dd/yy", locale ?: Locale.US).format(date)
+}
+
+@BindingAdapter(value = ["renderedDate", "renderedDateFormat"], requireAll = false)
+fun TextView.setRenderedDate(date: Date, format: String?) {
+    text = DateRenderer(format ?: "MM/dd/yy").render(date.time)
+}
+
+@BindingAdapter(value = ["join", "separator"], requireAll = false)
+fun TextView.setJoin(list: List<Any>, separator: String?) {
+    text = list.join(separator ?: ", ")
+}
+
+@BindingAdapter("html")
+fun TextView.setHtml(html: String) {
+    text = if (isNougatOrAboveUtil()) Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT).toString() else Html.fromHtml(html).toString()
+}
+
+@BindingAdapter("number")
+fun TextView.setNumber(number: Number) {
+    text = number.toString()
 }

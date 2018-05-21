@@ -32,12 +32,12 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun layout(): Int
     open fun initialize() {}
 
-    private fun setToolbar(toolbar: View?, title: Int? = null, shallNavigateBack: Boolean = true) {
+    private fun setToolbar(toolbar: View?, title: Int? = null, navigateBack: Boolean = true) {
         if (toolbar != null && toolbar is Toolbar) {
             setSupportActionBar(toolbar)
             if (title != null)
                 supportActionBar?.title = getString(title)
-            if (shallNavigateBack) {
+            if (navigateBack) {
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 supportActionBar?.setDisplayShowHomeEnabled(true)
             }
@@ -96,8 +96,14 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     override fun onSupportNavigateUp(): Boolean {
-        if (toolbarNavigateBack()) onBackPressed()
+        onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        val backPressHandled = (supportFragmentManager.fragments.firstOrNull { it.isVisible } as? BackPressHandler)?.onBackPressed() ?: false
+        if (!backPressHandled)
+            super.onBackPressed()
     }
 
     fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().add(containerViewId, fragment).addToBackStack(fragment::class.simpleName).commit()
@@ -115,4 +121,6 @@ abstract class BaseActivity : AppCompatActivity() {
         checkCast<T>(fragment)
         return fragment as T
     }
+
+    fun toggleHomeAsUp(show: Boolean) = supportActionBar?.setDisplayHomeAsUpEnabled(show)
 }
