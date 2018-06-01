@@ -2,11 +2,14 @@ package com.jueggs.andutils
 
 import android.os.Build
 import android.os.Handler
+import android.support.v4.view.ViewCompat
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import androidx.core.os.postDelayed
 import org.jetbrains.anko.collections.toAndroidPair
+import java.lang.Math.*
+import java.lang.reflect.*
 
 fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = pairOf(view, transitionName).toAndroidPair()
 
@@ -35,3 +38,29 @@ val CharSequence?.isInvalidEmail: Boolean
 fun <A, B> pairOf(first: A, second: B): Pair<A, B> = Pair(first, second)
 
 inline fun postDelayed(delayInMillis: Long, token: Any? = null, crossinline action: () -> Unit): Runnable = Handler().postDelayed(delayInMillis, token, action)
+
+fun measureView(widthMeasureSpec: Int, heightMeasureSpec: Int, desiredWidth: Int, desiredHeight: Int, setMeasuredDimension: (Int, Int) -> Unit) {
+    val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
+    val widthSize = View.MeasureSpec.getSize(widthMeasureSpec)
+    val heightMode = View.MeasureSpec.getMode(heightMeasureSpec)
+    val heightSize = View.MeasureSpec.getSize(heightMeasureSpec)
+
+    val width = when (widthMode) {
+        View.MeasureSpec.EXACTLY -> widthSize
+        View.MeasureSpec.AT_MOST -> min(desiredWidth, widthSize)
+        View.MeasureSpec.UNSPECIFIED -> desiredWidth
+        else -> desiredWidth
+    }
+    val height = when (heightMode) {
+        View.MeasureSpec.EXACTLY -> heightSize
+        View.MeasureSpec.AT_MOST -> min(desiredHeight, heightSize)
+        View.MeasureSpec.UNSPECIFIED -> desiredHeight
+        else -> desiredHeight
+    }
+
+    setMeasuredDimension(width, height)
+}
+
+fun isVerticalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_VERTICAL
+
+fun isHorizontalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_HORIZONTAL

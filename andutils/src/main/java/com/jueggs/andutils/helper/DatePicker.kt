@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentManager
 import android.widget.DatePicker
-import com.jueggs.andutils.extension.*
+import com.jueggs.jutils.extension.*
 import org.joda.time.LocalDate
 import java.util.*
 

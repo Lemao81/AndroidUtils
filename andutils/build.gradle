@@ -42,10 +42,12 @@ dependencies {
     implementation Libs.jutils
     implementation Libs.koin
     implementation Libs.androidKtx
-    implementation Libs.archLifecycle
+    implementation Libs.archLifecycleExtensions
     implementation Libs.roomRuntime
     kapt Libs.databindingCompiler
     kapt Libs.glideCompiler
+
+    testImplementation Libs.jUnit
 }
 
 archiva { artifactId = "andutils" }

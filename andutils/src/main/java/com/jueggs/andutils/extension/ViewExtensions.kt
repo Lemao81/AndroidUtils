@@ -1,9 +1,10 @@
 package com.jueggs.andutils.extension
 
 import android.support.annotation.*
-import android.support.design.widget.Snackbar
+import android.support.design.widget.*
 import android.text.Editable
-import android.view.View
+import android.view.*
+import android.view.animation.AnticipateInterpolator
 import android.widget.*
 import com.jueggs.andutils.*
 
@@ -72,4 +73,43 @@ private fun createSnackbar(view: View, message: CharSequence, period: Int, actio
     if (actionText != null && action != null)
         snackbar.setAction(actionText, action)
     snackbar.show()
+}
+
+fun View.animateScaleBounceOut(duration: Long = 150, scale: Float = 1.1f, tension: Float = 6f) {
+    animate().apply {
+        this.duration = duration
+        scaleX(scale)
+        scaleY(scale)
+        interpolator = AnticipateInterpolator(tension)
+        start()
+    }
+}
+
+fun View.animateScaleBounceIn(duration: Long = 150, scale: Float = 0.91f, tension: Float = 6f) {
+    animate().apply {
+        this.duration = duration
+        scaleX(scale)
+        scaleY(scale)
+        interpolator = AnticipateInterpolator(tension)
+        start()
+    }
+}
+
+inline fun View.doOnGlobalLayout(crossinline action: () -> Unit) {
+    val vto = viewTreeObserver
+    vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            action()
+            when {
+                vto.isAlive -> vto.removeOnGlobalLayoutListener(this)
+                else -> viewTreeObserver.removeOnGlobalLayoutListener(this)
+            }
+        }
+    })
+}
+
+inline fun <reified T : ViewGroup.LayoutParams> View.layoutParams(): T? = layoutParams as T
+
+fun BottomNavigationView.checkItem(@IdRes itemId: Int) {
+    menu.findItem(itemId).isChecked = true
 }

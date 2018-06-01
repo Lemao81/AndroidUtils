@@ -66,3 +66,5 @@ fun Context.drawableAsByteArray(@DrawableRes resId: Int): ByteArray? = (ContextC
 fun Context.dpToPixel(dips: Int): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dips.toFloat(), resources.displayMetrics).toInt()
 
 fun Context.getColorCompat(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
+
+fun Context.backgroundColor(@ColorRes resId: Int): Drawable = ColorDrawable(getColorCompat(resId))

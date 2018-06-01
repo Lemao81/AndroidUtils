@@ -4,9 +4,9 @@ import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.jueggs.andutils.extension.findDeclaredField
-import com.jueggs.andutils.extension.findDeclaredMethod
-import com.jueggs.andutils.extension.layoutInflater
+import com.jueggs.andutils.*
+import com.jueggs.andutils.extension.*
+import com.jueggs.jutils.extension.*
 import java.lang.reflect.Modifier
 
 abstract class BaseDatabindingAdapter(private var layoutIncluded: Boolean = false) : RecyclerView.Adapter<BaseDatabindingAdapter.ViewHolder>() {
@@ -40,19 +40,25 @@ abstract class BaseDatabindingAdapter(private var layoutIncluded: Boolean = fals
 
         fun bind(item: Any) {
             binding.setVariable(bindingVariableId, item)
-            if (layoutIncluded) bindIncludedLayout(item)
+            if (layoutIncluded)
+                bindIncludedLayout(item)
+
             if (eventHandler != null) {
-                checkNotNull(eventHandlerVariableId, { "No variable id for eventhandler set. Override ${BaseDatabindingAdapter::getEventhandlerVariableId.name} to set a binding variable id or remove eventhandler" })
+                checkNotNull(eventHandlerVariableId, { ERROR_NO_EVENTHANDLER_ID.format(BaseDatabindingAdapter::getEventhandlerVariableId.name) })
                 binding.setVariable(eventHandlerVariableId!!, eventHandler)
             }
             binding.executePendingBindings()
         }
 
         private fun bindIncludedLayout(item: Any) {
-            val layoutField = binding.findDeclaredField(INCLUDED_LAYOUT_ID_IDENTIFIER, Modifier.PUBLIC)
-            checkNotNull(layoutField, { "No included layout found although announced. Set ${BaseDatabindingAdapter::layoutIncluded.name} to false or include layout with id set to '@+id/$INCLUDED_LAYOUT_ID_IDENTIFIER'" })
+            val layoutField = binding.findField(INCLUDED_LAYOUT_ID_IDENTIFIER, Modifier.PUBLIC)
+            checkNotNull(layoutField, { ERROR_NO_INCLUDED_LAYOUT.format(BaseDatabindingAdapter::layoutIncluded.name, INCLUDED_LAYOUT_ID_IDENTIFIER) })
+
             val includeBinding = layoutField!!.get(binding)
-            includeBinding?.findDeclaredMethod(ViewDataBinding::setVariable.name, Modifier.PUBLIC)?.invoke(includeBinding, bindingVariableId, item)
+            val setVariableMethod = includeBinding.findMethod(ViewDataBinding::setVariable.name, Modifier.PUBLIC)
+            checkNotNull(setVariableMethod, { ERROR_NO_SETVARIABLE_METHOD.format(ViewDataBinding::setVariable.name) })
+
+            setVariableMethod!!.invoke(includeBinding, bindingVariableId, item)
         }
     }
 

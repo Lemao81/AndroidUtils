@@ -1,6 +1,8 @@
 package com.jueggs.andutils
 
 import android.app.Activity
+import android.databinding.ViewDataBinding
+import com.jueggs.andutils.adapter.BaseDatabindingAdapter
 
 //divers
 const val STATE_VIEWMODEL = "STATE_VIEWMODEL"
@@ -32,3 +34,8 @@ const val TAG_FONT_CACHE = "FONTCACHE"
 //log
 const val LOG_LEVEL_DEBUG = 0
 const val LOG_LEVEL_ERROR = 1
+
+//error messages
+const val ERROR_NO_EVENTHANDLER_ID = "No variable id for eventhandler set. Override %s to set a binding variable id or remove eventhandler"
+const val ERROR_NO_INCLUDED_LAYOUT = "No included layout found although announced. Set %s to false or include layout with id set to '@+id/%s'"
+const val ERROR_NO_SETVARIABLE_METHOD = "Method '%s' not found, check generated binding class(es)"

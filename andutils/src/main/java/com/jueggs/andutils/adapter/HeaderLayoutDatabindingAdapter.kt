@@ -16,13 +16,19 @@ abstract class HeaderLayoutDatabindingAdapter<in THeader : Any, in TList : Any>(
     override fun getItemAmount() = listItems.size + 1
 
     fun setHeader(newHeader: THeader, notifyDataChange: Boolean = true) {
+        checkNotNull(newHeader)
         header = newHeader
         if (notifyDataChange) notifyDataSetChanged()
     }
 
-    fun setItems(newItems: List<TList>) = setAdapterListItems(newItems, listItems)
+    fun setItems(newItems: List<TList>) {
+        checkNotNull(newItems)
+        setAdapterListItems(newItems, listItems)
+    }
 
     fun setHeaderAndItems(newHeader: THeader, newItems: List<TList>) {
+        checkNotNull(newHeader)
+        checkNotNull(newItems)
         setHeader(newHeader, false)
         setItems(newItems)
     }

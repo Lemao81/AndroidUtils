@@ -12,6 +12,8 @@ buildscript {
     }
 }
 
+kotlin { experimental { coroutines "enable" } }
+
 sourceCompatibility = Versions.java8
 targetCompatibility = Versions.java8
 
@@ -27,6 +29,7 @@ compileTestKotlin {
 }
 dependencies {
     implementation Libs.kotlinStd8
+    implementation Libs.kotlinCoroutine
     implementation Libs.mockito
 }
 
