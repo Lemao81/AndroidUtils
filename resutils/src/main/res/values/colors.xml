@@ -3,4 +3,5 @@
     <color name="hint_library_color">#37ff00</color>
     <color name="divider">@color/hint_library_color</color>
     <color name="primary">@color/hint_library_color</color>>
+    <color name="white_transparent">#7fffffff</color>
 </resources>

@@ -17,6 +17,12 @@ fun MutableLiveData<Unit>.fire() {
 
 fun MutableLiveData<Unit>.post() = postValue(Unit)
 
+fun MutableLiveData<Boolean>.fire(value: Boolean?) {
+    this.value = value
+}
+
+fun MutableLiveData<Boolean>.post(value: Boolean?) = postValue(value)
+
 fun MutableLiveData<Boolean>.fireTrue() {
     value = true
 }
@@ -29,8 +35,8 @@ fun MutableLiveData<Boolean>.fireFalse() {
 
 fun MutableLiveData<Boolean>.postFalse() = postValue(false)
 
-fun MutableLiveData<Int>.fireId(id: Int) {
+fun MutableLiveData<Int>.fire(id: Int?) {
     value = id
 }
 
-fun MutableLiveData<Int>.postId(id: Int) = postValue(id)
+fun MutableLiveData<Int>.post(id: Int?) = postValue(id)

@@ -1,4 +1,4 @@
-package com.jueggs.andutils.helper
+package com.jueggs.andutils.callback
 
 import android.support.v7.util.DiffUtil
 import kotlin.reflect.*

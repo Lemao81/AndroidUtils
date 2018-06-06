@@ -1,6 +1,7 @@
 package com.jueggs.jutils
 
-import org.mockito.Mockito
+import kotlinx.coroutines.experimental.runBlocking
+import org.mockito.*
 import java.lang.Math.*
 import java.lang.reflect.*
 import java.util.*
@@ -33,14 +34,17 @@ fun <T> randomSelectWeighted(left: T, right: T, weightTowardsLeft: Double): T {
 
 fun newUUID(): String = UUID.randomUUID().toString()
 
-fun <T> any(): T {
-    Mockito.any<T>()
-    return uninitialized()
-}
+//TODO remove if confirmed; replaced by mockito-kotlin
+//fun <T> any(): T {
+//    Mockito.any<T>()
+//    return uninitialized()
+//}
 
 private fun <T> uninitialized(): T = null as T
 
 fun cropToRange(bottomLimit: Float, topLimit: Float, value: Float) = min(max(bottomLimit, value), topLimit)
+
+fun cropToRange(bottomLimit: Int, topLimit: Int, value: Int) = min(max(bottomLimit, value), topLimit)
 
 fun <T> collectInheritedFields(list: MutableList<Field>, type: Class<T>): List<Field> {
     list.addAll(type.declaredFields)
@@ -59,3 +63,5 @@ fun <T> collectInheritedMethods(list: MutableList<Method>, type: Class<T>): List
 
     return list
 }
+
+fun <T> givenSuspended(block: suspend () -> T) = BDDMockito.given(runBlocking { block() })

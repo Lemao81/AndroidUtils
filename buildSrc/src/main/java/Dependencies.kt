@@ -11,12 +11,12 @@ object Versions {
     const val fabricPlugin = "1.24.4"
     const val hugoPlugin = "1.2.1"
 
-    const val andutils = "1.0.21"
-    const val jutils = "1.0.6"
+    const val andutils = "1.0.24"
+    const val jutils = "1.0.7"
     const val firebaseutils = "1.0.1"
     const val resutils = "1.0.1"
-    const val rangebar = "1.0.1"
-    const val stackoverflowtag = "1.0.1"
+    const val rangebar = "1.0.2"
+    const val stackoverflowtag = "1.0.5"
 
     const val java7 = "1.7"
     const val java8 = "1.8"
@@ -51,7 +51,8 @@ object Versions {
     const val javaxInject = "1"
     const val koin = "0.9.2"
     const val room = "1.0.0"
-    const val mockito = "2.7.22"
+    const val mockito = "2.18.3"
+    const val mockitoKotlin = "1.5.0"
     const val powermock = "1.6.5"
     const val androidKtx = "0.3"
     const val frodo = "0.8.3"
@@ -143,6 +144,7 @@ object Libs {
     const val espressoIntents = "com.android.support.test.espresso:espresso-intents:${Versions.espresso}"
     const val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     const val powermock = "org.powermock:powermock:${Versions.powermock}"
+    const val mockitoKotlin = "com.nhaarman:mockito-kotlin:${Versions.mockitoKotlin}"
 }
 
 object Plugins {

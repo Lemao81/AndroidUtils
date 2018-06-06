@@ -5,6 +5,7 @@ import android.databinding.*
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.view.*
 import com.jueggs.andutils.R
 import com.jueggs.andutils.extension.setNavigationTransitions
@@ -52,6 +53,11 @@ abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHand
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val toolbarTitle = toolbarTitle()
+        if (toolbarTitle != null)
+            (activity as? AppCompatActivity)?.supportActionBar?.title = getString(toolbarTitle)
+
         initializeViews()
 
         if (savedInstanceState == null)
@@ -62,6 +68,7 @@ abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHand
         setListeners()
     }
 
+    open fun toolbarTitle(): Int? = null
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}
 

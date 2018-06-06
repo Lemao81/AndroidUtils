@@ -1,5 +1,6 @@
 package com.jueggs.andutils.base
 
+import android.databinding.*
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.annotation.IdRes
@@ -14,7 +15,15 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout())
+
+        val bindingItems = bindingItems()
+        if (bindingItems != null) {
+            val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, layout())
+            bindingItems.forEach { binding.setVariable(it.key, it.value) }
+            binding.setLifecycleOwner(this)
+        } else
+            setContentView(layout())
+
         initialize()
         setToolbar(toolbar(), toolbarTitle(), toolbarNavigateBack())
         initializeViews()
@@ -30,6 +39,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     abstract fun layout(): Int
+    open fun bindingItems(): Map<Int, Any>? = null
     open fun initialize() {}
 
     private fun setToolbar(toolbar: View?, title: Int? = null, navigateBack: Boolean = true) {
@@ -106,8 +116,25 @@ abstract class BaseActivity : AppCompatActivity() {
             super.onBackPressed()
     }
 
-    fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().add(containerViewId, fragment).addToBackStack(fragment::class.simpleName).commit()
-    fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = supportFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
+    fun addFragment(@IdRes containerViewId: Int, fragment: Fragment, addToBackStack: Boolean = true, tag: String? = null): Int {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(containerViewId, fragment, tag ?: fragment::class.simpleName)
+        if (addToBackStack)
+            transaction.addToBackStack(tag ?: fragment::class.simpleName)
+        return transaction.commit()
+    }
+
+    fun attachFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().attach(fragment).commit()
+
+    fun attachOrAddFragment(@IdRes containerViewId: Int, fragment: Lazy<Fragment>, addToBackStack: Boolean = true, tag: String? = null): Int {
+        val addedFragment = supportFragmentManager.findFragmentByTag(tag)
+        return if (addedFragment != null) attachFragment(addedFragment) else addFragment(containerViewId, fragment.value, addToBackStack, tag)
+    }
+
+    fun detachFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().detach(fragment).commit()
+
+    fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment, tag: String? = null) = supportFragmentManager.beginTransaction().replace(containerViewId, fragment, tag).commit()
+
     fun popFragment() = supportFragmentManager.popBackStack()
 
     inline fun <reified T> findFragment(@IdRes id: Int): T {

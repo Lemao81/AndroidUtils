@@ -1,7 +1,7 @@
 package com.jueggs.andutils.adapter
 
 import android.support.v7.util.DiffUtil
-import com.jueggs.andutils.helper.DiffUtilCallback
+import com.jueggs.andutils.callback.DiffUtilCallback
 import kotlin.reflect.*
 
 abstract class SingleLayoutDatabindingAdapter<TItems : Any, in TIdProperty>(

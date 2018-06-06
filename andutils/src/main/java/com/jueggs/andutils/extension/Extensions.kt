@@ -1,7 +1,7 @@
 package com.jueggs.andutils.extension
 
 import android.animation.ValueAnimator
-import android.app.Activity
+import android.app.*
 import android.arch.lifecycle.*
 import android.arch.lifecycle.Observer
 import android.databinding.ObservableField
@@ -68,4 +68,12 @@ inline fun <T : Disposable?, R> T.use(block: (T) -> R): R {
                 }
         }
     }
+}
+
+fun <TApplication : Application> AndroidViewModel.doWithNetworkConnection(action: () -> Unit): () -> Boolean = getApplication<TApplication>().doWithNetworkConnection(action)
+
+infix fun (() -> Boolean).otherwise(otherwiseAction: () -> Unit) {
+    val condition = this
+    if (!condition())
+        otherwiseAction()
 }

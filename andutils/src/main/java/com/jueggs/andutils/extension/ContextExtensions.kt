@@ -68,3 +68,10 @@ fun Context.dpToPixel(dips: Int): Int = TypedValue.applyDimension(TypedValue.COM
 fun Context.getColorCompat(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
 
 fun Context.backgroundColor(@ColorRes resId: Int): Drawable = ColorDrawable(getColorCompat(resId))
+
+fun Context.doWithNetworkConnection(action: () -> Unit): () -> Boolean {
+    val condition = this::isNetworkConnected
+    if (condition())
+        action()
+    return condition
+}

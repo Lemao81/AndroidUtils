@@ -31,6 +31,8 @@ dependencies {
     implementation Libs.kotlinStd8
     implementation Libs.kotlinCoroutine
     implementation Libs.mockito
+    implementation Libs.jUnit
+    implementation Libs.mockitoKotlin
 }
 
 archiva {
