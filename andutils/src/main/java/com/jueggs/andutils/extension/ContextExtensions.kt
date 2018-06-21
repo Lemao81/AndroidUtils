@@ -16,7 +16,7 @@ import com.jueggs.andutils.helper.ColorAnimator
 import org.jetbrains.anko.*
 
 @SuppressLint("MissingPermission")
-fun Context.isNetworkConnected(): Boolean = connectivityManager.activeNetworkInfo.isConnectedOrConnecting
+fun Context.isNetworkConnected(): Boolean = connectivityManager.activeNetworkInfo?.isConnectedOrConnecting ?: false
 
 fun Context.createSimpleSpinnerAdapter(vararg elements: String): ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_spinner_item, elements.toMutableList())
 fun <T> Context.createSimpleSpinnerAdapter(elements: List<T>): ArrayAdapter<T> = ArrayAdapter(this, android.R.layout.simple_spinner_item, elements.toMutableList())

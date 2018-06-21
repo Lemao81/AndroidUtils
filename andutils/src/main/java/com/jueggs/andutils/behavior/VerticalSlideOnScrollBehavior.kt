@@ -9,15 +9,6 @@ import com.jueggs.andutils.R
 import com.jueggs.jutils.cropToRange
 
 class VerticalSlideOnScrollBehavior<TView : View>(context: Context, attrs: AttributeSet) : AbstractVerticalScrollBehavior<TView>(context, attrs) {
-    private var gravity: Int = TOP
-    private var acceleration: Float = 1f
-
-    init {
-        context.withStyledAttributes(attrs, R.styleable.VerticalScrollBehavior) {
-            gravity = getInteger(R.styleable.VerticalScrollBehavior_behavior_gravity, TOP)
-            acceleration = getFloat(R.styleable.VerticalScrollBehavior_behavior_acceleration, 1f)
-        }
-    }
 
     override fun onNestedPreScroll(coordinatorLayout: CoordinatorLayout, child: TView, target: View, dx: Int, dy: Int, consumed: IntArray, type: Int) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
@@ -50,10 +41,5 @@ class VerticalSlideOnScrollBehavior<TView : View>(context: Context, attrs: Attri
             params.gravity = Gravity.TOP
             snackbarLayout.layoutParams = params
         }
-    }
-
-    companion object {
-        const val TOP: Int = 0
-        const val BOTTOM: Int = 1
     }
 }

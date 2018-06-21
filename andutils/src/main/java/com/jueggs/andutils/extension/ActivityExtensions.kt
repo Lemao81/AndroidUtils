@@ -49,7 +49,7 @@ fun Activity.hideStatusBar() {
     window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 }
 
-fun Activity.hideKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+fun Activity.hideKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 
 fun Activity.setNavigationTransitions(@TransitionRes enterResId: Int?, @TransitionRes exitResId: Int?, @TransitionRes reenterResId: Int?, @TransitionRes returnResId: Int?) {
     if (isLollipopOrAboveUtil()) {

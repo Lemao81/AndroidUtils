@@ -26,10 +26,12 @@ abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHand
 
         pullArguments(arguments)
         initialize()
+        setObservers()
     }
 
     open fun pullArguments(arguments: Bundle?) {}
     open fun initialize() {}
+    open fun setObservers() {}
 
     open fun enterTransition(): Int? = R.transition.fade
     open fun exitTransition(): Int? = R.transition.fade

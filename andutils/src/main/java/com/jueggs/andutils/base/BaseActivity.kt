@@ -28,6 +28,7 @@ abstract class BaseActivity : AppCompatActivity() {
         setToolbar(toolbar(), toolbarTitle(), toolbarNavigateBack())
         initializeViews()
         setListeners()
+        setObservers()
         setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
 
         if (savedInstanceState == null) {
@@ -60,6 +61,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun initializeViews() {}
     open fun setListeners() {}
+    open fun setObservers() {}
 
     open fun enterTransition(): Int? = R.transition.fade
     open fun exitTransition(): Int? = R.transition.fade
@@ -143,7 +145,7 @@ abstract class BaseActivity : AppCompatActivity() {
         return fragment as T
     }
 
-    inline fun <reified T> findFragment(tag: String): T {
+    inline fun <reified T> findFragment(tag: String?): T {
         val fragment = supportFragmentManager.findFragmentByTag(tag)
         checkCast<T>(fragment)
         return fragment as T

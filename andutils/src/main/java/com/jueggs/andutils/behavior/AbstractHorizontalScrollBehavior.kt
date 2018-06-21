@@ -7,5 +7,7 @@ import android.view.View
 import com.jueggs.andutils.*
 
 abstract class AbstractHorizontalScrollBehavior<TView : View>(context: Context, attrs: AttributeSet) : CoordinatorLayout.Behavior<TView>(context, attrs) {
+    protected var acceleration: Float = 1f
+
     override fun onStartNestedScroll(coordinatorLayout: CoordinatorLayout, child: TView, directTargetChild: View, target: View, axes: Int, type: Int) = isHorizontalScroll(axes)
 }
