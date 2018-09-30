@@ -1,10 +1,12 @@
 package com.jueggs.andutils
 
 import android.databinding.BindingAdapter
+import android.graphics.drawable.Drawable
 import android.text.Html
 import android.view.View
 import android.view.View.*
-import android.widget.TextView
+import android.widget.*
+import com.jueggs.andutils.extension.loadOrDefault
 import com.jueggs.andutils.helper.*
 import com.jueggs.jutils.extension.join
 import java.text.SimpleDateFormat
@@ -37,6 +39,15 @@ var View.gone
     set(value) {
         visibility = if (value) GONE else VISIBLE
     }
+
+@BindingAdapter(value = ["imageUrl", "defaultImage", "placeholder", "circleCrop"], requireAll = false)
+fun ImageView.setImageUrl(url: String, default: Drawable?, placeholder: Drawable?, circleCrop: Boolean?) {
+    val glideRequest = if (default != null) GlideApp.with(context).loadOrDefault(url, default)
+    else GlideApp.with(context).load(url)
+    if (placeholder != null) glideRequest.placeholder(placeholder)
+    if (circleCrop != null && circleCrop) glideRequest.circleCrop()
+    glideRequest.into(this)
+}
 
 /**
  * Attribute to set the font typeface by data binding. Usage: app:typeface="@{`<fontnamewithoutfileextension>`}"

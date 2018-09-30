@@ -34,9 +34,9 @@ fun <T> AutoCompleteTextView.withSimpleAdapter(elements: List<T>): AutoCompleteT
     return this
 }
 
-inline fun View.visible() = apply { visibility = View.VISIBLE }
-inline fun View.invisible() = apply { visibility = View.INVISIBLE }
-inline fun View.gone() = apply { visibility = View.GONE }
+inline fun View.visible() = let { visibility = View.VISIBLE }
+inline fun View.invisible() = let { visibility = View.INVISIBLE }
+inline fun View.gone() = let { visibility = View.GONE }
 
 fun View.withTransitionName(name: String): View {
     if (isLollipopOrAboveUtil())

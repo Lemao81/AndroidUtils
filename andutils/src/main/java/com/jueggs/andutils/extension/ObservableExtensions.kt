@@ -13,3 +13,7 @@ fun <T> Observable<T>.logError(): Observable<T> = doOnError { logDebug(it.messag
 fun <T> Observable<T>.check(predicate: (T) -> Boolean): Observable<T> = CheckObservable(this, predicate)
 
 fun <T> Single<T>.check(predicate: (T) -> Boolean): Single<T> = CheckSingle(this, predicate)
+
+fun <T> Completable.continueWith(next: T): Single<T> = Single.create { emitter ->
+    subscribe({ emitter.onSuccess(next) }, emitter::onError)
+}

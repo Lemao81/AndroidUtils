@@ -1,6 +1,5 @@
 package com.jueggs.andutils.base
 
-import android.content.Context
 import android.databinding.*
 import android.os.Bundle
 import android.support.annotation.IdRes
@@ -10,13 +9,7 @@ import android.view.*
 import com.jueggs.andutils.R
 import com.jueggs.andutils.extension.setNavigationTransitions
 
-abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHandler {
-    protected var listener: TFragmentListener? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as TFragmentListener
-    }
+abstract class BaseFragment : Fragment(), BackPressHandler {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,11 +77,6 @@ abstract class BaseFragment<TFragmentListener : Any> : Fragment(), BackPressHand
         if (resId != null)
             inflater?.inflate(resId, menu)
         super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onDetach() {
-        listener = null
-        super.onDetach()
     }
 
     open fun optionsMenu(): Int? = null

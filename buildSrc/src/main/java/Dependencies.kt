@@ -6,21 +6,21 @@ object Versions {
     const val versionName = "1.0"
 
     const val customPlugins = "1.0.3"
-    const val gmsPlugin = "3.1.0"
+    const val gmsPlugin = "4.0.1"
     const val gradlePlugin = "3.1.1"
     const val fabricPlugin = "1.24.4"
     const val hugoPlugin = "1.2.1"
 
-    const val andutils = "1.0.24"
+    const val andutils = "1.0.32"
     const val jutils = "1.0.7"
     const val firebaseutils = "1.0.1"
-    const val resutils = "1.0.1"
+    const val resutils = "1.0.3"
     const val rangebar = "1.0.2"
     const val stackoverflowtag = "1.0.5"
 
     const val java7 = "1.7"
     const val java8 = "1.8"
-    const val kotlin = "1.2.30"
+    const val kotlin = "1.2.51"
     const val kotlinCoroutine = "0.21"
     const val anko = "0.10.3"
     const val gms = "11.8.0"
@@ -61,6 +61,7 @@ object Versions {
     const val buildTimeTracker = "0.11.0"
     const val archLifecycle = "1.1.1"
     const val okLog = "2.3.0"
+    const val archNavigation = "1.0.0-alpha02"
 }
 
 object Libs {
@@ -71,8 +72,8 @@ object Libs {
     const val rangebar = "com.jueggs.customview:rangebar:${Versions.rangebar}"
     const val stackoverflowtag = "com.jueggs.customview:stackoverflowtag:${Versions.stackoverflowtag}"
 
-    const val kotlinStd7 = "org.jetbrains.kotlin:kotlin-stdlib-jre7:${Versions.kotlin}"
-    const val kotlinStd8 = "org.jetbrains.kotlin:kotlin-stdlib-jre8:${Versions.kotlin}"
+    const val kotlinStd7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    const val kotlinStd8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     const val kotlinCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJava}"
@@ -136,6 +137,9 @@ object Libs {
     const val retrofit2GsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit2}"
     const val retrofit2CoroutineAdapter = "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:${Versions.retrofit2CoroutineAdapter}"
     const val okLog = "com.github.simonpercic:oklog3:${Versions.okLog}"
+    const val archNavigationFragment = "android.arch.navigation:navigation-fragment-ktx:${Versions.archNavigation}"
+    const val archNavigationUi = "android.arch.navigation:navigation-ui-ktx:${Versions.archNavigation}"
+    const val archNavigationSafeArgs = "android.arch.navigation:navigation-safe-args-gradle-plugin:${Versions.archNavigation}"
     // testing
     const val jUnit = "junit:junit:${Versions.jUnit}"
     const val testRunner = "com.android.support.test:runner:${Versions.supportTest}"

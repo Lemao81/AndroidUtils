@@ -2,7 +2,7 @@ package com.jueggs.andutils.extension
 
 import android.animation.*
 import android.annotation.SuppressLint
-import android.app.AlarmManager
+import android.app.*
 import android.content.*
 import android.graphics.drawable.*
 import android.os.Build
@@ -29,14 +29,18 @@ fun Context.getIntArray(@ArrayRes resId: Int): IntArray = resources.getIntArray(
 fun Context.getDrawableCompat(@DrawableRes resId: Int): Drawable? = ContextCompat.getDrawable(this, resId)
 fun Context.createSharedElement(view: View, @StringRes resId: Int): android.util.Pair<View, String> = createSharedElement(view, resources.getString(resId))
 
-fun Context.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) =
-        alert(message, title) {
-            yesButton { confirmAction(Unit) }
-            noButton { denyAction(Unit) }
-        }.show()
+fun Context.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) {
+    alert(message, title) {
+        yesButton { confirmAction(Unit) }
+        noButton { denyAction(Unit) }
+    }.show()
+}
 
 fun Context.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) =
         showConfirmDialog(if (titleResId != null) getString(titleResId) else null, getString(messageResId), confirmAction, denyAction)
+
+fun Context.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: (Unit) -> Unit) =
+        showConfirmDialog(if (titleResId != null) getString(titleResId) else null, getString(messageResId), confirmAction)
 
 fun Context.showSelection(title: CharSequence?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
         selector(title, items, { _, index ->
