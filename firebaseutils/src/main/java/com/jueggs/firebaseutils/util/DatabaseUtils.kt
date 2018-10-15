@@ -99,12 +99,12 @@ inline fun <reified T : Any> addTask(ref: Pair<DatabaseReference, Int>, tasks: A
     when (type) {
         DBTYPE_MODEL -> {
             val taskSource = TaskCompletionSource<T>()
-            reference.readModel<T>().subscribe({ taskSource.setResult(it) }, { taskSource.setException(Exception(it)) })
+            reference.toModelSingle<T>().subscribe({ taskSource.setResult(it) }, { taskSource.setException(Exception(it)) })
             tasks.add(taskSource.task)
         }
         DBTYPE_LIST -> {
             val taskSource = TaskCompletionSource<List<T>>()
-            reference.readList<T>().subscribe({ taskSource.setResult(it) }, { taskSource.setException(Exception(it)) })
+            reference.toModelListSingle<T>().subscribe({ taskSource.setResult(it) }, { taskSource.setException(Exception(it)) })
             tasks.add(taskSource.task)
         }
     }
@@ -120,11 +120,11 @@ inline fun <reified T : Any> addTask(ref: Pair<DatabaseReference, Int>, tasks: A
 //                tasks.add(taskSource.task)
 //            } else {
 //                val taskSource = TaskCompletionSource<T>()
-//                ref.readModel<T> { taskSource.setResult(it) }
+//                ref.toModelSingle<T> { taskSource.setResult(it) }
 //                tasks.add(taskSource.task)
 //            }
 //        }
 //
 //        inline fun <reified X : Any, Y:List<X>> readListInternal(klass: Class<out X>, ref: DatabaseReference, taskSource: TaskCompletionSource<Y>) {
-//            ref.readList<X> { taskSource.setResult(it) }
+//            ref.toModelListSingle<X> { taskSource.setResult(it) }
 //        }
