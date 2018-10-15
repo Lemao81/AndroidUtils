@@ -44,6 +44,7 @@ dependencies {
     implementation Libs.androidKtx
     implementation Libs.archLifecycleExtensions
     implementation Libs.roomRuntime
+    implementation Libs.constraintLayout
     kapt Libs.databindingCompiler
     kapt Libs.glideCompiler
 

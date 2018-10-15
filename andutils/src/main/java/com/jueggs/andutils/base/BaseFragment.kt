@@ -3,6 +3,7 @@ package com.jueggs.andutils.base
 import android.databinding.*
 import android.os.Bundle
 import android.support.annotation.IdRes
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
@@ -10,6 +11,7 @@ import com.jueggs.andutils.R
 import com.jueggs.andutils.extension.setNavigationTransitions
 
 abstract class BaseFragment : Fragment(), BackPressHandler {
+    protected var waiter: ConstraintLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

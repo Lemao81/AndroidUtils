@@ -44,8 +44,8 @@ fun Fragment.withArguments(vararg arguments: Pair<String, Any>): Fragment = appl
 
 fun Fragment.datePicker(date: Date = Date(), action: (Date) -> Unit) = DatePicker(date, action).show(childFragmentManager)
 
-fun Fragment.setupTabPager(viewPager: ViewPager, tabLayout: TabLayout, fragmentFactoryList: List<() -> Fragment>, pageTitleArrayResId: Int) {
-    val adapter = StandardFragmentPagerAdapter(fragmentFactoryList, pageTitleArrayResId, context, childFragmentManager)
+fun Fragment.setupTabPager(viewPager: ViewPager, tabLayout: TabLayout, pageTitleArrayResId: Int, vararg fragmentFactoryList: () -> Fragment) {
+    val adapter = StandardFragmentPagerAdapter(fragmentFactoryList.toList(), pageTitleArrayResId, context, childFragmentManager)
     viewPager.adapter = adapter
     tabLayout.setupWithViewPager(viewPager)
 }
