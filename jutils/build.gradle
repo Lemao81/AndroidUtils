@@ -22,17 +22,20 @@ compileKotlin {
         jvmTarget = Versions.java8
     }
 }
+
 compileTestKotlin {
     kotlinOptions {
         jvmTarget = Versions.java8
     }
 }
+
 dependencies {
-    implementation Libs.kotlinStd8
-    implementation Libs.kotlinCoroutine
-    implementation Libs.mockito
-    implementation Libs.jUnit
-    implementation Libs.mockitoKotlin
+    implementation Lib.kotlinStd8
+    implementation Lib.kotlinCoroutine
+    implementation Lib.mockito
+    implementation Lib.jUnit
+    implementation Lib.mockitoKotlin
+    implementation Lib.rxJava
 }
 
 archiva {
