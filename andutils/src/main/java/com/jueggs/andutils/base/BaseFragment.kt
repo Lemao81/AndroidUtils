@@ -7,10 +7,12 @@ import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
+import androidx.navigation.NavController
 import com.jueggs.andutils.R
 import com.jueggs.andutils.extension.setNavigationTransitions
 
 abstract class BaseFragment : Fragment(), BackPressHandler {
+    protected var navController: NavController? = null
     protected var waiter: ConstraintLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

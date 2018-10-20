@@ -5,7 +5,7 @@ buildscript {
         maven { url Urls.mavenLocalInternal }
     }
     dependencies {
-        classpath Plugins.gradle
+        classpath Plugins.androidGradle
         classpath Plugins.kotlin
         classpath Plugins.gms
         classpath Plugins.custom

@@ -4,13 +4,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
 
+kotlin { experimental { coroutines "enable" } }
+
 android {
-    compileSdkVersion Versions.compileSdkVersion
+    compileSdkVersion App.compileSdkVersion
     defaultConfig {
-        minSdkVersion Versions.minSdkVersion
-        targetSdkVersion Versions.targetSdkVersion
-        versionCode Versions.versionCode
-        versionName Versions.versionName
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+        versionCode App.versionCode
+        versionName App.versionName
         multiDexEnabled true
     }
     dataBinding { enabled = true }
@@ -26,29 +28,30 @@ android {
 dependencies {
     compileOnly fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation Libs.appcompat
-    implementation Libs.rxJava
-    implementation Libs.kotlinStd8
-    implementation Libs.kotlinReflect
-    implementation Libs.gmsBase
-    implementation Libs.recyclerView
-    implementation Libs.supportV4
-    implementation Libs.design
-    implementation Libs.anko
-    implementation Libs.joda
-    implementation Libs.glide
-    implementation Libs.mosbyMvi
-    implementation Libs.rxJavaAndroid
-    implementation Libs.jutils
-    implementation Libs.koin
-    implementation Libs.androidKtx
-    implementation Libs.archLifecycleExtensions
-    implementation Libs.roomRuntime
-    implementation Libs.constraintLayout
-    kapt Libs.databindingCompiler
-    kapt Libs.glideCompiler
+    implementation Lib.appcompatV7
+    implementation Lib.rxJava
+    implementation Lib.kotlinStd8
+    implementation Lib.kotlinReflect
+    implementation Lib.gmsBase
+    implementation Lib.recyclerView
+    implementation Lib.supportV4
+    implementation Lib.design
+    implementation Lib.anko
+    implementation Lib.joda
+    implementation Lib.glide
+    implementation Lib.mosbyMvi
+    implementation Lib.rxJavaAndroid
+    implementation Lib.jutils
+    implementation Lib.koin
+    implementation Lib.androidKtx
+    implementation Lib.archLifecycleExtensions
+    implementation Lib.roomRuntime
+    implementation Lib.constraintLayout
+    implementation Lib.kotlinCoroutineAndroid
+    implementation Lib.archNavigationUi
+    kapt Lib.glideCompiler
 
-    testImplementation Libs.jUnit
+    testImplementation Lib.jUnit
 }
 
 archiva { artifactId = "andutils" }

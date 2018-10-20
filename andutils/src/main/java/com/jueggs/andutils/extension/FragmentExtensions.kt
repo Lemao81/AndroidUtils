@@ -1,5 +1,6 @@
 package com.jueggs.andutils.extension
 
+import android.app.Activity
 import android.support.annotation.*
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -49,3 +50,5 @@ fun Fragment.setupTabPager(viewPager: ViewPager, tabLayout: TabLayout, pageTitle
     viewPager.adapter = adapter
     tabLayout.setupWithViewPager(viewPager)
 }
+
+fun Fragment.hideKeyboard() = activity?.hideKeyboard()

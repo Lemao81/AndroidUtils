@@ -7,6 +7,9 @@ import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import androidx.core.os.postDelayed
+import com.jueggs.andutils.util.Action
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.channels.*
 import org.jetbrains.anko.collections.toAndroidPair
 import java.lang.Math.*
 import java.lang.reflect.*
@@ -64,3 +67,5 @@ fun measureView(widthMeasureSpec: Int, heightMeasureSpec: Int, desiredWidth: Int
 fun isVerticalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_VERTICAL
 
 fun isHorizontalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_HORIZONTAL
+
+fun <T> produceActions(f: suspend ProducerScope<Action<T>>.() -> Unit): ReceiveChannel<Action<T>> = GlobalScope.produce(block = f)

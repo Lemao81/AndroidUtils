@@ -10,6 +10,7 @@ import android.support.v4.app.*
 import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.jueggs.andutils.*
 import com.jueggs.andutils.helper.DatePicker
 import com.jueggs.jutils.INVALID_VALUE
@@ -49,7 +50,7 @@ fun Activity.hideStatusBar() {
     window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
 }
 
-fun Activity.hideKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+fun Activity.hideKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
 fun Activity.setNavigationTransitions(@TransitionRes enterResId: Int?, @TransitionRes exitResId: Int?, @TransitionRes reenterResId: Int?, @TransitionRes returnResId: Int?) {
     if (isLollipopOrAboveUtil()) {

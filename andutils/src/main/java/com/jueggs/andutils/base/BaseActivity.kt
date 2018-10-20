@@ -4,14 +4,18 @@ import android.databinding.*
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.annotation.IdRes
+import android.support.constraint.ConstraintLayout
 import android.support.v4.app.*
 import android.support.v7.widget.Toolbar
 import android.view.*
+import androidx.navigation.NavController
 import com.jueggs.andutils.*
 import com.jueggs.andutils.extension.*
 import com.jueggs.andutils.util.AppMode
 
 abstract class BaseActivity : AppCompatActivity() {
+    protected var navController: NavController? = null
+    protected var waiter: ConstraintLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
