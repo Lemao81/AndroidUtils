@@ -4,12 +4,12 @@ apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
 
 android {
-    compileSdkVersion Versions.compileSdkVersion
+    compileSdkVersion App.compileSdkVersion
     defaultConfig {
-        minSdkVersion Versions.minSdkVersion
-        targetSdkVersion Versions.targetSdkVersion
-        versionCode Versions.versionCode
-        versionName Versions.versionName
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+        versionCode App.versionCode
+        versionName App.versionName
 
         multiDexEnabled true
     }
@@ -22,12 +22,12 @@ android {
 }
 
 dependencies {
-    implementation Libs.kotlinStd8
-    implementation Libs.recyclerView
-    implementation Libs.appcompat
-    implementation Libs.supportV4
-    implementation Libs.constraintLayout
-    implementation Libs.andutils
+    implementation Lib.kotlinStd8
+    implementation Lib.recyclerView
+    implementation Lib.appcompatV7
+    implementation Lib.supportV4
+    implementation Lib.constraintLayout
+    implementation Lib.andutils
 }
 
 archiva { artifactId = "resutils" }
