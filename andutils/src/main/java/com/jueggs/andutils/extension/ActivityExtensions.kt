@@ -13,7 +13,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.jueggs.andutils.*
 import com.jueggs.andutils.helper.DatePicker
-import com.jueggs.jutils.INVALID_VALUE
+import com.jueggs.jutils.INVALID
 import org.jetbrains.anko.collections.toAndroidPair
 import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.intentFor
@@ -21,7 +21,7 @@ import java.security.InvalidParameterException
 import java.util.*
 
 //Activity
-fun Activity.getIntExtra(key: String): Int = intent.getIntExtra(key, INVALID_VALUE)
+fun Activity.getIntExtra(key: String): Int = intent.getIntExtra(key, INVALID)
 
 fun Activity.getStringExtra(key: String): String? = intent.getStringExtra(key)
 

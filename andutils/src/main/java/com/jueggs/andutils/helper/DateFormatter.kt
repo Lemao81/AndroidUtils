@@ -1,6 +1,5 @@
 package com.jueggs.andutils.helper
 
-import com.jueggs.jutils.EMPTY_STRING
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -11,6 +10,6 @@ class DateFormatter {
         if (!simpleDateFormatCache.containsKey(format)) simpleDateFormatCache.put(format, SimpleDateFormat(format))
         val simpleDateFormat = simpleDateFormatCache[format]
         if (simpleDateFormat != null) return simpleDateFormat.format(Date(millis))
-        return EMPTY_STRING
+        return ""
     }
 }

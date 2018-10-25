@@ -3,7 +3,6 @@ package com.jueggs.andutils.adapter
 import android.content.Context
 import android.support.v4.app.*
 import com.jueggs.andutils.extension.getStringArray
-import com.jueggs.jutils.exception.InconsistentStateException
 
 abstract class AbstractFragmentPagerAdapter(val context: Context?, fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
     private var fragmentFactoryList: List<() -> Fragment>? = null
@@ -28,7 +27,7 @@ abstract class AbstractFragmentPagerAdapter(val context: Context?, fragmentManag
             pageTitles = context?.getStringArray(getTitles())
 
             if (pageTitles?.size != count)
-                throw InconsistentStateException("Page title count does not equal fragment count")
+                throw IllegalStateException("Page title count does not equal fragment count")
         }
 
         return (pageTitles as Array<String>)[position]
