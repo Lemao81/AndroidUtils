@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'maven'
+apply plugin: 'custom-archivaupload'
+
+kotlin { experimental { coroutines "enable" } }
+
+android {
+    compileSdkVersion App.compileSdkVersion
+    defaultConfig {
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+        versionCode App.versionCode
+        versionName App.versionName
+        multiDexEnabled true
+    }
+    dataBinding { enabled = true }
+    lintOptions { abortOnError false }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compileOnly fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation Lib.kotlinStd8
+    implementation Lib.testRules
+    implementation Lib.kakao
+}
+
+archiva { artifactId = "andtestutils" }
+uploadArchives { repositories { mavenDeployer() } }

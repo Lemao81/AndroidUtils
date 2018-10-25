@@ -1,17 +1,22 @@
 object Versions {
+    // plugins
     const val customPlugins = "1.0.3"
     const val gmsPlugin = "4.0.1"
     const val androidGradlePlugin = "3.2.0"
     const val fabricPlugin = "1.24.4"
     const val hugoPlugin = "1.2.1"
 
-    const val andutils = "1.0.38"
-    const val jutils = "1.0.7"
-    const val firebaseutils = "1.0.2"
+    // utils
+    const val andutils = "1.0.40"
+    const val jutils = "1.0.9"
+    const val firebaseutils = "1.0.3"
     const val resutils = "1.0.3"
+
+    // custom views
     const val rangebar = "1.0.3"
     const val stackoverflowtag = "1.0.5"
 
+    // libs
     const val java7 = "1.7"
     const val java8 = "1.8"
     const val kotlin = "1.2.71"
@@ -47,6 +52,7 @@ object Versions {
     const val mockito = "2.18.3"
     const val mockitoKotlin = "1.5.0"
     const val powermock = "1.6.5"
+    const val mockk = "1.8.9"
     const val androidKtx = "0.3"
     const val frodo = "0.8.3"
     const val retrofit2 = "2.4.0"
@@ -55,9 +61,15 @@ object Versions {
     const val archLifecycle = "1.1.1"
     const val okLog = "2.3.0"
     const val archNavigation = "1.0.0-alpha06"
+    const val leakCanary = "1.6.2"
+    const val rxDisposer = "1.0.0-alpha.1"
+    const val transitionX = "1.0.0-beta4"
+    const val khttp = "0.1.0"
+    const val kakao = "1.4.0"
 }
 
 object Lib {
+    // selfmade
     const val andutils = "com.jueggs:andutils:${Versions.andutils}"
     const val jutils = "com.jueggs:jutils:${Versions.jutils}"
     const val firebaseutils = "com.jueggs:firebaseutils:${Versions.firebaseutils}"
@@ -65,6 +77,7 @@ object Lib {
     const val rangebar = "com.jueggs.customview:rangebar:${Versions.rangebar}"
     const val stackoverflowtag = "com.jueggs.customview:stackoverflowtag:${Versions.stackoverflowtag}"
 
+    // libs
     const val kotlinStd7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     const val kotlinStd8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
@@ -74,6 +87,7 @@ object Lib {
     const val rxJavaAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxJavaAndroid}"
     const val rxBinding = "com.jakewharton.rxbinding2:rxbinding-kotlin:${Versions.rxBinding}"
     const val rxBindingRecyclerView = "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:${Versions.rxBinding}"
+    const val rxDisposer = "io.sellmair:disposer:${Versions.rxDisposer}"
     const val appcompatV7 = "com.android.support:appcompat-v7:${Versions.support}"
     const val design = "com.android.support:design:${Versions.support}"
     const val recyclerView = "com.android.support:recyclerview-v7:${Versions.support}"
@@ -124,7 +138,8 @@ object Lib {
     const val archLifecycleCompiler = "android.arch.lifecycle:compiler:${Versions.archLifecycle}"
     const val archLifecycleRuntime = "android.arch.lifecycle:runtime:${Versions.archLifecycle}"
     const val archLifecycleViewModel = "android.arch.lifecycle:viewmodel:${Versions.archLifecycle}"
-    const val archLiveDataCore = "android.arch.lifecycle:livedata-core:${Versions.archLifecycle}"
+    const val archLifeCycleLiveData = "android.arch.lifecycle:livedata:${Versions.archLifecycle}"
+    const val archLifeCycleLiveDataCore = "android.arch.lifecycle:livedata-core:${Versions.archLifecycle}"
     const val androidKtx = "androidx.core:core-ktx:${Versions.androidKtx}"
     const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"
     const val retrofit2GsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofit2}"
@@ -133,6 +148,12 @@ object Lib {
     const val archNavigationFragment = "android.arch.navigation:navigation-fragment-ktx:${Versions.archNavigation}"
     const val archNavigationUi = "android.arch.navigation:navigation-ui-ktx:${Versions.archNavigation}"
     const val archNavigationSafeArgs = "android.arch.navigation:navigation-safe-args-gradle-plugin:${Versions.archNavigation}"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:${Versions.leakCanary}"
+    const val leakCanaryNoop = "com.squareup.leakcanary:leakcanary-android-no-op:${Versions.leakCanary}"
+    const val leakCanarySupport = "com.squareup.leakcanary:leakcanary-support-fragment:${Versions.leakCanary}"
+    const val transitionX = "in.arunkumarsampath:transition-x:${Versions.transitionX}"
+    const val khttp = "khttp:khttp:${Versions.khttp}"
+
     // testing
     const val jUnit = "junit:junit:${Versions.jUnit}"
     const val testRunner = "com.android.support.test:runner:${Versions.supportTest}"
@@ -142,6 +163,9 @@ object Lib {
     const val mockito = "org.mockito:mockito-core:${Versions.mockito}"
     const val powermock = "org.powermock:powermock:${Versions.powermock}"
     const val mockitoKotlin = "com.nhaarman:mockito-kotlin:${Versions.mockitoKotlin}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
+    const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
+    const val kakao = "com.agoda.kakao:kakao:${Versions.kakao}"
 }
 
 object Plugins {

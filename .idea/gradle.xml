@@ -9,6 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/andtestutils" />
             <option value="$PROJECT_DIR$/andutils" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/firebaseutils" />
