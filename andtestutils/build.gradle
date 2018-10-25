@@ -31,6 +31,7 @@ dependencies {
     implementation Lib.kotlinStd8
     implementation Lib.testRules
     implementation Lib.kakao
+    implementation Lib.uiAutomator
 }
 
 archiva { artifactId = "andtestutils" }
