@@ -6,12 +6,12 @@ apply plugin: 'custom-archivaupload'
 kotlin { experimental { coroutines "enable" } }
 
 android {
-    compileSdkVersion Versions.compileSdkVersion
+    compileSdkVersion App.compileSdkVersion
     defaultConfig {
-        minSdkVersion Versions.minSdkVersion
-        targetSdkVersion Versions.targetSdkVersion
-        versionCode Versions.versionCode
-        versionName Versions.versionName
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+        versionCode App.versionCode
+        versionName App.versionName
     }
     lintOptions { abortOnError false }
     buildTypes {
@@ -23,13 +23,13 @@ android {
 }
 
 dependencies {
-    implementation Libs.rxJava
-    implementation Libs.kotlinStd8
-    implementation Libs.kotlinReflect
-    implementation Libs.firebaseCore
-    implementation Libs.firebaseDatabase
-    implementation Libs.jutils
-    implementation Libs.andutils
+    implementation Lib.rxJava
+    implementation Lib.kotlinStd8
+    implementation Lib.kotlinReflect
+    implementation Lib.firebaseCore
+    implementation Lib.firebaseDatabase
+    implementation Lib.jutils
+    implementation Lib.andutils
 }
 
 archiva { artifactId = "firebaseutils" }
