@@ -113,3 +113,19 @@ inline fun <reified T : ViewGroup.LayoutParams> View.layoutParams(): T? = layout
 fun BottomNavigationView.checkItem(@IdRes itemId: Int) {
     menu.findItem(itemId).isChecked = true
 }
+
+fun View.setWidth(width: Int) {
+    layoutParams.width = width
+    layoutParams = layoutParams
+}
+
+fun View.setHeight(height: Int) {
+    layoutParams.height = height
+    layoutParams = layoutParams
+}
+
+fun View.setWidthAndHeight(width: Int, height: Int) {
+    layoutParams.width = width
+    layoutParams.height = height
+    layoutParams = layoutParams
+}
