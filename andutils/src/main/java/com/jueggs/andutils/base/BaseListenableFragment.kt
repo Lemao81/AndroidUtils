@@ -7,7 +7,7 @@ abstract class BaseListenableFragment<TFragmentListener : Any> : BaseFragment() 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        listener = context as TFragmentListener
+        listener = context as? TFragmentListener
     }
 
     override fun onDetach() {

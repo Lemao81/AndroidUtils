@@ -7,7 +7,7 @@ import android.view.View
 
 class BottomNavigationFabBehavior(context: Context, attrs: AttributeSet) : CoordinatorLayout.Behavior<View>(context, attrs) {
 
-    override fun layoutDependsOn(parent: CoordinatorLayout?, child: View, dependency: View): Boolean = dependency is Snackbar.SnackbarLayout
+    override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean = dependency is Snackbar.SnackbarLayout
 
     override fun onDependentViewRemoved(parent: CoordinatorLayout, child: View, dependency: View) {
         child.translationY = 0f

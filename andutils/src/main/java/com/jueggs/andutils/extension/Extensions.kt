@@ -3,7 +3,6 @@ package com.jueggs.andutils.extension
 import android.animation.ValueAnimator
 import android.app.*
 import android.arch.lifecycle.*
-import android.arch.lifecycle.Observer
 import android.databinding.ObservableField
 import android.graphics.Bitmap
 import android.graphics.drawable.*
@@ -15,12 +14,7 @@ import com.google.android.gms.common.api.*
 import com.jueggs.andutils.*
 import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.interfaces.Disposable
-import com.jueggs.andutils.observable.NonNullMediatorLiveData
-import io.reactivex.disposables.Disposable
 import java.io.ByteArrayOutputStream
-import java.lang.reflect.Field
-import java.lang.reflect.Method
-import java.util.*
 import kotlin.reflect.*
 
 fun ApiException.startResolutionForResult(activity: Activity, requestCode: Int) {

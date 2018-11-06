@@ -22,7 +22,7 @@ abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView,
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        listener = context as TFragmentListener
+        listener = context as? TFragmentListener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

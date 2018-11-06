@@ -48,7 +48,7 @@ abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Frag
             viewModel = viewModel()
             onInitialStart()
         } else {
-            viewModel = savedInstanceState.getParcelable(STATE_VIEWMODEL)
+            viewModel = checkNotNull(savedInstanceState.getParcelable(STATE_VIEWMODEL))
             restoreState(savedInstanceState)
         }
 

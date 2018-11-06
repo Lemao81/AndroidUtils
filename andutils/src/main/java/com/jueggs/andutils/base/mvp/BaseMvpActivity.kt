@@ -27,7 +27,7 @@ abstract class BaseMvpActivity<TView : BaseView, TViewModel : Parcelable> : AppC
             viewModel = viewModel()
             onInitialStart()
         } else {
-            viewModel = savedInstanceState.getParcelable(STATE_VIEWMODEL)
+            viewModel = checkNotNull(savedInstanceState.getParcelable(STATE_VIEWMODEL))
             restoreState(savedInstanceState)
         }
 

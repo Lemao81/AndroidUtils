@@ -143,16 +143,16 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun popFragment() = supportFragmentManager.popBackStack()
 
-    inline fun <reified T> findFragment(@IdRes id: Int): T {
+    inline fun <reified T> findFragment(@IdRes id: Int): T? {
         val fragment = supportFragmentManager.findFragmentById(id)
-        checkCast<T>(fragment)
-        return fragment as T
+        fragment?.let { checkCast<T>(it) }
+        return fragment as? T
     }
 
-    inline fun <reified T> findFragment(tag: String?): T {
+    inline fun <reified T> findFragment(tag: String?): T? {
         val fragment = supportFragmentManager.findFragmentByTag(tag)
-        checkCast<T>(fragment)
-        return fragment as T
+        fragment?.let { checkCast<T>(it) }
+        return fragment as? T
     }
 
     fun toggleHomeAsUp(show: Boolean) = supportActionBar?.setDisplayHomeAsUpEnabled(show)

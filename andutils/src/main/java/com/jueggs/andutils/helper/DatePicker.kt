@@ -12,7 +12,6 @@ import java.util.*
 
 @SuppressLint("ValidFragment")
 class DatePicker(private val date: Date = Date(), private val action: (Date) -> Unit) : DialogFragment(), DatePickerDialog.OnDateSetListener {
-
     constructor(year: Int, month: Int, dayOfMonth: Int, action: (Date) -> Unit) : this(Calendar.getInstance().also { it.set(year, month, dayOfMonth) }.time, action)
 
     constructor(calendar: Calendar, action: (Date) -> Unit) : this(calendar.time, action)
@@ -23,7 +22,7 @@ class DatePicker(private val date: Date = Date(), private val action: (Date) -> 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val calendar = Calendar.getInstance().also { it.time = date }
-        return DatePickerDialog(activity, this, calendar.year, calendar.month, calendar.dayOfMonth)
+        return DatePickerDialog(checkNotNull(activity), this, calendar.year, calendar.month, calendar.dayOfMonth)
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -34,6 +33,6 @@ class DatePicker(private val date: Date = Date(), private val action: (Date) -> 
     fun show(manager: FragmentManager) = show(manager, TAG)
 
     companion object {
-        const val TAG: String = "com.jueggs.andutils.helper.DatePicker"
+        val TAG: String = DatePicker::class.java.name
     }
 }

@@ -4,8 +4,6 @@ import android.content.Context
 import android.support.design.widget.*
 import android.util.AttributeSet
 import android.view.*
-import androidx.core.content.withStyledAttributes
-import com.jueggs.andutils.R
 import com.jueggs.jutils.cropToRange
 
 class VerticalSlideOnScrollBehavior<TView : View>(context: Context, attrs: AttributeSet) : AbstractVerticalScrollBehavior<TView>(context, attrs) {
@@ -27,7 +25,7 @@ class VerticalSlideOnScrollBehavior<TView : View>(context: Context, attrs: Attri
         }
     }
 
-    override fun layoutDependsOn(parent: CoordinatorLayout?, child: TView, dependency: View?): Boolean {
+    override fun layoutDependsOn(parent: CoordinatorLayout, child: TView, dependency: View): Boolean {
         if (dependency is Snackbar.SnackbarLayout && gravity == BOTTOM)
             updateSnackbar(child, dependency)
         return super.layoutDependsOn(parent, child, dependency)

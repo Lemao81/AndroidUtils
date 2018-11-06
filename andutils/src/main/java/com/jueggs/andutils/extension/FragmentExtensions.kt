@@ -1,6 +1,5 @@
 package com.jueggs.andutils.extension
 
-import android.app.Activity
 import android.support.annotation.*
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -8,6 +7,7 @@ import android.support.v4.view.ViewPager
 import android.transition.TransitionInflater
 import com.jueggs.andutils.adapter.StandardFragmentPagerAdapter
 import com.jueggs.andutils.helper.DatePicker
+import androidx.core.os.bundleOf
 import org.jetbrains.anko.*
 import java.util.*
 

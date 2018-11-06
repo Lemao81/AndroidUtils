@@ -44,21 +44,21 @@ abstract class BaseDatabindingAdapter(private var layoutIncluded: Boolean = fals
                 bindIncludedLayout(item)
 
             if (eventHandler != null) {
-                checkNotNull(eventHandlerVariableId, { ERROR_NO_EVENTHANDLER_ID.format(BaseDatabindingAdapter::getEventhandlerVariableId.name) })
-                binding.setVariable(eventHandlerVariableId!!, eventHandler)
+                val id = checkNotNull(eventHandlerVariableId) { ERROR_NO_EVENTHANDLER_ID.format(BaseDatabindingAdapter::getEventhandlerVariableId.name) }
+                binding.setVariable(id, eventHandler)
             }
             binding.executePendingBindings()
         }
 
         private fun bindIncludedLayout(item: Any) {
             val layoutField = binding.findField(INCLUDED_LAYOUT_ID_IDENTIFIER, Modifier.PUBLIC)
-            checkNotNull(layoutField, { ERROR_NO_INCLUDED_LAYOUT.format(BaseDatabindingAdapter::layoutIncluded.name, INCLUDED_LAYOUT_ID_IDENTIFIER) })
+            val field = checkNotNull(layoutField) { ERROR_NO_INCLUDED_LAYOUT.format(BaseDatabindingAdapter::layoutIncluded.name, INCLUDED_LAYOUT_ID_IDENTIFIER) }
 
-            val includeBinding = layoutField!!.get(binding)
+            val includeBinding = field.get(binding)
             val setVariableMethod = includeBinding.findMethod(ViewDataBinding::setVariable.name, Modifier.PUBLIC)
-            checkNotNull(setVariableMethod, { ERROR_NO_SETVARIABLE_METHOD.format(ViewDataBinding::setVariable.name) })
+            val method = checkNotNull(setVariableMethod) { ERROR_NO_SETVARIABLE_METHOD.format(ViewDataBinding::setVariable.name) }
 
-            setVariableMethod!!.invoke(includeBinding, bindingVariableId, item)
+            method.invoke(includeBinding, bindingVariableId, item)
         }
     }
 

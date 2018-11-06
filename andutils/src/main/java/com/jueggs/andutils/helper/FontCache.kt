@@ -11,7 +11,7 @@ class FontCache(private var context: Context) {
     init {
         try {
             val fileList = context.resources.assets.list(FONT_DIR)
-            fileList.forEach { filename ->
+            fileList?.forEach { filename ->
                 val alias = filename.substring(0, filename.lastIndexOf('.'))
                 fontMapping.put(alias, filename)
                 fontMapping.put(alias.toLowerCase(), filename)
@@ -26,17 +26,13 @@ class FontCache(private var context: Context) {
     }
 
     operator fun get(fontName: String): Typeface? {
-        val fontFilename = fontMapping.get(fontName)
-        if (fontFilename.isNullOrEmpty()) {
-            logTagged(TAG_FONT_CACHE, LOG_LEVEL_ERROR, "Couldn't find font $fontName. Maybe you need to call addFont() first?")
-            return null
-        }
+        val fontFilename = checkNotNull(fontMapping.get(fontName)) {"Couldn't find font $fontName. Maybe you need to call addFont() first?"}
 
         return if (cache.containsKey(fontFilename)) {
             cache[fontFilename]
         } else {
-            val typeface = Typeface.createFromAsset(context.assets, "${FONT_DIR}/$fontFilename")
-            cache[fontFilename!!] = typeface
+            val typeface = Typeface.createFromAsset(context.assets, "$FONT_DIR/$fontFilename")
+            cache[fontFilename] = typeface
             typeface
         }
     }
