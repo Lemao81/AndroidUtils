@@ -12,8 +12,6 @@ buildscript {
     }
 }
 
-kotlin { experimental { coroutines "enable" } }
-
 sourceCompatibility = Versions.java8
 targetCompatibility = Versions.java8
 

@@ -1,6 +1,6 @@
 package com.jueggs.jutils
 
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.runBlocking
 import org.mockito.*
 import java.lang.Math.*
 import java.lang.reflect.*
@@ -40,7 +40,7 @@ fun newUUID(): String = UUID.randomUUID().toString()
 //    return uninitialized()
 //}
 
-private fun <T> uninitialized(): T = null as T
+//private fun <T> uninitialized(): T = null as T
 
 fun cropToRange(bottomLimit: Float, topLimit: Float, value: Float) = min(max(bottomLimit, value), topLimit)
 

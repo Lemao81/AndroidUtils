@@ -1,36 +1,22 @@
 package com.jueggs.firebaseutils.extension
 
 import com.google.firebase.database.*
-import com.jueggs.firebaseutils.*
 import io.reactivex.*
-import kotlin.coroutines.experimental.suspendCoroutine
+import kotlin.coroutines.*
 
 fun Query.toDataSingle(): Single<DataSnapshot> = Single.create { emitter ->
     addListenerForSingleValueEvent(object : ValueEventListener {
-        override fun onDataChange(data: DataSnapshot?) {
-            if (data != null) emitter.onSuccess(data)
-            else emitter.onError(Exception(NULL_DATA))
-        }
-
-        override fun onCancelled(error: DatabaseError?) = emitter.onError(error?.toException() ?: Exception())
+        override fun onDataChange(data: DataSnapshot) = emitter.onSuccess(data)
+        override fun onCancelled(error: DatabaseError) = emitter.onError(error.toException())
     })
 }
 
-fun <T> Query.toModelSingle(): Single<T> = toDataSingle().map { it.deserialize<T>() }
-
-fun <T : Any> Query.toModelListSingle(): Single<List<T>> = toDataSingle().map { dataSnapshot ->
-    val list = arrayListOf<T>()
-    dataSnapshot.children?.mapNotNullTo(list) { it.getValue<T>(GenericTypeIndicator()) }
-    list
-}
+fun <T : Any> Query.toModelSingle(): Single<T> = toDataSingle().map { it.getValue(object : GenericTypeIndicator<T>() {}) }
+fun <T : Any> Query.toModelListSingle(): Single<List<T>> = toDataSingle().map { it.getValue(object : GenericTypeIndicator<List<T>>() {}) }
 
 suspend fun Query.await(): DataSnapshot = suspendCoroutine { continuation ->
     addListenerForSingleValueEvent(object : ValueEventListener {
-        override fun onDataChange(data: DataSnapshot?) {
-            if (data != null) continuation.resume(data)
-            else continuation.resumeWithException(Exception(NULL_DATA))
-        }
-
-        override fun onCancelled(error: DatabaseError?) = continuation.resumeWithException(error?.toException() ?: Exception())
+        override fun onDataChange(data: DataSnapshot) = continuation.resume(data)
+        override fun onCancelled(error: DatabaseError) = continuation.resumeWithException(error.toException())
     })
 }

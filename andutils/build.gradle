@@ -4,8 +4,6 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'maven'
 apply plugin: 'custom-archivaupload'
 
-kotlin { experimental { coroutines "enable" } }
-
 android {
     compileSdkVersion App.compileSdkVersion
     defaultConfig {

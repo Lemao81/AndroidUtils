@@ -7,12 +7,11 @@ import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import androidx.core.os.postDelayed
+import androidx.core.util.toAndroidPair
 import com.jueggs.andutils.util.Action
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.channels.*
-import org.jetbrains.anko.collections.toAndroidPair
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.*
 import java.lang.Math.*
-import java.lang.reflect.*
 
 fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = pairOf(view, transitionName).toAndroidPair()
 
@@ -68,4 +67,5 @@ fun isVerticalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_VERTICAL
 
 fun isHorizontalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_HORIZONTAL
 
+@ExperimentalCoroutinesApi
 fun <T> produceActions(f: suspend ProducerScope<Action<T>>.() -> Unit): ReceiveChannel<Action<T>> = GlobalScope.produce(block = f)

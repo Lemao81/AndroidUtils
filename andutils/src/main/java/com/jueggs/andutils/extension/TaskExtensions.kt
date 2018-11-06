@@ -3,7 +3,7 @@ package com.jueggs.andutils.extension
 import com.google.android.gms.tasks.Task
 import com.jueggs.andutils.util.logException
 import io.reactivex.*
-import kotlin.coroutines.experimental.suspendCoroutine
+import kotlin.coroutines.*
 
 fun Task<Void>.then(action: () -> Unit) = addOnCompleteListener { action() }
 

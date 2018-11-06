@@ -11,10 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.util.toAndroidPair
 import com.jueggs.andutils.*
 import com.jueggs.andutils.helper.DatePicker
 import com.jueggs.jutils.INVALID
-import org.jetbrains.anko.collections.toAndroidPair
 import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.intentFor
 import java.security.InvalidParameterException
@@ -112,7 +112,7 @@ fun Activity.setStatusbarColor(@ColorRes resId: Int) {
         window.statusBarColor = getColorCompat(resId)
 }
 
-fun Activity.isFragmentVisible(@LayoutRes resId: Int) = fragmentManager.findFragmentById(resId) != null
+fun AppCompatActivity.isFragmentVisible(@IdRes resId: Int) = supportFragmentManager.findFragmentById(resId) != null
 
 
 //AppCompatActivity

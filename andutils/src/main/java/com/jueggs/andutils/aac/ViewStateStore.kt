@@ -2,11 +2,11 @@ package com.jueggs.andutils.aac
 
 import android.arch.lifecycle.*
 import com.jueggs.andutils.util.Action
-import kotlinx.coroutines.experimental.Dispatchers.IO
-import kotlinx.coroutines.experimental.Dispatchers.Main
-import kotlinx.coroutines.experimental.*
-import kotlinx.coroutines.experimental.channels.*
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.channels.*
+import kotlin.coroutines.CoroutineContext
 
 class ViewStateStore<TViewState>(private val initialState: TViewState) : CoroutineScope {
     private val store = MutableLiveData<TViewState>()
@@ -28,6 +28,7 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
         }
     }
 
+    @ObsoleteCoroutinesApi
     fun dispatchActions(channel: ReceiveChannel<Action<TViewState>>) {
         launch {
             channel.consumeEach { action ->

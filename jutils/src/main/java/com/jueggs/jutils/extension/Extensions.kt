@@ -2,7 +2,7 @@ package com.jueggs.jutils.extension
 
 import com.jueggs.jutils.*
 import com.nhaarman.mockito_kotlin.KStubbing
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.runBlocking
 import org.mockito.BDDMockito
 import org.mockito.stubbing.OngoingStubbing
 import java.lang.reflect.*
