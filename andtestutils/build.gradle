@@ -30,6 +30,7 @@ dependencies {
     implementation Lib.testRules
     implementation Lib.kakao
     implementation Lib.uiAutomator
+    implementation Lib.espressoCore
 }
 
 archiva { artifactId = "andtestutils" }
