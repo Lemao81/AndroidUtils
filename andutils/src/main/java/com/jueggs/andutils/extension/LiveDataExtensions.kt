@@ -2,10 +2,11 @@ package com.jueggs.andutils.extension
 
 import android.arch.lifecycle.*
 import com.jueggs.andutils.observable.NonNullMediatorLiveData
+import com.jueggs.andutils.util.SingleLiveEvent
 
 fun <T> LiveData<T>.nonNull(): NonNullMediatorLiveData<T> {
     val mediator = NonNullMediatorLiveData<T>()
-    mediator.addSource(this, { it?.let { mediator.value = it } })
+    mediator.addSource(this) { t -> t?.let { mediator.value = it } }
     return mediator
 }
 
@@ -40,3 +41,11 @@ fun MutableLiveData<Int>.fire(id: Int?) {
 }
 
 fun MutableLiveData<Int>.post(id: Int?) = postValue(id)
+
+fun <T> LiveData<T>.toSingleEvent(): LiveData<T> {
+    val result = SingleLiveEvent<T>()
+    result.addSource(this) {
+        result.value = it
+    }
+    return result
+}
