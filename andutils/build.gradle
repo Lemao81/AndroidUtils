@@ -26,27 +26,28 @@ android {
 dependencies {
     compileOnly fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation Lib.appcompatV7
+    implementation Lib.supportAppcompat
+    implementation Lib.supportDesign
+    implementation Lib.supportRecyclerView
+    implementation Lib.supportV4
+    implementation Lib.supportConstraintLayout
     implementation Lib.rxJava
     implementation Lib.kotlinStd8
     implementation Lib.kotlinReflect
     implementation Lib.gmsBase
-    implementation Lib.recyclerView
-    implementation Lib.supportV4
-    implementation Lib.design
     implementation Lib.anko
     implementation Lib.joda
     implementation Lib.glide
     implementation Lib.mosbyMvi
     implementation Lib.rxJavaAndroid
     implementation Lib.jutils
-    implementation Lib.koin
+    implementation Lib.koinAndroid
     implementation Lib.androidKtx
     implementation Lib.archLifecycleExtensions
     implementation Lib.roomRuntime
-    implementation Lib.constraintLayout
     implementation Lib.kotlinCoroutineAndroid
     implementation Lib.archNavigationUi
+    implementation Lib.permissions
     kapt Lib.glideCompiler
 
     testImplementation Lib.jUnit

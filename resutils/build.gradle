@@ -23,10 +23,10 @@ android {
 
 dependencies {
     implementation Lib.kotlinStd8
-    implementation Lib.recyclerView
-    implementation Lib.appcompatV7
+    implementation Lib.supportRecyclerView
+    implementation Lib.supportAppcompat
     implementation Lib.supportV4
-    implementation Lib.constraintLayout
+    implementation Lib.supportConstraintLayout
     implementation Lib.andutils
 }
 
