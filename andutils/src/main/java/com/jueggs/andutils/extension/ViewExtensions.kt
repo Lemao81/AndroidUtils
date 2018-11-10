@@ -58,15 +58,15 @@ fun View.addEnableTextWatcher(vararg inputFields: EditText) {
 
 fun View.indefiniteSnackbar(message: CharSequence, actionText: CharSequence? = null, action: ((View) -> Unit)? = null) = createSnackbar(this, message, Snackbar.LENGTH_INDEFINITE, actionText, action)
 fun View.indefiniteSnackbar(@StringRes messageId: Int, @StringRes actionTextId: Int? = null, action: ((View) -> Unit)? = null) =
-        indefiniteSnackbar(resources.getString(messageId), if (actionTextId != null) resources.getString(actionTextId) else null, action)
+    indefiniteSnackbar(resources.getString(messageId), if (actionTextId != null) resources.getString(actionTextId) else null, action)
 
 fun View.longSnackbar(message: CharSequence, actionText: CharSequence? = null, action: ((View) -> Unit)? = null) = createSnackbar(this, message, Snackbar.LENGTH_LONG, actionText, action)
 fun View.longSnackbar(@StringRes messageId: Int, @StringRes actionTextId: Int? = null, action: ((View) -> Unit)? = null) =
-        longSnackbar(resources.getString(messageId), if (actionTextId != null) resources.getString(actionTextId) else null, action)
+    longSnackbar(resources.getString(messageId), if (actionTextId != null) resources.getString(actionTextId) else null, action)
 
 fun View.shortSnackbar(message: CharSequence, actionText: CharSequence? = null, action: ((View) -> Unit)? = null) = createSnackbar(this, message, Snackbar.LENGTH_SHORT, actionText, action)
 fun View.shortSnackbar(@StringRes messageId: Int, @StringRes actionTextId: Int? = null, action: ((View) -> Unit)? = null) =
-        shortSnackbar(resources.getString(messageId), if (actionTextId != null) resources.getString(actionTextId) else null, action)
+    shortSnackbar(resources.getString(messageId), if (actionTextId != null) resources.getString(actionTextId) else null, action)
 
 private fun createSnackbar(view: View, message: CharSequence, period: Int, actionText: CharSequence? = null, action: ((View) -> Unit)? = null) {
     val snackbar = Snackbar.make(view, message, period)
@@ -129,3 +129,6 @@ fun View.setWidthAndHeight(width: Int, height: Int) {
     layoutParams.height = height
     layoutParams = layoutParams
 }
+
+fun View.onClick(action: (View) -> Unit) = setOnClickListener(action)
+fun View.onLongClick(action: (View) -> Unit) = setOnLongClickListener { action(it); true }

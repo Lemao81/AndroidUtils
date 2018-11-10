@@ -109,7 +109,7 @@ inline fun <reified T : Any> Activity.startActivityForResultWithTransition(reque
 
 fun Activity.setStatusbarColor(@ColorRes resId: Int) {
     if (isLollipopOrAboveUtil())
-        window.statusBarColor = getColorCompat(resId)
+        window.statusBarColor = colorResToInt(resId)
 }
 
 fun AppCompatActivity.isFragmentVisible(@IdRes resId: Int) = supportFragmentManager.findFragmentById(resId) != null

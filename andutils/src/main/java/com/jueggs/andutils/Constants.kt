@@ -1,13 +1,7 @@
 package com.jueggs.andutils
 
-import android.app.Activity
-import android.databinding.ViewDataBinding
-import com.jueggs.andutils.adapter.BaseDatabindingAdapter
-
 // divers
 const val STATE_VIEWMODEL = "STATE_VIEWMODEL"
-const val RESULT_OK = Activity.RESULT_OK
-const val RESULT_CANCELED = Activity.RESULT_CANCELED
 const val SCROLL_DIRECTION_TOP = -1
 
 // directory

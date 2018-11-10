@@ -2,10 +2,8 @@ package com.jueggs.andutils.extension
 
 import android.animation.*
 import android.annotation.SuppressLint
-import android.app.*
 import android.content.*
 import android.graphics.drawable.*
-import android.os.Build
 import android.support.annotation.*
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
@@ -43,10 +41,10 @@ fun Context.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageRes
         showConfirmDialog(if (titleResId != null) getString(titleResId) else null, getString(messageResId), confirmAction)
 
 fun Context.showSelection(title: CharSequence?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
-        selector(title, items, { _, index ->
+        selector(title, items) { _, index ->
             onSelectIndex(index)
             onSelectString(items[index].toString())
-        })
+        }
 
 fun Context.showSelection(@StringRes titleResId: Int?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
         showSelection(if (titleResId != null) getString(titleResId) else null, items, onSelectIndex, onSelectString)
@@ -56,7 +54,7 @@ fun Context.showSelection(@StringRes titleResId: Int?, @ArrayRes arrayResId: Int
 
 fun Context.animateColor(@ColorRes from: Int, @ColorRes to: Int): ColorAnimator {
     return if (isLollipopOrAboveUtil()) {
-        ColorAnimator(ValueAnimator.ofArgb(getColorCompat(from), getColorCompat(to)))
+        ColorAnimator(ValueAnimator.ofArgb(this.colorResToInt(from), this.colorResToInt(to)))
     } else {
         val anim = ValueAnimator()
         anim.setIntValues(from, to)
@@ -67,11 +65,9 @@ fun Context.animateColor(@ColorRes from: Int, @ColorRes to: Int): ColorAnimator 
 
 fun Context.drawableAsByteArray(@DrawableRes resId: Int): ByteArray? = (ContextCompat.getDrawable(this, resId) as? BitmapDrawable)?.bitmap?.toByteArray()
 
-fun Context.dpToPixel(dips: Int): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dips.toFloat(), resources.displayMetrics).toInt()
+fun Context.dipToPixel(dips: Int): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dips.toFloat(), resources.displayMetrics).toInt()
 
-fun Context.getColorCompat(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
-
-fun Context.backgroundColor(@ColorRes resId: Int): Drawable = ColorDrawable(getColorCompat(resId))
+fun Context.colorResToInt(@ColorRes resId: Int) = ContextCompat.getColor(this, resId)
 
 fun Context.doWithNetworkConnection(action: () -> Unit): () -> Boolean {
     val condition = this::isNetworkConnected
