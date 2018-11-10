@@ -9,9 +9,11 @@ import android.widget.EditText
 import androidx.core.os.postDelayed
 import androidx.core.util.toAndroidPair
 import com.jueggs.andutils.util.Action
+import io.reactivex.Observable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
-import java.lang.Math.*
+import java.lang.IllegalStateException
+import java.security.InvalidParameterException
 
 fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = pairOf(view, transitionName).toAndroidPair()
 
@@ -41,31 +43,25 @@ fun <A, B> pairOf(first: A, second: B): Pair<A, B> = Pair(first, second)
 
 inline fun postDelayed(delayInMillis: Long, token: Any? = null, crossinline action: () -> Unit): Runnable = Handler().postDelayed(delayInMillis, token, action)
 
-fun measureView(widthMeasureSpec: Int, heightMeasureSpec: Int, desiredWidth: Int, desiredHeight: Int, setMeasuredDimension: (Int, Int) -> Unit) {
-    val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
-    val widthSize = View.MeasureSpec.getSize(widthMeasureSpec)
-    val heightMode = View.MeasureSpec.getMode(heightMeasureSpec)
-    val heightSize = View.MeasureSpec.getSize(heightMeasureSpec)
-
-    val width = when (widthMode) {
-        View.MeasureSpec.EXACTLY -> widthSize
-        View.MeasureSpec.AT_MOST -> min(desiredWidth, widthSize)
-        View.MeasureSpec.UNSPECIFIED -> desiredWidth
-        else -> desiredWidth
-    }
-    val height = when (heightMode) {
-        View.MeasureSpec.EXACTLY -> heightSize
-        View.MeasureSpec.AT_MOST -> min(desiredHeight, heightSize)
-        View.MeasureSpec.UNSPECIFIED -> desiredHeight
-        else -> desiredHeight
-    }
-
-    setMeasuredDimension(width, height)
-}
-
 fun isVerticalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_VERTICAL
 
 fun isHorizontalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_HORIZONTAL
 
 @ExperimentalCoroutinesApi
 fun <T> produceActions(f: suspend ProducerScope<Action<T>>.() -> Unit): ReceiveChannel<Action<T>> = GlobalScope.produce(block = f)
+
+fun <T> mergeObservables(vararg observables: Observable<T>): Observable<T> {
+    return if (observables.size > 4) {
+        val merge = Observable.merge(observables[0], observables[1], observables[2], observables[3])
+        val reduced = observables.slice(IntRange(4, observables.size - 1)).toMutableList()
+        reduced.add(merge)
+        mergeObservables(*reduced.toTypedArray())
+    } else when (observables.size) {
+        0 -> throw InvalidParameterException("No observables to merge")
+        1 -> observables[0]
+        2 -> Observable.merge(observables[0], observables[1])
+        3 -> Observable.merge(observables[0], observables[1], observables[2])
+        4 -> Observable.merge(observables[0], observables[1], observables[2], observables[3])
+        else -> throw IllegalStateException()
+    }
+}
