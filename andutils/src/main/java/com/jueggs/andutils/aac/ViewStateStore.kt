@@ -19,11 +19,22 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
 
     fun observe(owner: LifecycleOwner, observer: (TViewState) -> Unit) = store.observe(owner, Observer { it?.let(observer) })
 
-    fun dispatchAction(f: suspend () -> Action<TViewState>) {
+    fun dispatchAction(func: suspend () -> Action<TViewState>) {
         launch {
-            val action = f()
+            val action = func()
             withContext(Main) {
                 dispatchState(action(state()))
+            }
+        }
+    }
+
+    fun dispatchActions(vararg funcs: suspend () -> Action<TViewState>) {
+        launch {
+            funcs.forEach { func ->
+                val action = func()
+                withContext(Main) {
+                    dispatchState(action(state()))
+                }
             }
         }
     }
