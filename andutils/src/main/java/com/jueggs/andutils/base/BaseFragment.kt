@@ -1,5 +1,6 @@
 package com.jueggs.andutils.base
 
+import android.arch.lifecycle.LifecycleOwner
 import android.databinding.*
 import android.os.Bundle
 import android.support.annotation.IdRes
@@ -41,7 +42,7 @@ abstract class BaseFragment : Fragment(), BackPressHandler {
         return if (bindingItems != null) {
             val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, layout(), container, false)
             bindingItems.forEach { binding.setVariable(it.key, it.value) }
-            binding.setLifecycleOwner(this)
+            binding.setLifecycleOwner(viewLifecycleOwner)
             binding.root
         } else
             inflater.inflate(layout(), container, false)
@@ -58,6 +59,7 @@ abstract class BaseFragment : Fragment(), BackPressHandler {
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(toolbarTitle)
 
         initializeViews()
+        observeLiveData(viewLifecycleOwner)
 
         if (savedInstanceState == null)
             onInitialStart()
@@ -72,6 +74,7 @@ abstract class BaseFragment : Fragment(), BackPressHandler {
     open fun restoreState(savedInstanceState: Bundle) {}
 
     open fun initializeViews() {}
+    open fun observeLiveData(owner: LifecycleOwner) {}
     open fun setListeners() {}
 
     override fun onBackPressed() = false

@@ -6,14 +6,19 @@ import android.arch.lifecycle.*
 import android.databinding.ObservableField
 import android.graphics.Bitmap
 import android.graphics.drawable.*
+import android.support.annotation.IdRes
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.CoordinatorLayout
+import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.NavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.common.api.*
 import com.jueggs.andutils.*
 import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.interfaces.Disposable
+import kotlinx.coroutines.channels.SendChannel
 import java.io.ByteArrayOutputStream
 import kotlin.reflect.*
 
@@ -87,3 +92,13 @@ fun ViewGroup.LayoutParams.asCoordinatorLayoutParams(): CoordinatorLayout.Layout
 fun ViewGroup.LayoutParams.asConstraintLayoutParams(): ConstraintLayout.LayoutParams = this as ConstraintLayout.LayoutParams
 fun ViewGroup.LayoutParams.asFrameLayoutParams(): FrameLayout.LayoutParams = this as FrameLayout.LayoutParams
 fun ViewGroup.LayoutParams.asLinearLayoutParams(): LinearLayout.LayoutParams = this as LinearLayout.LayoutParams
+
+fun NavController?.setupWithToolbar(activity: Activity?, @IdRes toolbarId: Int) {
+    val toolbar = activity?.findViewById<Toolbar>(toolbarId)
+    this?.let { toolbar?.setupWithNavController(it) }
+}
+
+suspend fun <T> SendChannel<T>.sendAndClose(element: T) {
+    send(element)
+    close()
+}

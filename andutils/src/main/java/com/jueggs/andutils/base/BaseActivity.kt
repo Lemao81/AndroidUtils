@@ -1,5 +1,6 @@
 package com.jueggs.andutils.base
 
+import android.arch.lifecycle.LifecycleOwner
 import android.databinding.*
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -31,8 +32,8 @@ abstract class BaseActivity : AppCompatActivity() {
         initialize()
         setToolbar(toolbar(), toolbarTitle(), toolbarNavigateBack())
         initializeViews()
+        observeLiveData(this)
         setListeners()
-        setObservers()
         setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
 
         if (savedInstanceState == null) {
@@ -64,8 +65,8 @@ abstract class BaseActivity : AppCompatActivity() {
     open fun toolbarNavigateBack(): Boolean = true
 
     open fun initializeViews() {}
+    open fun observeLiveData(owner: LifecycleOwner) {}
     open fun setListeners() {}
-    open fun setObservers() {}
 
     open fun enterTransition(): Int? = R.transition.fade
     open fun exitTransition(): Int? = R.transition.fade

@@ -1,7 +1,6 @@
 package com.jueggs.andutils.aac
 
 import android.arch.lifecycle.*
-import com.jueggs.andutils.util.Action
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -19,32 +18,29 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
 
     fun observe(owner: LifecycleOwner, observer: (TViewState) -> Unit) = store.observe(owner, Observer { it?.let(observer) })
 
-    fun dispatchAction(func: suspend () -> Action<TViewState>) {
-        launch {
-            val action = func()
-            withContext(Main) {
-                dispatchState(action(state()))
-            }
-        }
+    fun dispatchAction(func: suspend () -> StateEvent<TViewState>) {
+        launch { handleEvent(func()) }
     }
 
-    fun dispatchActions(vararg funcs: suspend () -> Action<TViewState>) {
+    fun dispatchActions(vararg funcs: suspend () -> StateEvent<TViewState>) {
         launch {
-            funcs.forEach { func ->
-                val action = func()
-                withContext(Main) {
-                    dispatchState(action(state()))
-                }
-            }
+            funcs.forEach { handleEvent(it()) }
         }
     }
 
     @ObsoleteCoroutinesApi
-    fun dispatchActions(channel: ReceiveChannel<Action<TViewState>>) {
-        launch {
-            channel.consumeEach { action ->
-                withContext(Main) {
-                    dispatchState(action(state()))
+    fun dispatchActions(channel: ReceiveChannel<StateEvent<TViewState>>) {
+        launch { channel.consumeEach { handleEvent(it) } }
+    }
+
+    private suspend fun handleEvent(event: StateEvent<TViewState>) {
+        withContext(Main) {
+            when (event) {
+                is Alter -> dispatchState(event.action(state()))
+                is Trigger -> {
+                    val oldState = state()
+                    dispatchState(event.action(oldState))
+                    dispatchState(oldState)
                 }
             }
         }

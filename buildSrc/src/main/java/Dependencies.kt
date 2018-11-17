@@ -7,11 +7,12 @@ object Versions {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.48"
-    const val jutils = "1.0.10"
-    const val firebaseutils = "1.0.4"
-    const val resutils = "1.0.4"
-    const val andtestutils = "1.0.5"
+    const val andutils = "1.0.60"
+    const val jutils = "1.0.14"
+    const val firebaseutils = "1.0.5"
+    const val resutils = "1.0.5"
+    const val andtestutils = "1.0.8"
+    const val customviewutils = "1.0.1"
 
     // custom views
     const val rangebar = "1.0.3"
@@ -59,7 +60,7 @@ object Versions {
     const val mockito = "2.22.0"
     const val mockitoKotlin = "1.5.0"
     const val powermock = "1.6.5"
-    const val mockk = "1.8.9"
+    const val mockk = "1.8.12.kotlin13"
     const val androidKtx = "0.3"
     const val frodo = "0.8.3"
     const val retrofit2 = "2.4.0"
@@ -77,6 +78,7 @@ object Versions {
     const val multidex = "1.0.3"
     const val permissions = "3.7"
     const val ktlint = "0.29.0"
+    const val androidxTestCore = "1.0.0"
 }
 
 object Lib {
@@ -86,6 +88,7 @@ object Lib {
     const val firebaseutils = "com.jueggs:firebaseutils:${Versions.firebaseutils}"
     const val resutils = "com.jueggs:resutils:${Versions.resutils}"
     const val andtestutils = "com.jueggs:andtestutils:${Versions.andtestutils}"
+    const val customviewutils = "com.jueggs:customviewutils:${Versions.customviewutils}"
     const val rangebar = "com.jueggs.customview:rangebar:${Versions.rangebar}"
     const val stackoverflowtag = "com.jueggs.customview:stackoverflowtag:${Versions.stackoverflowtag}"
     const val availableindicator = "com.jueggs.customview:availableindicator:${Versions.availableindicator}"
@@ -186,6 +189,7 @@ object Lib {
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val mockkAndroid = "io.mockk:mockk-android:${Versions.mockk}"
     const val kakao = "com.agoda.kakao:kakao:${Versions.kakao}"
+    const val androidxTestCore = "androidx.test:core:${Versions.androidxTestCore}"
 }
 
 object Plugins {

@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.core.os.postDelayed
 import androidx.core.util.toAndroidPair
+import com.jueggs.andutils.aac.StateEvent
 import com.jueggs.andutils.util.Action
 import io.reactivex.Observable
 import kotlinx.coroutines.*
@@ -49,6 +50,9 @@ fun isHorizontalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_HORIZONTAL
 
 @ExperimentalCoroutinesApi
 fun <T> produceActions(f: suspend ProducerScope<Action<T>>.() -> Unit): ReceiveChannel<Action<T>> = GlobalScope.produce(block = f)
+
+@ExperimentalCoroutinesApi
+fun <T> produceEvents(f: suspend ProducerScope<StateEvent<T>>.() -> Unit): ReceiveChannel<StateEvent<T>> = GlobalScope.produce(block = f)
 
 fun <T> mergeObservables(vararg observables: Observable<T>): Observable<T> {
     return if (observables.size > 4) {
