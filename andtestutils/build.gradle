@@ -24,9 +24,8 @@ android {
 }
 
 dependencies {
-    compileOnly fileTree(include: ['*.jar'], dir: 'libs')
-
     implementation Lib.kotlinStd8
+    implementation Lib.andutils
     implementation Lib.testRules
     implementation Lib.kakao
     implementation Lib.uiAutomator
