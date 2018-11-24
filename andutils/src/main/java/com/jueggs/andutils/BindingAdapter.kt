@@ -9,8 +9,8 @@ import android.widget.*
 import com.jueggs.andutils.extension.loadOrDefault
 import com.jueggs.andutils.helper.*
 import com.jueggs.jutils.extension.join
-import java.text.SimpleDateFormat
-import java.util.*
+import org.joda.time.DateTime
+import org.joda.time.LocalDate
 
 @set:BindingAdapter("visibleOrGone")
 var View.visibleOrGone
@@ -57,14 +57,14 @@ fun TextView.setTypefaceBinded(fontName: String) {
     typeface = FontCache.getInstance(context)[fontName]
 }
 
-@BindingAdapter(value = ["date", "dateFormat", "dateLocale"], requireAll = false)
-fun TextView.setDate(date: Date, format: String?, locale: Locale?) {
-    text = SimpleDateFormat(format ?: "MM/dd/yy", locale ?: Locale.US).format(date)
+@BindingAdapter(value = ["date", "dateFormat"], requireAll = false)
+fun TextView.setDate(date: LocalDate?, format: String?) {
+    text = date?.toString(format ?: DEFAULT_DATE_FORMAT)
 }
 
 @BindingAdapter(value = ["renderedDate", "renderedDateFormat"], requireAll = false)
-fun TextView.setRenderedDate(date: Date, format: String?) {
-    text = DateRenderer(format ?: "MM/dd/yy").render(date.time)
+fun TextView.setRenderedDate(dateTime: DateTime?, format: String?) {
+    text = dateTime?.let { DateTimeRenderer(format).render(dateTime) }
 }
 
 @BindingAdapter(value = ["join", "separator"], requireAll = false)

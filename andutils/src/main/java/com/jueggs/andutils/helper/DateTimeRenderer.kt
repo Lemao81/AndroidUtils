@@ -1,8 +1,9 @@
 package com.jueggs.andutils.helper
 
+import com.jueggs.andutils.DEFAULT_DATETIME_FORMAT
 import org.joda.time.*
 
-class DateRenderer(private val format: String = "dd.MM.yyyy - hh:mm") {
+class DateTimeRenderer(private val format: String? = DEFAULT_DATETIME_FORMAT) {
     fun render(millis: Long) = render(DateTime(millis))
 
     fun render(then: DateTime): String {

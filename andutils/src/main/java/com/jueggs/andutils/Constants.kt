@@ -3,6 +3,8 @@ package com.jueggs.andutils
 // divers
 const val STATE_VIEWMODEL = "STATE_VIEWMODEL"
 const val SCROLL_DIRECTION_TOP = -1
+const val DEFAULT_DATE_FORMAT = "MM/dd/yy"
+const val DEFAULT_DATETIME_FORMAT = "$DEFAULT_DATE_FORMAT - hh:mm a"
 
 // directory
 const val FONT_DIR = "fonts"

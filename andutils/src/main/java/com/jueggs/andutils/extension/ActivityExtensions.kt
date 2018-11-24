@@ -17,8 +17,8 @@ import com.jueggs.andutils.helper.DatePicker
 import com.jueggs.jutils.INVALID
 import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.intentFor
+import org.joda.time.LocalDate
 import java.security.InvalidParameterException
-import java.util.*
 
 //Activity
 fun Activity.getIntExtra(key: String): Int = intent.getIntExtra(key, INVALID)
@@ -140,4 +140,4 @@ fun FragmentActivity.startPostponedEnterTransitionCompat() {
     else supportStartPostponedEnterTransition()
 }
 
-fun FragmentActivity.datePicker(date: Date = Date(), action: (Date) -> Unit) = DatePicker(date, action).show(supportFragmentManager)
+fun FragmentActivity.datePicker(date: LocalDate = LocalDate.now(), action: (LocalDate) -> Unit) = DatePicker(date, action).show(supportFragmentManager)
