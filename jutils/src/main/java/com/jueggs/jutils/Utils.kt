@@ -65,3 +65,5 @@ fun <T> collectInheritedMethods(list: MutableList<Method>, type: Class<T>): List
 }
 
 fun <T> givenSuspended(block: suspend () -> T) = BDDMockito.given(runBlocking { block() })
+
+fun areAllNull(vararg params: Any?): Boolean = params.all { it == null }
