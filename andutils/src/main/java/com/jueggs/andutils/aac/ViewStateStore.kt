@@ -16,7 +16,11 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
 
     private fun state(): TViewState = store.value ?: initialState
 
-    fun observe(owner: LifecycleOwner, observer: (TViewState) -> Unit) = store.observe(owner, Observer { it?.let(observer) })
+    fun observe(owner: LifecycleOwner, observer: TViewState.() -> Unit) {
+        store.observe(owner, Observer { state ->
+            state?.let { with(it, observer) }
+        })
+    }
 
     fun dispatchAction(func: suspend () -> StateEvent<TViewState>) {
         launch { handleEvent(func()) }

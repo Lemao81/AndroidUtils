@@ -32,6 +32,7 @@ dependencies {
     implementation Lib.supportV4
     implementation Lib.supportConstraintLayout
     implementation Lib.rxJava
+    implementation Lib.rxDisposer
     implementation Lib.kotlinStd8
     implementation Lib.kotlinReflect
     implementation Lib.gmsBase

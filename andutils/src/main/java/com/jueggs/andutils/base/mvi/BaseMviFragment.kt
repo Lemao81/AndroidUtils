@@ -10,7 +10,7 @@ import android.view.*
 import com.hannesdorfmann.mosby3.mvi.*
 import com.hannesdorfmann.mosby3.mvp.MvpView
 import com.jueggs.andutils.R
-import com.jueggs.andutils.base.BackPressHandler
+import com.jueggs.andutils.interfaces.BackPressHandler
 import com.jueggs.andutils.extension.setNavigationTransitions
 
 abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView, *>, TFragmentListener : Activity> : MviFragment<TView, TPresenter>(), BackPressHandler {

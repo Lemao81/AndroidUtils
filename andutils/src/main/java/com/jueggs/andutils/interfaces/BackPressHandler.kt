@@ -1,4 +1,4 @@
-package com.jueggs.andutils.base
+package com.jueggs.andutils.interfaces
 
 interface BackPressHandler {
     fun onBackPressed(): Boolean

@@ -8,6 +8,10 @@ import io.reactivex.schedulers.Schedulers
 
 fun <T> Observable<T>.scheduleIoMain(): Observable<T> = subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
+fun <T> Observable<T>.scheduleCompMain(): Observable<T> = subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
+
+fun <T> Observable<T>.observeOnMain(): Observable<T> = observeOn(AndroidSchedulers.mainThread())
+
 fun <T> Observable<T>.logError(): Observable<T> = doOnError { logDebug(it.message) }
 
 fun <T> Observable<T>.check(predicate: (T) -> Boolean): Observable<T> = CheckObservable(this, predicate)

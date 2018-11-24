@@ -3,18 +3,25 @@ package com.jueggs.andutils.base
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.*
 import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.*
 import androidx.navigation.NavController
-import com.jueggs.andutils.R
+import androidx.navigation.Navigation
+import com.jueggs.andutils.extension.gone
+import com.jueggs.andutils.extension.observeOnMain
 import com.jueggs.andutils.extension.setNavigationTransitions
+import com.jueggs.andutils.extension.visible
+import com.jueggs.andutils.interfaces.BackPressHandler
+import io.reactivex.subjects.PublishSubject
+import io.sellmair.disposer.disposeBy
+import io.sellmair.disposer.onDestroy
+import java.util.concurrent.TimeUnit
 
-abstract class BaseFragment : Fragment(), BackPressHandler {
+abstract class BaseFragment(private val searchNavController: Boolean = false) : Fragment(), BackPressHandler {
+    private var waiterSubject: PublishSubject<Boolean>? = null
+    protected var waiter: View? = null
     protected var navController: NavController? = null
-    protected var waiter: ConstraintLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,17 +31,15 @@ abstract class BaseFragment : Fragment(), BackPressHandler {
 
         pullArguments(arguments)
         initialize()
-        setObservers()
     }
 
     open fun pullArguments(arguments: Bundle?) {}
     open fun initialize() {}
-    open fun setObservers() {}
 
-    open fun enterTransition(): Int? = R.transition.fade
-    open fun exitTransition(): Int? = R.transition.fade
-    open fun reenterTransition(): Int? = R.transition.fade
-    open fun returnTransition(): Int? = R.transition.fade
+    open fun enterTransition(): Int? = null
+    open fun exitTransition(): Int? = null
+    open fun reenterTransition(): Int? = null
+    open fun returnTransition(): Int? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val bindingItems = bindingItems()
@@ -58,23 +63,37 @@ abstract class BaseFragment : Fragment(), BackPressHandler {
         if (toolbarTitle != null)
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(toolbarTitle)
 
+        val waiterId = waiter()
+        if (waiterId != null) {
+            waiter = activity?.findViewById(waiterId)
+            waiter?.let { waiter ->
+                waiterSubject = PublishSubject.create()
+                val observable = waiterSubject?.debounce(300, TimeUnit.MILLISECONDS)?.observeOnMain()
+                observable?.subscribe { if (it) waiter.visible() else waiter.gone() }?.disposeBy(viewLifecycleOwner.lifecycle.onDestroy)
+            }
+        }
+
+        if (searchNavController)
+            view?.let { navController = Navigation.findNavController(it) }
+
         initializeViews()
-        observeLiveData(viewLifecycleOwner)
 
         if (savedInstanceState == null)
             onInitialStart()
         else
             restoreState(savedInstanceState)
 
+        observeLiveData(viewLifecycleOwner)
         setListeners()
     }
 
     open fun toolbarTitle(): Int? = null
-    open fun onInitialStart() {}
-    open fun restoreState(savedInstanceState: Bundle) {}
+    open fun waiter(): Int? = null
 
     open fun initializeViews() {}
     open fun observeLiveData(owner: LifecycleOwner) {}
+    open fun onInitialStart() {}
+    open fun restoreState(savedInstanceState: Bundle) {}
     open fun setListeners() {}
 
     override fun onBackPressed() = false
@@ -93,7 +112,5 @@ abstract class BaseFragment : Fragment(), BackPressHandler {
 
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
-    protected fun addFragment(@IdRes containerViewId: Int, fragment: Fragment) = childFragmentManager.beginTransaction().add(containerViewId, fragment).addToBackStack(fragment::class.simpleName).commit()
-    protected fun replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) = childFragmentManager.beginTransaction().replace(containerViewId, fragment).commit()
-    fun popFragment() = childFragmentManager.popBackStack()
+    protected fun showWaiter(show: Boolean) = waiterSubject?.onNext(show)
 }

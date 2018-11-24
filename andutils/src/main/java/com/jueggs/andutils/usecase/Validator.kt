@@ -1,5 +1,5 @@
 package com.jueggs.andutils.usecase
 
-interface ValidationUseCase<TData> {
+interface Validator<TData> {
     suspend fun validate(data: TData): ValidationResult
 }

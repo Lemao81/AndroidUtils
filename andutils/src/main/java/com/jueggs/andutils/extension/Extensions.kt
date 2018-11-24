@@ -16,6 +16,9 @@ import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.common.api.*
 import com.jueggs.andutils.*
+import com.jueggs.andutils.aac.Alter
+import com.jueggs.andutils.aac.StateEvent
+import com.jueggs.andutils.aac.Trigger
 import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.interfaces.Disposable
 import kotlinx.coroutines.channels.SendChannel
@@ -102,3 +105,6 @@ suspend fun <T> SendChannel<T>.sendAndClose(element: T) {
     send(element)
     close()
 }
+
+suspend fun <TState> SendChannel<StateEvent<TState>>.alter(action: TState.() -> TState) = send(Alter(action))
+suspend fun <TState> SendChannel<StateEvent<TState>>.trigger(action: TState.() -> TState) = send(Trigger(action))

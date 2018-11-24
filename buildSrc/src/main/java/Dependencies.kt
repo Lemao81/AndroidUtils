@@ -7,8 +7,8 @@ object Versions {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.60"
-    const val jutils = "1.0.14"
+    const val andutils = "1.0.69"
+    const val jutils = "1.0.16"
     const val firebaseutils = "1.0.5"
     const val resutils = "1.0.5"
     const val andtestutils = "1.0.8"
@@ -42,7 +42,7 @@ object Versions {
     const val constraintLayout = "1.1.3"
     const val mosbyMvi = "3.1.0"
     const val dagger = "2.15"
-    const val joda = "2.9.9"
+    const val joda = "2.10.1"
     const val crystalRange = "1.1.3"
     const val imageCropper = "2.5.1"
     const val imageCompressor = "2.1.0"
