@@ -15,9 +15,9 @@ fun Any.findDeclaredField(name: String, modifiers: Int = 0x11111111): Field? = j
 
 fun Any.findField(name: String, modifiers: Int = 0x11111111): Field? = javaClass.getAllFields().firstOrNull { it.name == name && (it.modifiers and modifiers) != 0 }
 
-fun <T> Class<T>.getAllMethods(): List<Method> = collectInheritedMethods(mutableListOf(), this)
+fun <T> Class<T>.getAllMethods(): List<Method> = Util.collectInheritedMethods(mutableListOf(), this)
 
-fun <T> Class<T>.getAllFields(): List<Field> = collectInheritedFields(mutableListOf(), this)
+fun <T> Class<T>.getAllFields(): List<Field> = Util.collectInheritedFields(mutableListOf(), this)
 
 fun <T : Any, R> KStubbing<T>.onBlocking(methodCall: suspend T.() -> R): OngoingStubbing<R> {
     val mockField = KStubbing::class.java.getDeclaredField("mock").apply { isAccessible = true }

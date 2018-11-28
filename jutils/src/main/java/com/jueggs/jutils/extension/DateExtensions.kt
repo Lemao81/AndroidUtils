@@ -1,5 +1,7 @@
 package com.jueggs.jutils.extension
 
+import org.joda.time.LocalDate
+import org.joda.time.Years
 import java.util.*
 
 val Calendar.year: Int
@@ -16,3 +18,5 @@ val Date.unixTime: Long
 
 val Long.unixDate: Date
     get() = Date(this * 1000)
+
+fun LocalDate.toAge() = Years.yearsBetween(this, LocalDate.now()).years

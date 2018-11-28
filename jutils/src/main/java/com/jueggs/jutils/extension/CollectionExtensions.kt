@@ -1,10 +1,10 @@
 package com.jueggs.jutils.extension
 
-import com.jueggs.jutils.randomInt
+import com.jueggs.jutils.Random
 
 fun List<Any>.join(separator: String): String = joinToString(separator = separator, transform = { it.toString() })
 
-fun <T> List<T>.random(): T = this[randomInt(0, size - 1)]
+fun <T> List<T>.random(): T = this[Random.int(0, size - 1)]
 
 fun <T> List<T>.second(): T = this[1]
 
