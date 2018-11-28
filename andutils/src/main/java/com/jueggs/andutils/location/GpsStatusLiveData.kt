@@ -1,11 +1,14 @@
-package com.jueggs.andutils.provider
+package com.jueggs.andutils.location
 
 import android.arch.lifecycle.LiveData
 import android.content.*
 import android.location.LocationManager
+import com.jueggs.andutils.state.Disabled
+import com.jueggs.andutils.state.Enabled
+import com.jueggs.andutils.state.ProviderState
 import org.jetbrains.anko.locationManager
 
-class GpsStatusLiveData(context: Context) : LiveData<ProviderStatus>() {
+class GpsStateLiveData(context: Context) : LiveData<ProviderState>() {
     private val appContext = context.applicationContext
     private val gpsReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) = checkGpsStatus()
