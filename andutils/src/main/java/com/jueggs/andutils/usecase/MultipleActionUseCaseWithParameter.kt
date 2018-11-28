@@ -1,7 +1,7 @@
 package com.jueggs.andutils.usecase
 
+import com.jueggs.andutils.AUtil.produceEvents
 import com.jueggs.andutils.aac.StateEvent
-import com.jueggs.andutils.produceEvents
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.channels.ReceiveChannel
@@ -19,7 +19,7 @@ abstract class MultipleActionUseCaseWithParameter<TParameter, TViewState> {
         }
     }
 
-    abstract fun onTry(param: TParameter): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit
-    abstract fun onCatch(ex: Exception): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit
     open fun onFinally(): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit = {}
+    abstract fun onCatch(ex: Exception): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit
+    abstract fun onTry(param: TParameter): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit
 }

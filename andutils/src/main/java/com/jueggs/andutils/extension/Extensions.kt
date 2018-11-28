@@ -10,6 +10,7 @@ import android.support.annotation.IdRes
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.widget.Toolbar
+import android.util.Patterns
 import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.NavController
@@ -108,3 +109,9 @@ suspend fun <T> SendChannel<T>.sendAndClose(element: T) {
 
 suspend fun <TState> SendChannel<StateEvent<TState>>.alter(action: TState.() -> TState) = send(Alter(action))
 suspend fun <TState> SendChannel<StateEvent<TState>>.trigger(action: TState.() -> TState) = send(Trigger(action))
+
+val CharSequence?.isValidEmail: Boolean
+    get() = !this.isNullOrBlank() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+val CharSequence?.isInvalidEmail: Boolean
+    get() = this.isNullOrBlank() || !Patterns.EMAIL_ADDRESS.matcher(this).matches()

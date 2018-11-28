@@ -8,7 +8,7 @@ import android.transition.TransitionInflater
 import com.jueggs.andutils.adapter.StandardFragmentPagerAdapter
 import com.jueggs.andutils.helper.DatePicker
 import androidx.core.os.bundleOf
-import com.jueggs.jutils.areNull
+import com.jueggs.jutils.Util.areAllNull
 import org.jetbrains.anko.*
 import org.joda.time.LocalDate
 
@@ -31,7 +31,7 @@ fun Fragment.showSelection(@StringRes titleResId: Int?, @ArrayRes arrayResId: In
     context?.showSelection(titleResId, arrayResId, onSelectIndex, onSelectString)
 
 fun Fragment.setNavigationTransitions(@TransitionRes enterResId: Int?, @TransitionRes exitResId: Int?, @TransitionRes reenterResId: Int?, @TransitionRes returnResId: Int?) {
-    if (areNull(enterResId, exitResId, reenterResId, returnResId)) return
+    if (areAllNull(enterResId, exitResId, reenterResId, returnResId)) return
 
     val transitionInflater = TransitionInflater.from(this.context)
     enterResId?.let { enterTransition = transitionInflater.inflateTransition(it) }

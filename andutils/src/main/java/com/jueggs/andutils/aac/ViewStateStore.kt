@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.channels.*
 import kotlin.coroutines.CoroutineContext
 
+@ObsoleteCoroutinesApi
 class ViewStateStore<TViewState>(private val initialState: TViewState) : CoroutineScope {
     private val store = MutableLiveData<TViewState>()
     private val job = Job()
@@ -32,7 +33,6 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
         }
     }
 
-    @ObsoleteCoroutinesApi
     fun dispatchActions(channel: ReceiveChannel<StateEvent<TViewState>>) {
         launch { channel.consumeEach { handleEvent(it) } }
     }

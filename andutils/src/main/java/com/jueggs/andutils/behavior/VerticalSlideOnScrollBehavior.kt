@@ -4,7 +4,7 @@ import android.content.Context
 import android.support.design.widget.*
 import android.util.AttributeSet
 import android.view.*
-import com.jueggs.jutils.cropToRange
+import com.jueggs.jutils.Util.cropToRange
 
 class VerticalSlideOnScrollBehavior<TView : View>(context: Context, attrs: AttributeSet) : AbstractVerticalScrollBehavior<TView>(context, attrs) {
 

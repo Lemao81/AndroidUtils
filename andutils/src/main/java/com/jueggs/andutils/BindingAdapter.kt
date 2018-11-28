@@ -9,6 +9,7 @@ import android.widget.*
 import com.jueggs.andutils.extension.loadOrDefault
 import com.jueggs.andutils.helper.*
 import com.jueggs.jutils.extension.join
+import com.jueggs.jutils.extension.toAge
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 
@@ -80,4 +81,9 @@ fun TextView.setHtml(html: String) {
 @BindingAdapter("number")
 fun TextView.setNumber(number: Number) {
     text = number.toString()
+}
+
+@BindingAdapter("age")
+fun TextView.setAge(dateOfBirth: LocalDate?) {
+    text = dateOfBirth?.toAge()?.toString()
 }

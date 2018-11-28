@@ -7,8 +7,8 @@ object Versions {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.69"
-    const val jutils = "1.0.16"
+    const val andutils = "1.0.71"
+    const val jutils = "1.0.19"
     const val firebaseutils = "1.0.5"
     const val resutils = "1.0.5"
     const val andtestutils = "1.0.8"
@@ -79,6 +79,7 @@ object Versions {
     const val permissions = "3.7"
     const val ktlint = "0.29.0"
     const val androidxTestCore = "1.0.0"
+    const val autoDsl = "0.0.9"
 }
 
 object Lib {
@@ -116,13 +117,15 @@ object Lib {
     const val rxBinding = "com.jakewharton.rxbinding2:rxbinding-kotlin:${Versions.rxBinding}"
     const val rxBindingRecyclerView = "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7-kotlin:${Versions.rxBinding}"
     const val rxDisposer = "io.sellmair:disposer:${Versions.rxDisposer}"
+    const val databindingBase = "com.android.databinding:baseLibrary:${Versions.androidGradlePlugin}"
     const val databindingCompiler = "com.android.databinding:compiler:${Versions.androidGradlePlugin}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseCore}"
     const val firebaseDatabase = "com.google.firebase:firebase-database:${Versions.firebaseDatabase}"
     const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
     const val firebaseCrash = "com.google.firebase:firebase-crash:${Versions.firebaseCrash}"
     const val firebaseStorage = "com.google.firebase:firebase-storage:${Versions.firebaseStorage}"
-    const val firebaseUi = "com.firebaseui:firebase-ui-database:${Versions.firebaseUi}"
+    const val firebaseUiDatabase = "com.firebaseui:firebase-ui-database:${Versions.firebaseUi}"
+    const val firebaseUiAuth = "com.firebaseui:firebase-ui-auth:${Versions.firebaseUi}"
     const val gmsBase = "com.google.android.gms:play-services-base:${Versions.gmsBase}"
     const val gmsLocation = "com.google.android.gms:play-services-location:${Versions.gmsLocation}"
     const val mosbyMvi = "com.hannesdorfmann.mosby3:mvi:${Versions.mosbyMvi}"
@@ -131,7 +134,7 @@ object Lib {
     const val ankoCommons = "org.jetbrains.anko:anko-commons:${Versions.anko}"
     const val dagger = "com.google.dagger:dagger-android:${Versions.dagger}"
     const val daggerSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
-    const val daggerProc = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
+    const val daggerProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"
     const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.dagger}"
     const val joda = "joda-time:joda-time:${Versions.joda}"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
@@ -142,7 +145,7 @@ object Lib {
     const val circleImageView = "de.hdodenhof:circleimageview:${Versions.circleImageView}"
     const val keyboardVisibility = "net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:${Versions.keyboardVisibility}"
     const val mapStruct = "org.mapstruct:mapstruct-jdk8:${Versions.mapStruct}"
-    const val mapStructProc = "org.mapstruct:mapstruct-processor:${Versions.mapStruct}"
+    const val mapStructProcessor = "org.mapstruct:mapstruct-processor:${Versions.mapStruct}"
     const val crashLytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashLytics}"
     const val apacheValidator = "commons-validator:commons-validator:${Versions.apacheValidator}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
@@ -175,6 +178,8 @@ object Lib {
     const val khttp = "khttp:khttp:${Versions.khttp}"
     const val permissions = "com.nabinbhandari.android:permissions:${Versions.permissions}"
     const val ktlint = "com.github.shyiko:ktlint:${Versions.ktlint}"
+    const val autoDsl = "com.juanchosaravia.autodsl:annotation:${Versions.autoDsl}"
+    const val autoDslProcessor = "com.juanchosaravia.autodsl:processor:${Versions.autoDsl}"
 
     // testing
     const val jUnit = "junit:junit:${Versions.jUnit}"
@@ -223,7 +228,8 @@ object Urls {
     const val mavenLocalInternal = "http://localhost:8080/repository/internal"
     const val fabric = "https://maven.fabric.io/public"
     const val jitpack = "https://jitpack.io"
-    const val maven = "https://maven.google.com/"
+    const val maven = "https://maven.google.com"
+    const val autoDsl = "https://dl.bintray.com/juanchosaravia/autodsl"
 }
 
 object Const {

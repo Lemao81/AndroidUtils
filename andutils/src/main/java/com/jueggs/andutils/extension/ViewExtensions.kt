@@ -7,6 +7,8 @@ import android.view.*
 import android.view.animation.AnticipateInterpolator
 import android.widget.*
 import com.jueggs.andutils.*
+import com.jueggs.andutils.AUtil.hasText
+import com.jueggs.andutils.adapter.TextWatcherAdapter
 
 fun TextView.asString(): String = text.toString()
 

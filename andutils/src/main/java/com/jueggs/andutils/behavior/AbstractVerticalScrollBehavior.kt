@@ -3,10 +3,10 @@ package com.jueggs.andutils.behavior
 import android.content.Context
 import android.support.design.widget.*
 import android.util.AttributeSet
-import android.view.Gravity.TOP
 import android.view.View
 import androidx.core.content.withStyledAttributes
 import com.jueggs.andutils.*
+import com.jueggs.andutils.AUtil.isVerticalScroll
 
 abstract class AbstractVerticalScrollBehavior<TView : View>(context: Context, attrs: AttributeSet) : CoordinatorLayout.Behavior<TView>(context, attrs) {
     protected var acceleration: Float = 1f

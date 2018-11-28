@@ -13,7 +13,6 @@ android {
         versionName App.versionName
         multiDexEnabled true
     }
-    dataBinding { enabled = true }
     lintOptions { abortOnError false }
     buildTypes {
         release {
