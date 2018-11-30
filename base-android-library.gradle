@@ -1,0 +1,34 @@
+import buildSrc.*
+
+apply plugin: PluginId.androidLibrary
+apply plugin: PluginId.kotlinAndroid
+
+android {
+    compileSdkVersion App.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+        versionCode App.versionCode
+        versionName App.versionName
+
+        multiDexEnabled true
+        testInstrumentationRunner Const.androidTestRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = Version.java8
+        targetCompatibility = Version.java8
+    }
+}
+
+dependencies {
+    implementation Lib.kotlinStd8
+}

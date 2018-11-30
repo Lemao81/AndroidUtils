@@ -1,0 +1,5 @@
+import buildSrc.*
+
+apply from: Path.baseKapt
+
+android.dataBinding { enabled = true }

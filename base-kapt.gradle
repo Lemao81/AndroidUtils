@@ -1,0 +1,5 @@
+import buildSrc.*
+
+apply plugin: PluginId.kotlinKapt
+
+kapt { useBuildCache = true }

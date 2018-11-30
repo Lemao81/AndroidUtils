@@ -1,34 +1,10 @@
-apply plugin: 'java-library'
-apply plugin: 'kotlin'
-apply plugin: 'maven'
-apply plugin: 'custom-archivaupload'
+import buildSrc.*
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath Plugins.kotlin
-    }
-}
-
-sourceCompatibility = Versions.java8
-targetCompatibility = Versions.java8
-
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = Versions.java8
-    }
-}
-
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = Versions.java8
-    }
-}
+apply from: Path.baseJavaLibrary
+apply plugin: PluginId.maven
+apply plugin: PluginId.archivaUpload
 
 dependencies {
-    implementation Lib.kotlinStd8
     implementation Lib.kotlinCoroutine
     implementation Lib.mockito
     implementation Lib.jUnit

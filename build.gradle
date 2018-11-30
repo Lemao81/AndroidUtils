@@ -1,14 +1,18 @@
+import buildSrc.*
+
+apply from: Path.baseProject
+
 buildscript {
     repositories {
         google()
         jcenter()
-        maven { url Urls.mavenLocalInternal }
+        maven { url Url.mavenLocalInternal }
     }
     dependencies {
-        classpath Plugins.androidGradle
-        classpath Plugins.kotlin
-        classpath Plugins.gms
-        classpath Plugins.custom
+        classpath Plugin.androidGradle
+        classpath Plugin.kotlin
+        classpath Plugin.gms
+        classpath Plugin.custom
     }
 }
 
@@ -16,12 +20,10 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url Urls.mavenLocalInternal }
+        maven { url Url.mavenLocalInternal }
     }
-    tasks.whenTaskAdded { task ->
-        if (task.name.startsWith("lint"))
-            task.enabled = false
-    }
+
+    disableLintTasks(it)
 }
 
 task clean(type: Delete) {

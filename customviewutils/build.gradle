@@ -1,28 +1,10 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'maven'
-apply plugin: 'custom-archivaupload'
+import buildSrc.*
 
-android {
-    compileSdkVersion App.compileSdkVersion
-    defaultConfig {
-        minSdkVersion App.minSdkVersion
-        targetSdkVersion App.targetSdkVersion
-        versionCode App.versionCode
-        versionName App.versionName
-
-        multiDexEnabled true
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-}
+apply from: Path.baseAndroidLibrary
+apply plugin: PluginId.maven
+apply plugin: PluginId.archivaUpload
 
 dependencies {
-    implementation Lib.kotlinStd8
     implementation Lib.supportAppcompat
     implementation Lib.androidKtx
 }
