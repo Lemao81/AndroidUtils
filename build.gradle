@@ -8,6 +8,7 @@ buildscript {
         jcenter()
         maven { url Url.mavenLocalInternal }
     }
+
     dependencies {
         classpath Plugin.androidGradle
         classpath Plugin.kotlin
@@ -17,18 +18,6 @@ buildscript {
 }
 
 allprojects {
-    repositories {
-        google()
-        jcenter()
-        maven { url Url.mavenLocalInternal }
-    }
-
+    configureBaseRepositories(it)
     disableLintTasks(it)
-}
-
-task clean(type: Delete) {
-    group 'Cleanup'
-    doLast {
-        delete rootProject.buildDir
-    }
 }

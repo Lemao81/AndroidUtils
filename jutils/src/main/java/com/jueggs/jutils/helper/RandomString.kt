@@ -7,9 +7,10 @@ class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = 
     private val symbols: CharArray
     private val buffer: CharArray
 
-    fun nextString(): String {
+    operator fun invoke(): String {
         for (index in buffer.indices)
             buffer[index] = symbols[random.nextInt(symbols.size)]
+
         return String(buffer)
     }
 

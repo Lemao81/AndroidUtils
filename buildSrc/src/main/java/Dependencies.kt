@@ -9,7 +9,7 @@ object Version {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.72"
+    const val andutils = "1.0.73"
     const val jutils = "1.0.19"
     const val firebaseutils = "1.0.5"
     const val resutils = "1.0.5"
@@ -248,10 +248,12 @@ object BuildType {
 }
 
 object Path {
-    const val baseProject = "base-project.gradle"
-    const val baseAndroidLibrary = "../base-android-library.gradle"
-    const val baseJavaLibrary = "../base-java-library.gradle"
-    const val baseKotlinAndroidExtension = "../base-kotlin-android-extension.gradle"
-    const val baseKapt = "../base-kapt.gradle"
-    const val baseDatabinding = "../base-databinding.gradle"
+    const val baseProject = "../base/gradlefiles/base/base-project.gradle"
+    const val baseAndroidLibrary = "../../base/gradlefiles/base/base-android-library.gradle"
+    const val baseJavaLibrary = "../../base/gradlefiles/base/base-java-library.gradle"
+    const val baseKotlinAndroidExtension = "../../base/gradlefiles/base/base-kotlin-android-extension.gradle"
+    const val baseKapt = "../../base/gradlefiles/base/base-kapt.gradle"
+    const val baseDatabinding = "../../base/gradlefiles/base/base-databinding.gradle"
+    const val baseFlavors = "../../base/gradlefiles/base/base-flavors.gradle"
+    const val ktlint = "../../base/gradlefiles/ktlint.gradle"
 }

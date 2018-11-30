@@ -9,7 +9,7 @@ import java.lang.Exception
 
 @ExperimentalCoroutinesApi
 abstract class MultipleActionUseCaseWithParameter<TParameter, TViewState> {
-    fun execute(param: TParameter): ReceiveChannel<StateEvent<TViewState>> = produceEvents {
+    operator fun invoke(param: TParameter): ReceiveChannel<StateEvent<TViewState>> = produceEvents {
         try {
             onTry(param).invoke(this)
         } catch (ex: Exception) {
@@ -19,7 +19,7 @@ abstract class MultipleActionUseCaseWithParameter<TParameter, TViewState> {
         }
     }
 
-    open fun onFinally(): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit = {}
-    abstract fun onCatch(ex: Exception): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit
     abstract fun onTry(param: TParameter): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit
+    abstract fun onCatch(ex: Exception): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit
+    open fun onFinally(): suspend ProducerScope<StateEvent<TViewState>>.() -> Unit = {}
 }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.*
 class DistinctRandom<T>(private val values: List<T>) {
     private val set = mutableSetOf<T>()
 
-    fun next(): T {
+    operator fun invoke(): T {
         return runBlocking {
             withTimeout(3000) {
                 var next: T

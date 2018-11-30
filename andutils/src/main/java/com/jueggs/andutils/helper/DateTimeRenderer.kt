@@ -4,9 +4,9 @@ import com.jueggs.andutils.DEFAULT_DATETIME_FORMAT
 import org.joda.time.*
 
 class DateTimeRenderer(private val format: String? = DEFAULT_DATETIME_FORMAT) {
-    fun render(millis: Long) = render(DateTime(millis))
+    operator fun invoke(millis: Long) = invoke(DateTime(millis))
 
-    fun render(then: DateTime): String {
+    operator fun invoke(then: DateTime): String {
         val now = DateTime()
         return when {
             then.isWithinLastMinute(now) -> "just now"

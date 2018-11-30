@@ -110,21 +110,3 @@ inline fun <reified T : Any> addTask(ref: Pair<DatabaseReference, Int>, tasks: A
     }
 }
 //endregion
-
-//        inline fun <reified T : Any> addTaskTest(ref: DatabaseReference, tasks: ArrayList<Task<*>>) {
-//            val genericTypeParameters = T::class.typeParameters
-//
-//            if (genericTypeParameters.any()) {
-//                val taskSource = TaskCompletionSource<T>()
-//                readListInternal(genericTypeParameters.first().javaClass, ref, taskSource)
-//                tasks.add(taskSource.task)
-//            } else {
-//                val taskSource = TaskCompletionSource<T>()
-//                ref.toModelSingle<T> { taskSource.setResult(it) }
-//                tasks.add(taskSource.task)
-//            }
-//        }
-//
-//        inline fun <reified X : Any, Y:List<X>> readListInternal(klass: Class<out X>, ref: DatabaseReference, taskSource: TaskCompletionSource<Y>) {
-//            ref.toModelListSingle<X> { taskSource.setResult(it) }
-//        }

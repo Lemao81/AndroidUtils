@@ -5,7 +5,6 @@ import android.support.annotation.MainThread
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicBoolean
 
-
 class SingleLiveEvent<T> : MediatorLiveData<T>() {
     private val observers = ConcurrentHashMap<LifecycleOwner, MutableSet<ObserverWrapper<T>>>()
 

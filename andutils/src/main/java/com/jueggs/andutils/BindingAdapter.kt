@@ -65,7 +65,7 @@ fun TextView.setDate(date: LocalDate?, format: String?) {
 
 @BindingAdapter(value = ["renderedDate", "renderedDateFormat"], requireAll = false)
 fun TextView.setRenderedDate(dateTime: DateTime?, format: String?) {
-    text = dateTime?.let { DateTimeRenderer(format).render(dateTime) }
+    text = dateTime?.let { DateTimeRenderer(format)(dateTime) }
 }
 
 @BindingAdapter(value = ["join", "separator"], requireAll = false)
