@@ -4,15 +4,24 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import androidx.core.content.withStyledAttributes
+import com.log4k.e
 
-abstract class AbstractAttributeStore<T : Any> {
-    lateinit var attributes: T
+abstract class AbstractAttributeStore<T : Any>(context: Context, attrs: AttributeSet?, stylableResId: IntArray) {
+    val attributes: T by lazy {
+        val result = createAttributes(context.applicationContext)
+        attrs?.let { context.applicationContext.withStyledAttributes(it, stylableResId, block = initializeAttributes(context.applicationContext, result)) }
 
-    protected fun init(context: Context, attrs: AttributeSet?, stylableResId: IntArray) {
-        this.attributes = createAttributes(context)
-        attrs?.let { context.withStyledAttributes(it, stylableResId, block = setAttributes(context, attributes)) }
+        try {
+            with(result, validateAttributes())
+        } catch (ex: Exception) {
+            e(ex.message ?: "", ex)
+            throw ex
+        }
+
+        result
     }
 
     abstract fun createAttributes(context: Context): T
-    abstract fun setAttributes(context: Context, attributes: T): TypedArray.() -> Unit
+    abstract fun initializeAttributes(context: Context, attributes: T): TypedArray.() -> Unit
+    open fun validateAttributes(): T.() -> Unit = {}
 }
