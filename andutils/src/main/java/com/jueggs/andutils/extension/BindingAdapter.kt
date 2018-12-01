@@ -1,4 +1,4 @@
-package com.jueggs.andutils
+package com.jueggs.andutils.extension
 
 import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
@@ -6,8 +6,10 @@ import android.text.Html
 import android.view.View
 import android.view.View.*
 import android.widget.*
-import com.jueggs.andutils.extension.loadOrDefault
+import com.jueggs.andutils.Constant.DEFAULT_DATE_FORMAT
+import com.jueggs.andutils.GlideApp
 import com.jueggs.andutils.helper.*
+import com.jueggs.andutils.isNougatOrAboveUtil
 import com.jueggs.jutils.extension.join
 import com.jueggs.jutils.extension.toAge
 import org.joda.time.DateTime

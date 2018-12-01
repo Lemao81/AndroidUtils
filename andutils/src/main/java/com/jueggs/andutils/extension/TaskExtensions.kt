@@ -1,7 +1,7 @@
 package com.jueggs.andutils.extension
 
 import com.google.android.gms.tasks.Task
-import com.jueggs.andutils.util.logException
+import com.jueggs.andutils.d
 import io.reactivex.*
 import kotlin.coroutines.*
 
@@ -11,7 +11,7 @@ fun Task<Void>.success(action: () -> Unit) = addOnSuccessListener { action() }
 
 fun Task<Void>.fail(action: () -> Unit) = addOnFailureListener { action() }
 
-fun Task<Void>.logFailure() = addOnFailureListener { logException(it) }
+fun Task<Void>.logFailure() = addOnFailureListener { d(it) }
 
 fun <T> Task<T>.then(action: (Task<T>) -> Unit) = addOnCompleteListener { action(it) }
 

@@ -1,7 +1,7 @@
 package com.jueggs.andutils.extension
 
+import com.jueggs.andutils.d
 import com.jueggs.andutils.observable.*
-import com.jueggs.andutils.util.logDebug
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -12,7 +12,7 @@ fun <T> Observable<T>.scheduleCompMain(): Observable<T> = subscribeOn(Schedulers
 
 fun <T> Observable<T>.observeOnMain(): Observable<T> = observeOn(AndroidSchedulers.mainThread())
 
-fun <T> Observable<T>.logError(): Observable<T> = doOnError { logDebug(it.message) }
+fun <T> Observable<T>.logError(): Observable<T> = doOnError(::d)
 
 fun <T> Observable<T>.check(predicate: (T) -> Boolean): Observable<T> = CheckObservable(this, predicate)
 

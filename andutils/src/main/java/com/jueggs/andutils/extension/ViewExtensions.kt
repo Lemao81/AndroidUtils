@@ -7,7 +7,7 @@ import android.view.*
 import android.view.animation.AnticipateInterpolator
 import android.widget.*
 import com.jueggs.andutils.*
-import com.jueggs.andutils.AUtil.hasText
+import com.jueggs.andutils.Util.hasText
 import com.jueggs.andutils.adapter.TextWatcherAdapter
 
 fun TextView.asString(): String = text.toString()
@@ -109,8 +109,6 @@ inline fun View.doOnGlobalLayout(crossinline action: () -> Unit) {
         }
     })
 }
-
-inline fun <reified T : ViewGroup.LayoutParams> View.layoutParams(): T? = layoutParams as T
 
 fun BottomNavigationView.checkItem(@IdRes itemId: Int) {
     menu.findItem(itemId).isChecked = true

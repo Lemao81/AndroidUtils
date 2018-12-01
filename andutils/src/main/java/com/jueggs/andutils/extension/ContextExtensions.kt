@@ -25,7 +25,7 @@ fun Context.getStringArray(@ArrayRes resId: Int): Array<String> = resources.getS
 fun Context.getStringList(@ArrayRes resId: Int): List<String> = getStringArray(resId).asList()
 fun Context.getIntArray(@ArrayRes resId: Int): IntArray = resources.getIntArray(resId)
 fun Context.getDrawableCompat(@DrawableRes resId: Int): Drawable? = ContextCompat.getDrawable(this, resId)
-fun Context.createSharedElement(view: View, @StringRes resId: Int): android.util.Pair<View, String> = AUtil.createSharedElement(view, resources.getString(resId))
+fun Context.createSharedElement(view: View, @StringRes resId: Int): android.util.Pair<View, String> = Util.createSharedElement(view, resources.getString(resId))
 
 fun Context.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) {
     alert(message, title) {

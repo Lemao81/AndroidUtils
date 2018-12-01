@@ -1,6 +1,6 @@
 package com.jueggs.andutils.usecase
 
-import com.jueggs.andutils.AUtil.produceEvents
+import com.jueggs.andutils.Util.produceEvents
 import com.jueggs.andutils.aac.StateEvent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ProducerScope

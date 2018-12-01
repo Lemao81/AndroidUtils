@@ -18,7 +18,7 @@ import kotlinx.coroutines.channels.produce
 import java.lang.IllegalStateException
 import java.security.InvalidParameterException
 
-object AUtil {
+object Util {
     fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = pairOf(view, transitionName).toAndroidPair()
 
     fun viewsVisibleIf(condition: Boolean, vararg views: View) = views.forEach { if (condition) it.visibility = View.VISIBLE else it.visibility = View.GONE }

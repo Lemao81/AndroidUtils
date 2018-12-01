@@ -3,8 +3,8 @@ package com.jueggs.andutils.helper
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
-import com.jueggs.andutils.*
-import com.jueggs.andutils.util.logTagged
+import com.jueggs.andutils.Constant.FONT_DIR
+import com.log4k.e
 import java.io.IOException
 
 class FontCache(private var context: Context) {
@@ -13,20 +13,20 @@ class FontCache(private var context: Context) {
             val fileList = context.resources.assets.list(FONT_DIR)
             fileList?.forEach { filename ->
                 val alias = filename.substring(0, filename.lastIndexOf('.'))
-                fontMapping.put(alias, filename)
-                fontMapping.put(alias.toLowerCase(), filename)
+                fontMapping[alias] = filename
+                fontMapping[alias.toLowerCase()] = filename
             }
-        } catch (e: IOException) {
-            logTagged(TAG_FONT_CACHE, LOG_LEVEL_ERROR, "Error loading fonts from assets/fonts.")
+        } catch (ex: IOException) {
+            e("Error loading fonts from assets/fonts.", ex)
         }
     }
 
     fun addFont(name: String, fontFilename: String) {
-        fontMapping.put(name, fontFilename)
+        fontMapping[name] = fontFilename
     }
 
     operator fun get(fontName: String): Typeface? {
-        val fontFilename = checkNotNull(fontMapping.get(fontName)) {"Couldn't find font $fontName. Maybe you need to call addFont() first?"}
+        val fontFilename = checkNotNull(fontMapping[fontName]) { "Couldn't find font $fontName. Maybe you need to call addFont() first?" }
 
         return if (cache.containsKey(fontFilename)) {
             cache[fontFilename]
@@ -44,9 +44,9 @@ class FontCache(private var context: Context) {
         private val fontMapping = hashMapOf<String, String>()
 
         fun getInstance(context: Context): FontCache {
-            if (instance == null)
-                instance = FontCache(context.applicationContext)
-            return instance!!
+            if (instance == null) instance = FontCache(context.applicationContext)
+
+            return checkNotNull(instance)
         }
     }
 }

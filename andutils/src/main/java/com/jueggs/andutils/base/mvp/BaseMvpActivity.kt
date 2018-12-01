@@ -6,8 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.Toast
+import com.jueggs.andutils.Constant.STATE_VIEWMODEL
 import com.jueggs.andutils.R
-import com.jueggs.andutils.STATE_VIEWMODEL
 import com.jueggs.andutils.extension.hideKeyboard
 import com.jueggs.andutils.extension.setNavigationTransitions
 import com.jueggs.andutils.isLollipopOrAboveUtil

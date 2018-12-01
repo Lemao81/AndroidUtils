@@ -6,7 +6,7 @@ import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.Toast
-import com.jueggs.andutils.STATE_VIEWMODEL
+import com.jueggs.andutils.Constant.STATE_VIEWMODEL
 import com.jueggs.andutils.extension.hideKeyboard
 import com.jueggs.andutils.isLollipopOrAboveUtil
 import org.jetbrains.anko.support.v4.longToast

@@ -1,6 +1,6 @@
 package com.jueggs.andutils.helper
 
-import com.jueggs.andutils.DEFAULT_DATETIME_FORMAT
+import com.jueggs.andutils.Constant.DEFAULT_DATETIME_FORMAT
 import org.joda.time.*
 
 class DateTimeRenderer(private val format: String? = DEFAULT_DATETIME_FORMAT) {

@@ -10,7 +10,7 @@ import android.support.v4.app.*
 import android.support.v7.widget.Toolbar
 import android.view.*
 import androidx.navigation.NavController
-import com.jueggs.andutils.AUtil.checkCast
+import com.jueggs.andutils.Util.checkCast
 import com.jueggs.andutils.R
 import com.jueggs.andutils.extension.*
 import com.jueggs.andutils.interfaces.BackPressHandler
