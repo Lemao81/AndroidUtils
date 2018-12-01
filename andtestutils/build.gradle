@@ -3,6 +3,7 @@ import buildSrc.*
 apply from: Path.baseAndroidLibrary
 apply plugin: PluginId.maven
 apply plugin: PluginId.archivaUpload
+apply from: Path.baseArchivaUpload
 
 dependencies {
     implementation Lib.andutils
@@ -12,5 +13,4 @@ dependencies {
     implementation Lib.espressoCore
 }
 
-archiva { artifactId = "andtestutils" }
-uploadArchives { repositories { mavenDeployer() } }
+archiva.artifactId = "andtestutils"

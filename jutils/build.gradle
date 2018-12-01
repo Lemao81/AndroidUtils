@@ -3,6 +3,7 @@ import buildSrc.*
 apply from: Path.baseJavaLibrary
 apply plugin: PluginId.maven
 apply plugin: PluginId.archivaUpload
+apply from: Path.baseArchivaUpload
 
 dependencies {
     implementation Lib.kotlinCoroutine
@@ -17,4 +18,3 @@ archiva {
     artifactId = "jutils"
     packaging = "jar"
 }
-uploadArchives { repositories { mavenDeployer() } }

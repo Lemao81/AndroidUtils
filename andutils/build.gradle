@@ -5,6 +5,7 @@ apply from: Path.baseDatabinding
 apply from: Path.baseKapt
 apply plugin: PluginId.maven
 apply plugin: PluginId.archivaUpload
+apply from: Path.baseArchivaUpload
 
 dependencies {
     compileOnly fileTree(include: ['*.jar'], dir: 'libs')
@@ -33,10 +34,10 @@ dependencies {
     implementation Lib.kotlinCoroutineAndroid
     implementation Lib.archNavigationUi
     implementation Lib.permissions
+    implementation Lib.log4kAndroid
     kapt Lib.glideCompiler
 
     testImplementation Lib.jUnit
 }
 
 archiva.artifactId = "andutils"
-uploadArchives { repositories { mavenDeployer() } }

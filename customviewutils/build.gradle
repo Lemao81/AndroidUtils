@@ -3,11 +3,12 @@ import buildSrc.*
 apply from: Path.baseAndroidLibrary
 apply plugin: PluginId.maven
 apply plugin: PluginId.archivaUpload
+apply from: Path.baseArchivaUpload
 
 dependencies {
     implementation Lib.supportAppcompat
     implementation Lib.androidKtx
+    implementation Lib.log4kAndroid
 }
 
-archiva { artifactId = "customviewutils" }
-uploadArchives { repositories { mavenDeployer() } }
+archiva.artifactId = "customviewutils"

@@ -3,6 +3,7 @@ import buildSrc.*
 apply from: Path.baseAndroidLibrary
 apply plugin: PluginId.maven
 apply plugin: PluginId.archivaUpload
+apply from: Path.baseArchivaUpload
 
 dependencies {
     implementation Lib.rxJava
@@ -13,5 +14,4 @@ dependencies {
     implementation Lib.andutils
 }
 
-archiva { artifactId = "firebaseutils" }
-uploadArchives { repositories { mavenDeployer() } }
+archiva.artifactId = "firebaseutils"
