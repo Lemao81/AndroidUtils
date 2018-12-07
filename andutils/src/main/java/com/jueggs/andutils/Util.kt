@@ -29,7 +29,7 @@ object Util {
         if (!T::class.java.isAssignableFrom(obj::class.java)) throw TypeCastException("class ${obj::class.java.simpleName} must be assignable from ${T::class.java.simpleName}")
     }
 
-    fun hasText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.isNullOrEmpty() }
+    fun haveAllText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.isNullOrEmpty() }
 
     inline fun postDelayed(delayInMillis: Long, token: Any? = null, crossinline action: () -> Unit): Runnable = Handler().postDelayed(delayInMillis, token, action)
 

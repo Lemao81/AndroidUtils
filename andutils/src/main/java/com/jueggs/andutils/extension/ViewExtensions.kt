@@ -2,13 +2,12 @@ package com.jueggs.andutils.extension
 
 import android.support.annotation.*
 import android.support.design.widget.*
-import android.text.Editable
 import android.view.*
 import android.view.animation.AnticipateInterpolator
 import android.widget.*
 import com.jueggs.andutils.*
-import com.jueggs.andutils.Util.hasText
-import com.jueggs.andutils.adapter.TextWatcherAdapter
+import com.jueggs.andutils.Util.haveAllText
+import com.jueggs.andutils.adapter._addTextChangedListener
 
 fun TextView.asString(): String = text.toString()
 
@@ -49,13 +48,13 @@ fun View.withTransitionName(name: String): View {
 fun View.withTransitionName(@StringRes resId: Int): View = withTransitionName(context.getString(resId))
 
 fun View.addEnableTextWatcher(vararg inputFields: EditText) {
-    isEnabled = hasText(*inputFields)
-    val watcher = object : TextWatcherAdapter() {
-        override fun afterTextChanged(text: Editable?) {
-            isEnabled = hasText(*inputFields)
+    isEnabled = haveAllText(*inputFields)
+
+    inputFields.forEach {
+        it._addTextChangedListener {
+            _afterTextChanged { isEnabled = haveAllText(*inputFields) }
         }
     }
-    inputFields.forEach { it.addTextChangedListener(watcher) }
 }
 
 fun View.indefiniteSnackbar(message: CharSequence, actionText: CharSequence? = null, action: ((View) -> Unit)? = null) = createSnackbar(this, message, Snackbar.LENGTH_INDEFINITE, actionText, action)

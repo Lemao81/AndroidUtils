@@ -3,7 +3,7 @@ package com.jueggs.andutils.callback
 import android.annotation.SuppressLint
 import android.view.*
 
-class VerticalMoveListener(private val onMove: (Float) -> Unit) : View.OnTouchListener {
+class HorizontalMoveListener(private val onMove: (Float) -> Unit) : View.OnTouchListener {
     private var startX: Float = 0f
 
     @SuppressLint("ClickableViewAccessibility")
