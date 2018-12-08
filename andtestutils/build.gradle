@@ -7,10 +7,10 @@ apply from: Path.baseArchivaUpload
 
 dependencies {
     implementation Lib.andutils
-    implementation Lib.testRules
     implementation Lib.kakao
-    implementation Lib.uiAutomator
-    implementation Lib.espressoCore
+    implementation Lib.androidxTestRules
+    implementation Lib.androidxTestUiAutomator
+    implementation Lib.androidxTestEspressoCore
 }
 
 archiva.artifactId = "andtestutils"

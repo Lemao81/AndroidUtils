@@ -1,7 +1,7 @@
 package com.jueggs.andtestutils
 
-import org.junit.*
 import org.junit.Assert.assertEquals
+import org.junit.Test
 
 class FormatConstantsTest {
     @Test

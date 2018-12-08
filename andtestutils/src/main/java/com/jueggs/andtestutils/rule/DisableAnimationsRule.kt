@@ -1,8 +1,10 @@
 package com.jueggs.andtestutils.rule
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.uiautomator.UiDevice
-import com.jueggs.andtestutils.*
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
+import com.jueggs.andtestutils.SHELL_ANIMATOR_DURATION_SCALE_FORMAT
+import com.jueggs.andtestutils.SHELL_TRANSITION_ANIMATION_SCALE_FORMAT
+import com.jueggs.andtestutils.SHELL_WINDOW_ANIMATION_SCALE_FORMAT
 import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement

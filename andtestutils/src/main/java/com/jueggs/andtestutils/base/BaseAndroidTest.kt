@@ -1,10 +1,11 @@
 package com.jueggs.andtestutils.base
 
 import android.app.Activity
-import android.support.test.rule.ActivityTestRule
+import androidx.test.rule.ActivityTestRule
 import com.agoda.kakao.Screen
 import com.jueggs.andtestutils.rule.DisableAnimationsRule
-import org.junit.*
+import org.junit.ClassRule
+import org.junit.Rule
 import org.koin.dsl.context.ModuleDefinition
 import org.koin.dsl.module.module
 import org.koin.standalone.StandAloneContext.loadKoinModules

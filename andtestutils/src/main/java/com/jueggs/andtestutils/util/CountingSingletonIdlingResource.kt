@@ -1,6 +1,6 @@
 package com.jueggs.andtestutils.util
 
-import android.support.test.espresso.IdlingResource
+import androidx.test.espresso.IdlingResource
 import com.jueggs.andutils.test.CountingIdlingResource
 
 object CountingSingletonIdlingResource : IdlingResource {
