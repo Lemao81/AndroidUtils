@@ -1,13 +1,22 @@
 package com.jueggs.andutils.extension
 
-import android.support.annotation.*
-import android.support.design.widget.*
-import android.view.*
+import android.view.View
+import android.view.ViewTreeObserver
 import android.view.animation.AnticipateInterpolator
-import android.widget.*
-import com.jueggs.andutils.*
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.annotation.ArrayRes
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
+import com.jueggs.andutils.R
 import com.jueggs.andutils.Util.haveAllText
 import com.jueggs.andutils.adapter._addTextChangedListener
+import com.jueggs.andutils.isLollipopOrAboveUtil
 
 fun TextView.asString(): String = text.toString()
 

@@ -1,7 +1,9 @@
 package com.jueggs.andutils.adapter
 
 import android.content.Context
-import android.support.v4.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.jueggs.andutils.extension.getStringArray
 
 abstract class AbstractFragmentPagerAdapter(val context: Context?, fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {

@@ -1,6 +1,6 @@
 package com.jueggs.andutils.result
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 
 sealed class ValidationResult
 

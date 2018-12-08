@@ -1,7 +1,8 @@
 package com.jueggs.andutils.callback
 
 import android.annotation.SuppressLint
-import android.view.*
+import android.view.MotionEvent
+import android.view.View
 
 class HorizontalMoveListener(private val onMove: (Float) -> Unit) : View.OnTouchListener {
     private var startX: Float = 0f

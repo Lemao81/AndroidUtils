@@ -5,23 +5,20 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Parcelable
-import android.support.annotation.*
-import android.support.v4.app.*
-import android.support.v7.app.AppCompatActivity
 import android.transition.TransitionInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.ColorRes
+import androidx.annotation.TransitionRes
 import androidx.core.util.toAndroidPair
-import com.jueggs.andutils.*
-import com.jueggs.andutils.helper.DatePicker
+import com.jueggs.andutils.R
+import com.jueggs.andutils.isLollipopOrAboveUtil
 import com.jueggs.jutils.INVALID
 import com.jueggs.jutils.pairOf
 import org.jetbrains.anko.inputMethodManager
 import org.jetbrains.anko.intentFor
-import org.joda.time.LocalDate
 import java.security.InvalidParameterException
 
-//Activity
 fun Activity.getIntExtra(key: String): Int = intent.getIntExtra(key, INVALID)
 
 fun Activity.getStringExtra(key: String): String? = intent.getStringExtra(key)
@@ -112,33 +109,3 @@ fun Activity.setStatusbarColor(@ColorRes resId: Int) {
     if (isLollipopOrAboveUtil())
         window.statusBarColor = colorResToInt(resId)
 }
-
-fun AppCompatActivity.isFragmentVisible(@IdRes resId: Int) = supportFragmentManager.findFragmentById(resId) != null
-
-
-//AppCompatActivity
-fun AppCompatActivity.setHomeBackIcon(@DrawableRes resId: Int) = supportActionBar?.setHomeAsUpIndicator(resId)
-
-fun AppCompatActivity.setPaddingToStatusBarHeight(view: View) {
-    val resId = resources.getIdentifier("status_bar_height", "dimen", "android")
-    if (resId <= 0) return
-    view.setPadding(0, resources.getDimensionPixelSize(resId), 0, 0)
-}
-
-//FragmentActivity
-fun FragmentActivity.finishAfterTransitionCompat() {
-    if (isLollipopOrAboveUtil()) finishAfterTransition()
-    else supportFinishAfterTransition()
-}
-
-fun FragmentActivity.postponeEnterTransitionCompat() {
-    if (isLollipopOrAboveUtil()) postponeEnterTransition()
-    else supportPostponeEnterTransition()
-}
-
-fun FragmentActivity.startPostponedEnterTransitionCompat() {
-    if (isLollipopOrAboveUtil()) startPostponedEnterTransition()
-    else supportStartPostponedEnterTransition()
-}
-
-fun FragmentActivity.datePicker(date: LocalDate = LocalDate.now(), action: (LocalDate) -> Unit) = DatePicker(date, action).show(supportFragmentManager)

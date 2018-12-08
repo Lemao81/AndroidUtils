@@ -1,7 +1,7 @@
 package com.jueggs.andutils.helper
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 class DateFormatter {
     private val simpleDateFormatCache = hashMapOf<String, SimpleDateFormat>()

@@ -1,5 +1,5 @@
 package com.jueggs.andutils.observable
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.MediatorLiveData
 
 class NonNullMediatorLiveData<T> : MediatorLiveData<T>()

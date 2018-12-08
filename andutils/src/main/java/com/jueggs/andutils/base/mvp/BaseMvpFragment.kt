@@ -3,13 +3,18 @@ package com.jueggs.andutils.base.mvp
 import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.app.Fragment
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.jueggs.andutils.Constant.STATE_VIEWMODEL
 import com.jueggs.andutils.extension.hideKeyboard
+import com.jueggs.andutils.extension.longToast
 import com.jueggs.andutils.isLollipopOrAboveUtil
-import org.jetbrains.anko.support.v4.longToast
 
 abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Fragment(), BaseView {
     protected lateinit var viewModel: TViewModel
@@ -99,8 +104,8 @@ abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Frag
         else activity?.finish()
     }
 
-    override fun showLongToast(msg: String): Toast = longToast(msg)
-    override fun showLongToast(resId: Int, vararg formatArgs: Any): Toast {
+    override fun showLongToast(msg: String): Toast? = longToast(msg)
+    override fun showLongToast(resId: Int, vararg formatArgs: Any): Toast? {
         return if (formatArgs.any()) {
             val msg = getString(resId, formatArgs)
             longToast(msg)

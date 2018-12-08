@@ -1,8 +1,9 @@
 package com.jueggs.andutils.helper
 
-import android.arch.persistence.room.TypeConverter
-import com.jueggs.jutils.extension.*
-import java.util.*
+import androidx.room.TypeConverter
+import com.jueggs.jutils.extension.unixDate
+import com.jueggs.jutils.extension.unixTime
+import java.util.Date
 
 class UnixDateConverter {
     @TypeConverter

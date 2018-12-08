@@ -1,11 +1,12 @@
 package com.jueggs.andutils.adapter
 
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.jueggs.andutils.extension.*
-import com.jueggs.jutils.extension.*
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
+import com.jueggs.andutils.extension.layoutInflater
+import com.jueggs.jutils.extension.findField
+import com.jueggs.jutils.extension.findMethod
 import java.lang.reflect.Modifier
 
 abstract class BaseDatabindingAdapter(private var layoutIncluded: Boolean = false) : RecyclerView.Adapter<BaseDatabindingAdapter.ViewHolder>() {
@@ -35,7 +36,8 @@ abstract class BaseDatabindingAdapter(private var layoutIncluded: Boolean = fals
         private val bindingVariableId: Int,
         private val eventHandler: Any?,
         private val eventHandlerVariableId: Int?,
-        private val layoutIncluded: Boolean) : RecyclerView.ViewHolder(binding.root) {
+        private val layoutIncluded: Boolean
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Any) {
             binding.setVariable(bindingVariableId, item)

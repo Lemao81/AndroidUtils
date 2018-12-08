@@ -1,17 +1,27 @@
 package com.jueggs.andutils.extension
 
-import android.animation.*
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.content.*
-import android.graphics.drawable.*
-import android.support.annotation.*
-import android.support.v4.content.ContextCompat
+import android.content.Context
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.View
 import android.widget.ArrayAdapter
-import com.jueggs.andutils.*
+import androidx.annotation.ArrayRes
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import com.jueggs.andutils.Util.createSharedElement
 import com.jueggs.andutils.helper.ColorAnimator
-import org.jetbrains.anko.*
+import com.jueggs.andutils.isLollipopOrAboveUtil
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.connectivityManager
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.selector
+import org.jetbrains.anko.yesButton
 
 @SuppressLint("MissingPermission")
 fun Context.isNetworkConnected(): Boolean = connectivityManager.activeNetworkInfo?.isConnectedOrConnecting ?: false
@@ -25,7 +35,7 @@ fun Context.getStringArray(@ArrayRes resId: Int): Array<String> = resources.getS
 fun Context.getStringList(@ArrayRes resId: Int): List<String> = getStringArray(resId).asList()
 fun Context.getIntArray(@ArrayRes resId: Int): IntArray = resources.getIntArray(resId)
 fun Context.getDrawableCompat(@DrawableRes resId: Int): Drawable? = ContextCompat.getDrawable(this, resId)
-fun Context.createSharedElement(view: View, @StringRes resId: Int): android.util.Pair<View, String> = Util.createSharedElement(view, resources.getString(resId))
+fun Context.createSharedElement(view: View, @StringRes resId: Int): android.util.Pair<View, String> = createSharedElement(view, resources.getString(resId))
 
 fun Context.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) {
     alert(message, title) {

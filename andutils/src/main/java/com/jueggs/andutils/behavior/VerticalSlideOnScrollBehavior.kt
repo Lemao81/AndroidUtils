@@ -1,10 +1,12 @@
 package com.jueggs.andutils.behavior
 
 import android.content.Context
-import android.support.design.widget.*
 import android.util.AttributeSet
-import android.view.*
-import com.jueggs.jutils.Util.cropToRange
+import android.view.Gravity
+import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
+import com.jueggs.jutils.extension.cropTo
 
 class VerticalSlideOnScrollBehavior<TView : View>(context: Context, attrs: AttributeSet) : AbstractVerticalScrollBehavior<TView>(context, attrs) {
 
@@ -19,8 +21,8 @@ class VerticalSlideOnScrollBehavior<TView : View>(context: Context, attrs: Attri
         }
 
         child.translationY = when (gravity) {
-            TOP -> cropToRange(-childHeight, 0f, newTranslationY)
-            BOTTOM -> cropToRange(0f, childHeight, newTranslationY)
+            TOP -> newTranslationY.cropTo(-childHeight, 0f)
+            BOTTOM -> newTranslationY.cropTo(0f, childHeight)
             else -> throw IllegalStateException("Gravity must be 0 or 1")
         }
     }

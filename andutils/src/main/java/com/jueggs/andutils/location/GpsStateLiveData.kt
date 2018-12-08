@@ -1,8 +1,11 @@
 package com.jueggs.andutils.location
 
-import android.arch.lifecycle.LiveData
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.location.LocationManager
+import androidx.lifecycle.LiveData
 import com.jueggs.andutils.state.Disabled
 import com.jueggs.andutils.state.Enabled
 import com.jueggs.andutils.state.ProviderState

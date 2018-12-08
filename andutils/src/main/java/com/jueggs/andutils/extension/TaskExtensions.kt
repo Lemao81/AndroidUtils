@@ -2,8 +2,10 @@ package com.jueggs.andutils.extension
 
 import com.google.android.gms.tasks.Task
 import com.jueggs.andutils.d
-import io.reactivex.*
-import kotlin.coroutines.*
+import io.reactivex.Single
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 fun Task<Void>.then(action: () -> Unit) = addOnCompleteListener { action() }
 

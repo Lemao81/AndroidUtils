@@ -1,6 +1,7 @@
 package com.jueggs.andutils.base.mvi
 
-import io.reactivex.*
+import io.reactivex.Observable
+import io.reactivex.Single
 
 abstract class BaseMviInteractor<TViewState>(var viewState: TViewState) {
     fun justWithUpdate(state: TViewState): Observable<TViewState> = Observable.just(updateViewState(state))

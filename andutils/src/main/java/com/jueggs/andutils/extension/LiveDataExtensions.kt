@@ -1,6 +1,9 @@
 package com.jueggs.andutils.extension
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.jueggs.andutils.observable.NonNullMediatorLiveData
 import com.jueggs.andutils.util.SingleLiveEvent
 

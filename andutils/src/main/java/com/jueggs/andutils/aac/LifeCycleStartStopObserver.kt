@@ -1,6 +1,8 @@
 package com.jueggs.andutils.aac
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 
 open class LifeCycleStartStopObserver : LifecycleObserver {
     private var eventHandler: StartStopEventHandler? = null
@@ -27,6 +29,6 @@ open class LifeCycleStartStopObserver : LifecycleObserver {
 }
 
 // singleton usage:
-//object UniqueObserver : LifeCycleStartStopObserver()
-//UniqueObserver.registerLifeCycle(lifeCycle) at lifecycleowner
-//UniqueObserver.registerHandler(theHandler) at element implementing handler interface, wanting observe lifecycle
+// object UniqueObserver : LifeCycleStartStopObserver()
+// UniqueObserver.registerLifeCycle(lifeCycle) at lifecycleowner
+// UniqueObserver.registerHandler(theHandler) at element implementing handler interface, wanting observe lifecycle

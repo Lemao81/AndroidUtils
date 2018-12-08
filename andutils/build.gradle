@@ -10,31 +10,31 @@ apply from: Path.baseArchivaUpload
 dependencies {
     compileOnly fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation Lib.supportAppcompat
-    implementation Lib.supportDesign
-    implementation Lib.supportRecyclerView
-    implementation Lib.supportV4
-    implementation Lib.supportConstraintLayout
+    implementation Lib.jutils
+    implementation Lib.androidxAppcompat
+    implementation Lib.androidxCore
+    implementation Lib.androidxCoreKtx
+    implementation Lib.androidxRecyclerView
+    implementation Lib.androidxConstraintLayout
+    implementation Lib.material
     implementation Lib.rxJava
-    implementation Lib.rxDisposer
+    implementation Lib.rxJavaAndroid
     implementation Lib.kotlinReflect
     implementation Lib.gmsBase
     implementation Lib.anko
     implementation Lib.joda
     implementation Lib.glide
     implementation Lib.mosbyMvi
-    implementation Lib.rxJavaAndroid
-    implementation Lib.jutils
     implementation Lib.koinAndroid
-    implementation Lib.androidKtx
-    implementation Lib.archLifecycleExtensions
-    implementation Lib.archLifeCycleLiveDataCore
-    implementation Lib.archLifeCycleLiveData
-    implementation Lib.roomRuntime
+    implementation Lib.androidxLifecycleExtensions
+    implementation Lib.androidxLifecycleLiveData
+    implementation Lib.androidxLifecycleLiveDataCore
+    implementation Lib.androidxRoomRuntime
     implementation Lib.kotlinCoroutineAndroid
     implementation Lib.archNavigationUi
     implementation Lib.permissions
     implementation Lib.log4kAndroid
+
     kapt Lib.glideCompiler
 
     testImplementation Lib.jUnit

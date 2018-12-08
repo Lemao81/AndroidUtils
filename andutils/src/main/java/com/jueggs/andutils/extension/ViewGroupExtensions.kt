@@ -1,9 +1,13 @@
 package com.jueggs.andutils.extension
 
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.*
-import android.view.*
-import android.widget.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.CheckBox
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 inline fun <reified T : View> ViewGroup.findViews(): List<T> = (0..childCount).filter { getChildAt(it) is T }.map { it as T }
 
@@ -33,12 +37,12 @@ fun AdapterView<*>.asStringOrNull(): String? = if (selectedItem != null) selecte
 fun AdapterView<*>.asString(): String = selectedItem.toString()
 
 fun RecyclerView.withVerticalLinearLayoutManager(): RecyclerView {
-    layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
+    layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     return this
 }
 
 fun RecyclerView.withHorizontalLinearLayoutManager(): RecyclerView {
-    layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
+    layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
     return this
 }
 

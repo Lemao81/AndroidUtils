@@ -1,10 +1,17 @@
 package com.jueggs.andutils.aac
 
-import android.arch.lifecycle.*
-import kotlinx.coroutines.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 @ObsoleteCoroutinesApi

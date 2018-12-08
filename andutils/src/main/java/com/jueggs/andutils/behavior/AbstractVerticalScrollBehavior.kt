@@ -1,11 +1,11 @@
 package com.jueggs.andutils.behavior
 
 import android.content.Context
-import android.support.design.widget.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.withStyledAttributes
-import com.jueggs.andutils.*
+import com.jueggs.andutils.R
 import com.jueggs.andutils.Util.isVerticalScroll
 
 abstract class AbstractVerticalScrollBehavior<TView : View>(context: Context, attrs: AttributeSet) : CoordinatorLayout.Behavior<TView>(context, attrs) {

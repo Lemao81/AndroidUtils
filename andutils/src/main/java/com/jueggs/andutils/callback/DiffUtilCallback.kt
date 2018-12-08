@@ -1,7 +1,7 @@
 package com.jueggs.andutils.callback
 
-import android.support.v7.util.DiffUtil
-import kotlin.reflect.*
+import androidx.recyclerview.widget.DiffUtil
+import kotlin.reflect.KProperty1
 
 class DiffUtilCallback<T>(private var oldList: List<T>, private var newList: List<T>, private val idProperty: KProperty1<T, *>, private val getChangePayload: ((Int, Int) -> Any?)? = null)
     : DiffUtil.Callback() {

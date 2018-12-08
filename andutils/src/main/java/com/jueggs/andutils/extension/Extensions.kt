@@ -1,30 +1,39 @@
 package com.jueggs.andutils.extension
 
 import android.animation.ValueAnimator
-import android.app.*
-import android.arch.lifecycle.*
-import android.databinding.ObservableField
+import android.app.Activity
+import android.app.Application
 import android.graphics.Bitmap
-import android.graphics.drawable.*
-import android.support.annotation.IdRes
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.widget.Toolbar
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
 import android.util.Patterns
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import androidx.annotation.IdRes
+import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.databinding.ObservableField
+import androidx.lifecycle.AndroidViewModel
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.common.api.*
-import com.jueggs.andutils.*
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.ResolvableApiException
+import com.jueggs.andutils.GlideRequest
+import com.jueggs.andutils.GlideRequests
 import com.jueggs.andutils.aac.Alter
 import com.jueggs.andutils.aac.StateEvent
 import com.jueggs.andutils.aac.Trigger
 import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.interfaces.Disposable
+import io.reactivex.internal.disposables.DisposableContainer
 import kotlinx.coroutines.channels.SendChannel
 import java.io.ByteArrayOutputStream
-import kotlin.reflect.*
+import kotlin.reflect.KFunction1
 
 fun ApiException.startResolutionForResult(activity: Activity, requestCode: Int) {
     if (this !is ResolvableApiException) return
@@ -115,3 +124,5 @@ val CharSequence?.isValidEmail: Boolean
 
 val CharSequence?.isInvalidEmail: Boolean
     get() = this.isNullOrBlank() || !Patterns.EMAIL_ADDRESS.matcher(this).matches()
+
+fun io.reactivex.disposables.Disposable.disposedBy(container: DisposableContainer): Boolean = container.add(this)

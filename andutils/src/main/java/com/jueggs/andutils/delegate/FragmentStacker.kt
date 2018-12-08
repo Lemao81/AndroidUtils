@@ -1,8 +1,8 @@
 package com.jueggs.andutils.delegate
 
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 object FragmentStacker : FragmentStack {
     override fun addFragment(fragmentManager: FragmentManager?, @IdRes containerViewId: Int, fragment: Fragment) {

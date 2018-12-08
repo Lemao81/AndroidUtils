@@ -1,7 +1,8 @@
 package com.jueggs.andutils.observable
 
 import com.jueggs.andutils.extension.check
-import io.reactivex.*
+import io.reactivex.Single
+import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 
 class CheckSingleObserver<T>(private val actual: SingleObserver<in T>, private val predicate: (T) -> Boolean) : SingleObserver<T>, Disposable {

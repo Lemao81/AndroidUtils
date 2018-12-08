@@ -1,7 +1,7 @@
 package com.jueggs.andutils.extension
 
-import android.support.annotation.LayoutRes
 import android.widget.ArrayAdapter
+import androidx.annotation.LayoutRes
 
 fun <T> ArrayAdapter<T>.withSimpleSpinnerDropdown(): ArrayAdapter<T> {
     setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

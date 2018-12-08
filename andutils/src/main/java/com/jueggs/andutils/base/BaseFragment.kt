@@ -1,27 +1,43 @@
 package com.jueggs.andutils.base
 
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.*
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.jueggs.andutils.extension.disposedBy
 import com.jueggs.andutils.extension.gone
 import com.jueggs.andutils.extension.observeOnMain
 import com.jueggs.andutils.extension.setNavigationTransitions
 import com.jueggs.andutils.extension.visible
 import com.jueggs.andutils.interfaces.BackPressHandler
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import io.sellmair.disposer.disposeBy
-import io.sellmair.disposer.onDestroy
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
 import java.util.concurrent.TimeUnit
+import kotlin.coroutines.CoroutineContext
 
-abstract class BaseFragment(private val searchNavController: Boolean = false) : Fragment(), BackPressHandler {
+abstract class BaseFragment(private val searchNavController: Boolean = false) : Fragment(), CoroutineScope, BackPressHandler {
+    private val job = SupervisorJob()
+    private val disposable = CompositeDisposable()
     private var waiterSubject: PublishSubject<Boolean>? = null
     protected var waiter: View? = null
     protected var navController: NavController? = null
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Default + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +85,7 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
             waiter?.let { waiter ->
                 waiterSubject = PublishSubject.create()
                 val observable = waiterSubject?.debounce(300, TimeUnit.MILLISECONDS)?.observeOnMain()
-                observable?.subscribe { if (it) waiter.visible() else waiter.gone() }?.disposeBy(viewLifecycleOwner.lifecycle.onDestroy)
+                observable?.subscribe { if (it) waiter.visible() else waiter.gone() }?.disposedBy(disposable)
             }
         }
 
@@ -113,4 +129,10 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     protected fun showWaiter(show: Boolean) = waiterSubject?.onNext(show)
+
+    override fun onDestroy() {
+        disposable.dispose()
+        super.onDestroy()
+        coroutineContext.cancelChildren()
+    }
 }

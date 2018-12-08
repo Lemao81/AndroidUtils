@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Parcelable
-import android.support.annotation.*
+import androidx.annotation.ArrayRes
+import androidx.annotation.StringRes
 import java.security.InvalidParameterException
 
 fun SharedPreferences.getBoolean(context: Context, @StringRes resId: Int): Boolean = getBoolean(context.getString(resId), false)

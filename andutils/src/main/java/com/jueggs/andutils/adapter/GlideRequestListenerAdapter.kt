@@ -9,7 +9,8 @@ import com.bumptech.glide.request.target.Target
 class GlideRequestListenerAdapter(
     private val onSuccess: (Drawable) -> Unit = {},
     private val onFail: (Exception?) -> Unit = {},
-    private val onComplete: () -> Unit = {}) : RequestListener<Drawable> {
+    private val onComplete: () -> Unit = {}
+) : RequestListener<Drawable> {
     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
         if (resource != null) onSuccess(resource)
         onComplete()

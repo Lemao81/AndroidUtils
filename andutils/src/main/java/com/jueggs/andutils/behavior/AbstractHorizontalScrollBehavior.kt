@@ -1,9 +1,9 @@
 package com.jueggs.andutils.behavior
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.jueggs.andutils.Util.isHorizontalScroll
 
 abstract class AbstractHorizontalScrollBehavior<TView : View>(context: Context, attrs: AttributeSet) : CoordinatorLayout.Behavior<TView>(context, attrs) {

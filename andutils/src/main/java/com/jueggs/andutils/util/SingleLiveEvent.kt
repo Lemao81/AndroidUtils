@@ -1,21 +1,24 @@
 package com.jueggs.andutils.util
 
-import android.arch.lifecycle.*
-import android.support.annotation.MainThread
-import java.util.concurrent.*
+import androidx.annotation.MainThread
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArraySet
 import java.util.concurrent.atomic.AtomicBoolean
 
 class SingleLiveEvent<T> : MediatorLiveData<T>() {
-    private val observers = ConcurrentHashMap<LifecycleOwner, MutableSet<ObserverWrapper<T>>>()
+    private val observers = ConcurrentHashMap<LifecycleOwner, MutableSet<ObserverWrapper<in T>>>()
 
     @MainThread
-    override fun observe(owner: LifecycleOwner, observer: Observer<T>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
         val wrapper = ObserverWrapper(observer)
         val set = observers[owner]
         set?.let {
             set.add(wrapper)
         } ?: run {
-            val newSet = CopyOnWriteArraySet<ObserverWrapper<T>>()
+            val newSet = CopyOnWriteArraySet<ObserverWrapper<in T>>()
             newSet.add(wrapper)
             observers[owner] = newSet
         }
@@ -27,7 +30,7 @@ class SingleLiveEvent<T> : MediatorLiveData<T>() {
         super.removeObservers(owner)
     }
 
-    override fun removeObserver(observer: Observer<T>) {
+    override fun removeObserver(observer: Observer<in T>) {
         observers.forEach {
             if (it.value.remove(observer)) {
                 if (it.value.isEmpty()) {

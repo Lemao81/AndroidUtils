@@ -1,13 +1,14 @@
 package com.jueggs.andutils.adapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 import com.jueggs.andutils.callback.DiffUtilCallback
-import kotlin.reflect.*
+import kotlin.reflect.KProperty1
 
 abstract class SingleLayoutDatabindingAdapter<TItems : Any, in TIdProperty>(
-        private val layoutId: Int,
-        private val items: MutableList<TItems> = arrayListOf(),
-        layoutIncluded: Boolean = false) : BaseDatabindingAdapter(layoutIncluded) {
+    private val layoutId: Int,
+    private val items: MutableList<TItems> = arrayListOf(),
+    layoutIncluded: Boolean = false
+) : BaseDatabindingAdapter(layoutIncluded) {
 
     override fun getLayoutIdForPosition(position: Int): Int = layoutId
 

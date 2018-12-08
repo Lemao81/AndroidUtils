@@ -1,31 +1,43 @@
 package com.jueggs.andutils.base
 
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.*
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.annotation.IdRes
-import android.support.constraint.ConstraintLayout
-import android.support.v4.app.*
-import android.support.v7.widget.Toolbar
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.annotation.IdRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil.setContentView
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.jueggs.andutils.Util.checkCast
 import com.jueggs.andutils.R
-import com.jueggs.andutils.extension.*
+import com.jueggs.andutils.extension.setNavigationTransitions
 import com.jueggs.andutils.interfaces.BackPressHandler
 import com.jueggs.andutils.util.AppMode
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
+import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
+    private val job = SupervisorJob()
     protected var navController: NavController? = null
     protected var waiter: ConstraintLayout? = null
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Default + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val bindingItems = bindingItems()
         if (bindingItems != null) {
-            val binding = DataBindingUtil.setContentView<ViewDataBinding>(this, layout())
+            val binding = setContentView<ViewDataBinding>(this, layout())
             bindingItems.forEach { binding.setVariable(it.key, it.value) }
             binding.setLifecycleOwner(this)
         } else
@@ -156,6 +168,11 @@ abstract class BaseActivity : AppCompatActivity() {
         val fragment = supportFragmentManager.findFragmentByTag(tag)
         fragment?.let { checkCast<T>(it) }
         return fragment as? T
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineContext.cancelChildren()
     }
 
     fun toggleHomeAsUp(show: Boolean) = supportActionBar?.setDisplayHomeAsUpEnabled(show)

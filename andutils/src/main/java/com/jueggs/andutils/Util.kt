@@ -1,17 +1,17 @@
 package com.jueggs.andutils
 
 import android.os.Handler
-import android.support.v4.view.ViewCompat
 import android.view.View
 import android.widget.EditText
 import androidx.core.os.postDelayed
 import androidx.core.util.toAndroidPair
+import androidx.core.view.ViewCompat
 import com.jueggs.andutils.aac.StateEvent
 import com.jueggs.andutils.util.Action
 import com.jueggs.jutils.pairOf
 import io.reactivex.Observable
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
@@ -38,10 +38,10 @@ object Util {
     fun isHorizontalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_HORIZONTAL
 
     @ExperimentalCoroutinesApi
-    fun <T> produceActions(f: suspend ProducerScope<Action<T>>.() -> Unit): ReceiveChannel<Action<T>> = GlobalScope.produce(block = f)
+    fun <T> CoroutineScope.produceActions(f: suspend ProducerScope<Action<T>>.() -> Unit): ReceiveChannel<Action<T>> = produce(block = f)
 
     @ExperimentalCoroutinesApi
-    fun <T> produceEvents(f: suspend ProducerScope<StateEvent<T>>.() -> Unit): ReceiveChannel<StateEvent<T>> = GlobalScope.produce(block = f)
+    fun <T> CoroutineScope.produceEvents(f: suspend ProducerScope<StateEvent<T>>.() -> Unit): ReceiveChannel<StateEvent<T>> = produce(block = f)
 
     fun <T> mergeObservables(vararg observables: Observable<T>): Observable<T> {
         return if (observables.size > 4) {

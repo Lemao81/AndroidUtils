@@ -1,16 +1,18 @@
 package com.jueggs.andutils.base.mvi
 
 import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.v4.app.*
-import android.support.v7.widget.Toolbar
-import android.view.*
-import com.hannesdorfmann.mosby3.mvi.*
-import com.hannesdorfmann.mosby3.mvp.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.annotation.IdRes
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import com.hannesdorfmann.mosby3.mvi.MviPresenter
+import com.hannesdorfmann.mosby3.mvp.MvpView
 import com.jueggs.andutils.R
-import com.jueggs.andutils.extension.*
+import com.jueggs.andutils.extension.setNavigationTransitions
 
-abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviActivity<TView, TPresenter>() {
+abstract class BaseMviActivity<TView : MvpView, TPresenter : MviPresenter<TView, *>> : MviActivityX<TView, TPresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,7 +1,8 @@
 package com.jueggs.andutils.observable
 
 import com.jueggs.andutils.extension.check
-import io.reactivex.*
+import io.reactivex.Observable
+import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
 class CheckObserver<T>(private val actual: Observer<in T>, private val predicate: (T) -> Boolean) : Observer<T>, Disposable {
@@ -21,7 +22,7 @@ class CheckObserver<T>(private val actual: Observer<in T>, private val predicate
 
     override fun onError(e: Throwable) = actual.onError(e)
 
-    override fun isDisposed()= disposable != null && disposable!!.isDisposed
+    override fun isDisposed() = disposable != null && disposable!!.isDisposed
 
     override fun dispose() {
         if (disposable != null) disposable!!.dispose()

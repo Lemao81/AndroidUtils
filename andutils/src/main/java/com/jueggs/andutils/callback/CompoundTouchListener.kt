@@ -1,7 +1,8 @@
 package com.jueggs.andutils.callback
 
 import android.annotation.SuppressLint
-import android.view.*
+import android.view.MotionEvent
+import android.view.View
 
 class CompoundTouchListener : View.OnTouchListener {
     private val listeners: MutableList<View.OnTouchListener> = mutableListOf()

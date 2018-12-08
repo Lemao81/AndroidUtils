@@ -1,9 +1,10 @@
 package com.jueggs.andutils.behavior
 
 import android.content.Context
-import android.support.design.widget.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
 
 class BottomNavigationFabBehavior(context: Context, attrs: AttributeSet) : CoordinatorLayout.Behavior<View>(context, attrs) {
 

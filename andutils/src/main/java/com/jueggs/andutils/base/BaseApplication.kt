@@ -1,6 +1,6 @@
 package com.jueggs.andutils.base
 
-import android.app.*
+import android.app.Application
 import com.jueggs.andutils.Constant.LOG4K_PATTERN_ALL
 import com.jueggs.andutils.Constant.TAG_DEBUG
 import com.jueggs.andutils.e

@@ -1,15 +1,19 @@
 package com.jueggs.andutils.extension
 
-import android.support.annotation.*
-import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
 import android.transition.TransitionInflater
+import androidx.annotation.ArrayRes
+import androidx.annotation.StringRes
+import androidx.annotation.TransitionRes
 import com.jueggs.andutils.adapter.StandardFragmentPagerAdapter
 import com.jueggs.andutils.helper.DatePicker
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.jueggs.jutils.Util.areAllNull
-import org.jetbrains.anko.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.yesButton
 import org.joda.time.LocalDate
 
 fun Fragment.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) =

@@ -2,10 +2,12 @@ package com.jueggs.andutils.base.mvp
 
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.jueggs.andutils.Constant.STATE_VIEWMODEL
 import com.jueggs.andutils.R
 import com.jueggs.andutils.extension.hideKeyboard

@@ -1,12 +1,14 @@
 package com.jueggs.andutils.base.mvp
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.os.Parcelable
-import android.support.annotation.*
-import android.support.v4.app.FragmentActivity
+import androidx.annotation.ArrayRes
+import androidx.annotation.DimenRes
+import androidx.annotation.StringRes
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 
 abstract class BaseMvpPresenter<TView : BaseView, TViewModel : Parcelable> : LifecycleObserver {
     var activity: FragmentActivity? = null

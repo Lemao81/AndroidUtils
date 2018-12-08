@@ -2,18 +2,24 @@ package com.jueggs.andutils.base.mvi
 
 import android.app.Activity
 import android.content.Context
-import android.databinding.*
 import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.v4.app.*
-import android.view.*
-import com.hannesdorfmann.mosby3.mvi.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.IdRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import com.hannesdorfmann.mosby3.mvi.MviPresenter
 import com.hannesdorfmann.mosby3.mvp.MvpView
 import com.jueggs.andutils.R
 import com.jueggs.andutils.interfaces.BackPressHandler
 import com.jueggs.andutils.extension.setNavigationTransitions
 
-abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView, *>, TFragmentListener : Activity> : MviFragment<TView, TPresenter>(), BackPressHandler {
+abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView, *>, TFragmentListener : Activity> : MviFragmentX<TView, TPresenter>(), BackPressHandler {
     protected var listener: TFragmentListener? = null
     protected var isInitialStart: Boolean = false
 
@@ -82,7 +88,7 @@ abstract class BaseMviFragment<TView : MvpView, TPresenter : MviPresenter<TView,
 
     override fun onBackPressed() = false
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater?) {
         val resId = optionsMenu()
         if (resId != null)
             inflater?.inflate(resId, menu)
