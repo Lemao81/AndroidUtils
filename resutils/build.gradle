@@ -6,11 +6,10 @@ apply plugin: PluginId.archivaUpload
 apply from: Path.baseArchivaUpload
 
 dependencies {
-    implementation Lib.supportRecyclerView
-    implementation Lib.supportAppcompat
-    implementation Lib.supportV4
-    implementation Lib.supportConstraintLayout
     implementation Lib.andutils
+    implementation Lib.androidxRecyclerView
+    implementation Lib.androidxAppcompat
+    implementation Lib.androidxConstraintLayout
 }
 
 archiva.artifactId = "resutils"

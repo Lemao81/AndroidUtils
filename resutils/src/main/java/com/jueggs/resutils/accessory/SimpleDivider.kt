@@ -4,9 +4,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.support.annotation.DrawableRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.DrawableRes
+import androidx.recyclerview.widget.RecyclerView
 import com.jueggs.andutils.extension.getDrawableCompat
 
 class SimpleDivider(context: Context, @DrawableRes resId: Int) : RecyclerView.ItemDecoration() {

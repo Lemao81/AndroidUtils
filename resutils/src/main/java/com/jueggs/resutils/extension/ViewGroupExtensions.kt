@@ -1,6 +1,6 @@
 package com.jueggs.resutils.extension
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.jueggs.resutils.R
 import com.jueggs.resutils.accessory.SimpleDivider
 
