@@ -9,10 +9,6 @@ import java.util.UUID
 object Util {
     val newUUID: String = UUID.randomUUID().toString()
 
-    fun cropToRange(bottomLimit: Float, topLimit: Float, value: Float) = Math.min(Math.max(bottomLimit, value), topLimit)
-
-    fun cropToRange(bottomLimit: Int, topLimit: Int, value: Int) = Math.min(Math.max(bottomLimit, value), topLimit)
-
     fun <T> collectInheritedFields(list: MutableList<Field>, type: Class<T>): List<Field> {
         list.addAll(type.declaredFields)
 
