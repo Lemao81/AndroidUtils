@@ -1,8 +1,14 @@
 package com.jueggs.firebaseutils.extension
 
-import com.google.firebase.database.*
-import io.reactivex.*
-import kotlin.coroutines.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.GenericTypeIndicator
+import com.google.firebase.database.Query
+import com.google.firebase.database.ValueEventListener
+import io.reactivex.Single
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 fun Query.toDataSingle(): Single<DataSnapshot> = Single.create { emitter ->
     addListenerForSingleValueEvent(object : ValueEventListener {

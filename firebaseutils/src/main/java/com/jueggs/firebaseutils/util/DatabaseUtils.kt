@@ -3,10 +3,12 @@ package com.jueggs.firebaseutils.util
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
-import com.google.firebase.database.*
-import com.jueggs.firebaseutils.*
-import com.jueggs.firebaseutils.extension.*
+import com.google.firebase.database.DatabaseReference
 import com.jueggs.andutils.extension.then
+import com.jueggs.firebaseutils.DBTYPE_LIST
+import com.jueggs.firebaseutils.DBTYPE_MODEL
+import com.jueggs.firebaseutils.extension.toModelListSingle
+import com.jueggs.firebaseutils.extension.toModelSingle
 
 //region find multiple
 inline fun <reified T : Any, reified U : Any> findMultiple(ref1: Pair<DatabaseReference, Int>, ref2: Pair<DatabaseReference, Int>, crossinline action: (Any?, Any?) -> Unit) {
@@ -19,8 +21,12 @@ inline fun <reified T : Any, reified U : Any> findMultiple(ref1: Pair<DatabaseRe
     }
 }
 
-inline fun <reified T : Any, reified U : Any, reified V : Any> findMultiple(ref1: Pair<DatabaseReference, Int>, ref2: Pair<DatabaseReference, Int>,
-                                                                            ref3: Pair<DatabaseReference, Int>, crossinline action: (Any?, Any?, Any?) -> Unit) {
+inline fun <reified T : Any, reified U : Any, reified V : Any> findMultiple(
+    ref1: Pair<DatabaseReference, Int>,
+    ref2: Pair<DatabaseReference, Int>,
+    ref3: Pair<DatabaseReference, Int>,
+    crossinline action: (Any?, Any?, Any?) -> Unit
+) {
     val tasks = arrayListOf<Task<*>>()
     addTask<T>(ref1, tasks)
     addTask<U>(ref2, tasks)
@@ -31,9 +37,13 @@ inline fun <reified T : Any, reified U : Any, reified V : Any> findMultiple(ref1
     }
 }
 
-inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any> findMultiple(ref1: Pair<DatabaseReference, Int>, ref2: Pair<DatabaseReference, Int>,
-                                                                                             ref3: Pair<DatabaseReference, Int>, ref4: Pair<DatabaseReference, Int>,
-                                                                                             crossinline action: (Any?, Any?, Any?, Any?) -> Unit) {
+inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any> findMultiple(
+    ref1: Pair<DatabaseReference, Int>,
+    ref2: Pair<DatabaseReference, Int>,
+    ref3: Pair<DatabaseReference, Int>,
+    ref4: Pair<DatabaseReference, Int>,
+    crossinline action: (Any?, Any?, Any?, Any?) -> Unit
+) {
     val tasks = arrayListOf<Task<*>>()
     addTask<T>(ref1, tasks)
     addTask<U>(ref2, tasks)
@@ -46,8 +56,13 @@ inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any> 
 }
 
 inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any, reified X : Any> findMultiple(
-        ref1: Pair<DatabaseReference, Int>, ref2: Pair<DatabaseReference, Int>, ref3: Pair<DatabaseReference, Int>,
-        ref4: Pair<DatabaseReference, Int>, ref5: Pair<DatabaseReference, Int>, crossinline action: (Any?, Any?, Any?, Any?, Any?) -> Unit) {
+    ref1: Pair<DatabaseReference, Int>,
+    ref2: Pair<DatabaseReference, Int>,
+    ref3: Pair<DatabaseReference, Int>,
+    ref4: Pair<DatabaseReference, Int>,
+    ref5: Pair<DatabaseReference, Int>,
+    crossinline action: (Any?, Any?, Any?, Any?, Any?) -> Unit
+) {
     val tasks = arrayListOf<Task<*>>()
     addTask<T>(ref1, tasks)
     addTask<U>(ref2, tasks)
@@ -61,8 +76,14 @@ inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any, 
 }
 
 inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any, reified X : Any, reified Y : Any> findMultiple(
-        ref1: Pair<DatabaseReference, Int>, ref2: Pair<DatabaseReference, Int>, ref3: Pair<DatabaseReference, Int>,
-        ref4: Pair<DatabaseReference, Int>, ref5: Pair<DatabaseReference, Int>, ref6: Pair<DatabaseReference, Int>, crossinline action: (Any?, Any?, Any?, Any?, Any?, Any?) -> Unit) {
+    ref1: Pair<DatabaseReference, Int>,
+    ref2: Pair<DatabaseReference, Int>,
+    ref3: Pair<DatabaseReference, Int>,
+    ref4: Pair<DatabaseReference, Int>,
+    ref5: Pair<DatabaseReference, Int>,
+    ref6: Pair<DatabaseReference, Int>,
+    crossinline action: (Any?, Any?, Any?, Any?, Any?, Any?) -> Unit
+) {
     val tasks = arrayListOf<Task<*>>()
     addTask<T>(ref1, tasks)
     addTask<U>(ref2, tasks)
@@ -77,9 +98,15 @@ inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any, 
 }
 
 inline fun <reified T : Any, reified U : Any, reified V : Any, reified W : Any, reified X : Any, reified Y : Any, reified Z : Any> findMultiple(
-        ref1: Pair<DatabaseReference, Int>, ref2: Pair<DatabaseReference, Int>, ref3: Pair<DatabaseReference, Int>,
-        ref4: Pair<DatabaseReference, Int>, ref5: Pair<DatabaseReference, Int>, ref6: Pair<DatabaseReference, Int>,
-        ref7: Pair<DatabaseReference, Int>, crossinline action: (Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Unit) {
+    ref1: Pair<DatabaseReference, Int>,
+    ref2: Pair<DatabaseReference, Int>,
+    ref3: Pair<DatabaseReference, Int>,
+    ref4: Pair<DatabaseReference, Int>,
+    ref5: Pair<DatabaseReference, Int>,
+    ref6: Pair<DatabaseReference, Int>,
+    ref7: Pair<DatabaseReference, Int>,
+    crossinline action: (Any?, Any?, Any?, Any?, Any?, Any?, Any?) -> Unit
+) {
     val tasks = arrayListOf<Task<*>>()
     addTask<T>(ref1, tasks)
     addTask<U>(ref2, tasks)

@@ -6,12 +6,12 @@ apply plugin: PluginId.archivaUpload
 apply from: Path.baseArchivaUpload
 
 dependencies {
+    implementation Lib.jutils
+    implementation Lib.andutils
     implementation Lib.rxJava
     implementation Lib.kotlinReflect
     implementation Lib.firebaseCore
     implementation Lib.firebaseDatabase
-    implementation Lib.jutils
-    implementation Lib.andutils
 }
 
 archiva.artifactId = "firebaseutils"
