@@ -8,8 +8,8 @@ apply from: Path.baseArchivaUpload
 dependencies {
     implementation Lib.kotlinCoroutine
     implementation Lib.mockito
-    implementation Lib.jUnit
     implementation Lib.mockitoKotlin
+    implementation Lib.jUnit
     implementation Lib.rxJava
     implementation Lib.joda
 }

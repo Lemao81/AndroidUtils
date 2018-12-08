@@ -1,6 +1,8 @@
 package com.jueggs.jutils.helper
 
-import java.util.*
+import java.util.Locale
+import java.util.Objects
+import java.util.Random
 
 class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = Random(System.currentTimeMillis()), symbols: String = alphanum) {
     private val random: Random

@@ -2,7 +2,8 @@ package com.jueggs.jutils.extension
 
 import org.joda.time.LocalDate
 import org.joda.time.Years
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 val Calendar.year: Int
     get() = get(Calendar.YEAR)
