@@ -21,3 +21,7 @@ allprojects {
     configureBaseRepositories(it)
     disableLintTasks(it)
 }
+
+subprojects {
+    apply from: Path.ktlint
+}
