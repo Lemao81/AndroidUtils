@@ -6,8 +6,8 @@ apply plugin: PluginId.archivaUpload
 apply from: Path.baseArchivaUpload
 
 dependencies {
-    implementation Lib.supportAppcompat
-    implementation Lib.androidKtx
+    implementation Lib.androidxAppcompat
+    implementation Lib.androidxCoreKtx
     implementation Lib.log4kAndroid
 }
 
