@@ -9,11 +9,11 @@ object Version {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.81"
+    const val andutils = "1.0.82"
     const val jutils = "1.0.21"
     const val firebaseutils = "1.0.6"
     const val resutils = "1.0.7"
-    const val andtestutils = "1.0.9"
+    const val andtestutils = "1.0.10"
     const val customviewutils = "1.0.8"
 
     // custom views
@@ -47,6 +47,7 @@ object Version {
     const val androidxTestUiAutomator = "2.2.0"
     const val androidxTestEspressoCore = "3.1.0"
     const val androidxTestEspressoIntents = "3.1.0"
+    const val androidxTestExtJunit = "1.0.0"
     const val material = "1.0.0-rc01"
     const val kotlinCoroutine = "1.0.0"
     const val anko = "0.10.6"
@@ -105,6 +106,7 @@ object Version {
     const val androidxTestCore = "1.0.0"
     const val autoDsl = "0.0.9"
     const val log4k = "1.0.1"
+    const val assertJ = "3.11.1"
 }
 
 object Lib {
@@ -147,6 +149,7 @@ object Lib {
     const val androidxTestUiAutomator = "androidx.test.uiautomator:uiautomator:${Version.androidxTestUiAutomator}"
     const val androidxTestEspressoCore = "androidx.test.espresso:espresso-core:${Version.androidxTestEspressoCore}"
     const val androidxTestEspressoIntents = "androidx.test.espresso:espresso-intents:${Version.androidxTestEspressoIntents}"
+    const val androidxTestExtJunit = "androidx.test.ext:junit:${Version.androidxTestExtJunit}"
     const val material = "com.google.android.material:material:${Version.material}"
     const val supportV4 = "com.android.support:support-v4:${Version.support}"
     const val supportAppcompat = "com.android.support:appcompat-v7:${Version.support}"
@@ -243,6 +246,7 @@ object Lib {
     const val mockkAndroid = "io.mockk:mockk-android:${Version.mockk}"
     const val kakao = "com.agoda.kakao:kakao:${Version.kakao}"
     const val androidxTestCore = "androidx.test:core:${Version.androidxTestCore}"
+    const val assertJ = "org.assertj:assertj-core:${Version.assertJ}"
 }
 
 object Plugin {
@@ -282,6 +286,7 @@ object Url {
 
 object Const {
     const val androidTestRunner = "android.support.test.runner.AndroidJUnitRunner"
+    const val androidxTestRunner = "androidx.test.runner.AndroidJUnitRunner"
 }
 
 object Extension {

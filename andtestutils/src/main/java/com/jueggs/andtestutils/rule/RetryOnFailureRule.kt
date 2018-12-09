@@ -1,4 +1,4 @@
-package com.jueggs.andutils.test
+package com.jueggs.andtestutils.rule
 
 import org.junit.rules.TestRule
 import org.junit.runner.Description
