@@ -4,7 +4,7 @@ import java.util.Locale
 import java.util.Objects
 import java.util.Random
 
-class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = Random(System.currentTimeMillis()), symbols: String = alphanum) {
+class RandomString @JvmOverloads constructor(length: Int = 21, symbols: String = alphaNum, random: Random = Random(System.currentTimeMillis())) {
     private val random: Random
     private val symbols: CharArray
     private val buffer: CharArray
@@ -28,6 +28,8 @@ class RandomString @JvmOverloads constructor(length: Int = 21, random: Random = 
         val upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         val lower = upper.toLowerCase(Locale.ROOT)
         val digits = "0123456789"
-        val alphanum = upper + lower + digits
+        val alphaNum = upper + lower + digits
+        val lowerAlphaNum = lower + digits
+        val upperAlphaNum = upper + digits
     }
 }

@@ -9,7 +9,7 @@ object Version {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.82"
+    const val andutils = "1.0.83"
     const val jutils = "1.0.21"
     const val firebaseutils = "1.0.6"
     const val resutils = "1.0.7"
@@ -54,6 +54,7 @@ object Version {
     const val gmsBase = "16.0.1"
     const val gmsLocation = "16.0.0"
     const val firebaseCore = "16.0.4"
+    const val firebaseCommon = "16.0.4"
     const val firebaseDatabase = "16.0.3"
     const val firebaseAuth = "16.0.4"
     const val firebaseCrash = "16.2.1"
@@ -171,6 +172,7 @@ object Lib {
     const val databindingBase = "com.android.databinding:baseLibrary:${Version.androidGradlePlugin}"
     const val databindingCompiler = "com.android.databinding:compiler:${Version.androidGradlePlugin}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Version.firebaseCore}"
+    const val firebaseCommon = "com.google.firebase:firebase-common:${Version.firebaseCommon}"
     const val firebaseDatabase = "com.google.firebase:firebase-database:${Version.firebaseDatabase}"
     const val firebaseAuth = "com.google.firebase:firebase-auth:${Version.firebaseAuth}"
     const val firebaseCrash = "com.google.firebase:firebase-crash:${Version.firebaseCrash}"

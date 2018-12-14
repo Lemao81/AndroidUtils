@@ -17,7 +17,13 @@ val Calendar.dayOfMonth: Int
 val Date.unixTime: Long
     get() = time / 1000
 
+val LocalDate.unixTime: Long
+    get() = toDateTimeAtStartOfDay().millis / 1000
+
 val Long.unixDate: Date
     get() = Date(this * 1000)
+
+val Long.unixLocalDate: LocalDate
+    get() = LocalDate(this * 1000)
 
 fun LocalDate.toAge() = Years.yearsBetween(this, LocalDate.now()).years

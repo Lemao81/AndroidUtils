@@ -1,5 +1,7 @@
 package com.jueggs.jutils
 
+import com.jueggs.jutils.helper.DistinctRandomString
+import com.jueggs.jutils.helper.RandomString
 import org.joda.time.Days
 import org.joda.time.LocalDate
 import java.lang.IllegalStateException
@@ -10,15 +12,17 @@ import java.util.concurrent.TimeUnit
 
 object Random {
     private val random = lazy { Random(System.currentTimeMillis()) }
+    private val emailDomains = lazy { listOf("web.de", "yahoo.com", "gmx.net", "aol.com", "gmail.com", "gmx.de", "hotmail.com") }
+    private val emailDistinctRandom = lazy { DistinctRandomString(6, RandomString.lowerAlphaNum, random.value) }
 
     /**
      * Random int between min and max, including them
      */
     fun int(min: Int = 0, max: Int = Int.MAX_VALUE - 1): Int = random.value.nextInt(max - min + 1) + min
 
-    val long: Long = (int() * int()).toLong()
+    val long = (int() * int()).toLong()
 
-    val boolean: Boolean = random.value.nextBoolean()
+    val boolean = random.value.nextBoolean()
 
     fun float(min: Float = 0f, max: Float = 1f) = (max - min) * random.value.nextFloat() + min
 
@@ -43,6 +47,8 @@ object Random {
 
         return from.plusDays(toAdd)
     }
+
+    val email = "${emailDistinctRandom.value()}@${emailDomains.value.random()}"
 
     fun <T> weightedSelect(left: T, right: T, weightTowardsLeft: Double): T {
         assert(weightTowardsLeft < 1.0)
