@@ -12,10 +12,15 @@ abstract class BaseApplication(private val debug: Boolean) : Application() {
     override fun onCreate() {
         super.onCreate()
         if (debug) add(Level.Verbose, LOG4K_PATTERN_ALL, AndroidAppender(generateClassName = { "$TAG_DEBUG - ${it.substring(it.lastIndexOf('.') + 1)}" }))
-        Thread.setDefaultUncaughtExceptionHandler { _, throwable -> e(throwable) }
+        Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
+            e(throwable)
+            onUncaughtException(throwable)
+        }
 
         initialize()
     }
 
     open fun initialize() {}
+
+    open fun onUncaughtException(th: Throwable) {}
 }

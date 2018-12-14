@@ -13,6 +13,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.jueggs.andutils.Util.checkCast
 import com.jueggs.andutils.R
 import com.jueggs.andutils.extension.setNavigationTransitions
@@ -22,12 +23,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
+import org.jetbrains.anko.contentView
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
+abstract class BaseActivity(private val searchNavController: Boolean = false) : AppCompatActivity(), CoroutineScope {
     private val job = SupervisorJob()
-    protected var navController: NavController? = null
     protected var waiter: ConstraintLayout? = null
+    var navController: NavController? = null
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Default + job
@@ -43,6 +45,9 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
         } else
             setContentView(layout())
 
+        if (searchNavController)
+            contentView?.let { navController = Navigation.findNavController(it) }
+        
         initialize()
         setToolbar(toolbar(), toolbarTitle(), toolbarNavigateBack())
         initializeViews()

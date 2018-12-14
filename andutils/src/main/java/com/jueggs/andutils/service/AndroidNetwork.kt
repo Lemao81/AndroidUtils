@@ -8,7 +8,7 @@ import com.jueggs.andutils.state.Disconnected
 import com.jueggs.andutils.state.NetworkState
 
 class AndroidNetwork(context: Context) : Network {
-    private val appContext = context.applicationContext
+    private val appContext = context.applicationContext ?: context
 
     override val state: NetworkState
         get() = if (appContext.isNetworkConnected()) Connected else Disconnected

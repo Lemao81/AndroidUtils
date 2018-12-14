@@ -34,7 +34,7 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
     private val disposable = CompositeDisposable()
     private var waiterSubject: PublishSubject<Boolean>? = null
     protected var waiter: View? = null
-    protected var navController: NavController? = null
+    var navController: NavController? = null
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Default + job
