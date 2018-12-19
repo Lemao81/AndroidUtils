@@ -9,8 +9,8 @@ object Version {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.83"
-    const val jutils = "1.0.21"
+    const val andutils = "1.0.85"
+    const val jutils = "1.0.22"
     const val firebaseutils = "1.0.6"
     const val resutils = "1.0.7"
     const val andtestutils = "1.0.10"
@@ -44,6 +44,7 @@ object Version {
     const val androidxRoomCompiler = "2.0.0-rc01"
     const val androidxTestRunner = "1.1.0"
     const val androidxTestRules = "1.1.0"
+    const val androidxTestMonitor = "1.1.0"
     const val androidxTestUiAutomator = "2.2.0"
     const val androidxTestEspressoCore = "3.1.0"
     const val androidxTestEspressoIntents = "3.1.0"
@@ -147,6 +148,7 @@ object Lib {
     const val androidxRoomCompiler = "androidx.room:room-compiler:${Version.androidxRoomCompiler}"
     const val androidxTestRunner = "androidx.test:runner:${Version.androidxTestRunner}"
     const val androidxTestRules = "androidx.test:rules:${Version.androidxTestRules}"
+    const val androidxTestMonitor = "androidx.test:monitor:${Version.androidxTestMonitor}"
     const val androidxTestUiAutomator = "androidx.test.uiautomator:uiautomator:${Version.androidxTestUiAutomator}"
     const val androidxTestEspressoCore = "androidx.test.espresso:espresso-core:${Version.androidxTestEspressoCore}"
     const val androidxTestEspressoIntents = "androidx.test.espresso:espresso-intents:${Version.androidxTestEspressoIntents}"

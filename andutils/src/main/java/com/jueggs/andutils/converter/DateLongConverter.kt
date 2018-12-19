@@ -1,9 +1,9 @@
-package com.jueggs.andutils.helper
+package com.jueggs.andutils.converter
 
 import androidx.room.TypeConverter
 import java.util.Date
 
-class DateConverter {
+class DateLongConverter {
     @TypeConverter
     fun dateToLong(date: Date?): Long? = date?.time
 

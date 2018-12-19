@@ -11,9 +11,9 @@ import android.widget.TextView
 import androidx.annotation.ArrayRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.jueggs.andutils.R
 import com.jueggs.andutils.Util.haveAllText
 import com.jueggs.andutils.adapter._addTextChangedListener
 import com.jueggs.andutils.isLollipopOrAboveUtil
@@ -140,3 +140,5 @@ fun View.setWidthAndHeight(width: Int, height: Int) {
 
 fun View.onClick(action: (View) -> Unit) = setOnClickListener(action)
 fun View.onLongClick(action: (View) -> Unit) = setOnLongClickListener { action(it); true }
+
+fun View.navigateOnClick(@IdRes resId: Int) = setOnClickListener(Navigation.createNavigateOnClickListener(resId))
