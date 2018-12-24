@@ -29,3 +29,9 @@ fun <T> Task<T>.asSingle(): Single<T> = Single.create { emitter ->
 suspend fun <T> Task<T>.await(): T = suspendCoroutine { continuation ->
     addOnSuccessListener { continuation.resume(it) }.addOnFailureListener { continuation.resumeWithException(it) }
 }
+
+suspend fun <T> Task<T>.complete() {
+    suspendCoroutine<T> { continuation ->
+        addOnSuccessListener { continuation.resume(it) }.addOnFailureListener { continuation.resumeWithException(it) }
+    }
+}

@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
-import android.util.Patterns
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -32,6 +31,7 @@ import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.interfaces.Disposable
 import io.reactivex.internal.disposables.DisposableContainer
 import kotlinx.coroutines.channels.SendChannel
+import org.apache.commons.validator.routines.EmailValidator
 import java.io.ByteArrayOutputStream
 import kotlin.reflect.KFunction1
 
@@ -120,9 +120,9 @@ suspend fun <TState> SendChannel<StateEvent<TState>>.alter(action: TState.() -> 
 suspend fun <TState> SendChannel<StateEvent<TState>>.trigger(action: TState.() -> TState) = send(Trigger(action))
 
 val CharSequence?.isValidEmail: Boolean
-    get() = !this.isNullOrBlank() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+    get() = !this.isNullOrBlank() && EmailValidator.getInstance().isValid(this.toString())
 
 val CharSequence?.isInvalidEmail: Boolean
-    get() = this.isNullOrBlank() || !Patterns.EMAIL_ADDRESS.matcher(this).matches()
+    get() = this.isNullOrBlank() || !EmailValidator.getInstance().isValid(this.toString())
 
 fun io.reactivex.disposables.Disposable.disposedBy(container: DisposableContainer): Boolean = container.add(this)

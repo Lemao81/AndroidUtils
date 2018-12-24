@@ -9,8 +9,8 @@ object Version {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.85"
-    const val jutils = "1.0.22"
+    const val andutils = "1.0.88"
+    const val jutils = "1.0.23"
     const val firebaseutils = "1.0.6"
     const val resutils = "1.0.7"
     const val andtestutils = "1.0.10"
@@ -30,6 +30,7 @@ object Version {
     const val androidxAppcompat = "1.0.0"
     const val androidxAnnotation = "1.0.0"
     const val androidxConstraintLayout = "1.1.2"
+    const val androidxGridLayout = "1.0.0"
     const val androidxLegacyV4 = "1.0.0"
     const val androidxRecyclerView = "1.0.0"
     const val androidxCardView = "1.0.0"
@@ -134,6 +135,7 @@ object Lib {
     const val androidxAppcompat = "androidx.appcompat:appcompat:${Version.androidxAppcompat}"
     const val androidxAnnotation = "androidx.annotation:annotation:${Version.androidxAnnotation}"
     const val androidxConstraintLayout = "androidx.constraintlayout:constraintlayout:${Version.androidxConstraintLayout}"
+    const val androidxGridLayout = "androidx.gridlayout:gridlayout:${Version.androidxGridLayout}"
     const val androidxLegacyV4 = "androidx.legacy:legacy-support-v4:${Version.androidxLegacyV4}"
     const val androidxRecyclerView = "androidx.recyclerview:recyclerview:${Version.androidxRecyclerView}"
     const val androidxCardView = "androidx.cardview:cardview:${Version.androidxCardView}"
