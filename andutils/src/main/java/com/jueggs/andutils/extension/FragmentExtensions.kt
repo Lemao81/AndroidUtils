@@ -4,12 +4,13 @@ import android.transition.TransitionInflater
 import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import androidx.annotation.TransitionRes
-import com.jueggs.andutils.adapter.StandardFragmentPagerAdapter
 import com.jueggs.andutils.helper.DatePicker
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.jueggs.andutils.adapter.StandardFragmentPagerAdapter
+import com.jueggs.andutils.base.BaseFragment
 import com.jueggs.jutils.Util.areAllNull
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
@@ -46,12 +47,14 @@ fun Fragment.setNavigationTransitions(@TransitionRes enterResId: Int?, @Transiti
 
 fun Fragment.withArguments(vararg arguments: Pair<String, Any>): Fragment = apply { setArguments(bundleOf(*arguments)) }
 
-fun Fragment.datePicker(date: LocalDate = LocalDate.now(), action: (LocalDate) -> Unit) = DatePicker(date, action).show(childFragmentManager)
+fun Fragment.datePicker(date: LocalDate = LocalDate.now(), onDateSet: (LocalDate) -> Unit, onClose: (() -> Unit)? = null) = DatePicker(date, onDateSet, onClose).show(childFragmentManager)
 
-fun Fragment.setupTabPager(viewPager: ViewPager, tabLayout: TabLayout, pageTitleArrayResId: Int, vararg fragmentFactoryList: () -> Fragment) {
-    val adapter = StandardFragmentPagerAdapter(fragmentFactoryList.toList(), pageTitleArrayResId, context, childFragmentManager)
-    viewPager.adapter = adapter
-    tabLayout.setupWithViewPager(viewPager)
+fun Fragment.setupTabPager(viewPager: ViewPager, tabLayout: TabLayout, pageTitleArrayResId: Int, vararg fragments: Fragment) {
+    context?.let {
+        val adapter = StandardFragmentPagerAdapter(childFragmentManager, fragments.toList(), it.getStringArray(pageTitleArrayResId))
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
+    }
 }
 
 fun Fragment.hideKeyboard() = activity?.hideKeyboard()

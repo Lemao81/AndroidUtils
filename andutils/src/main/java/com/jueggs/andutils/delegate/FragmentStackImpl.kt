@@ -3,8 +3,9 @@ package com.jueggs.andutils.delegate
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.jueggs.andutils.interfaces.FragmentStack
 
-object FragmentStacker : FragmentStack {
+object FragmentStackImpl : FragmentStack {
     override fun addFragment(fragmentManager: FragmentManager?, @IdRes containerViewId: Int, fragment: Fragment) {
         fragmentManager?.beginTransaction()?.add(containerViewId, fragment)?.addToBackStack(fragment::class.simpleName)?.commit()
     }

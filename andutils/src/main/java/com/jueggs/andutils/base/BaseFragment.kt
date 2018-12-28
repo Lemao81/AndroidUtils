@@ -27,7 +27,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import java.util.concurrent.TimeUnit
-import kotlin.coroutines.CoroutineContext
 
 abstract class BaseFragment(private val searchNavController: Boolean = false) : Fragment(), CoroutineScope, BackPressHandler {
     private val job = SupervisorJob()
@@ -36,8 +35,7 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
     protected var waiter: View? = null
     var navController: NavController? = null
 
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Default + job
+    override val coroutineContext = Dispatchers.Default + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

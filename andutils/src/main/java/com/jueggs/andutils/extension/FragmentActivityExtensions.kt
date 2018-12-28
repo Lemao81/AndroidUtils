@@ -20,4 +20,4 @@ fun FragmentActivity.startPostponedEnterTransitionCompat() {
     else supportStartPostponedEnterTransition()
 }
 
-fun FragmentActivity.datePicker(date: LocalDate = LocalDate.now(), action: (LocalDate) -> Unit) = DatePicker(date, action).show(supportFragmentManager)
+fun FragmentActivity.datePicker(date: LocalDate = LocalDate.now(), onDateSet: (LocalDate) -> Unit, onClose: (() -> Unit)? = null) = DatePicker(date, onDateSet, onClose).show(supportFragmentManager)

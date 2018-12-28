@@ -1,4 +1,4 @@
-package com.jueggs.andutils.delegate
+package com.jueggs.andutils.interfaces
 
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment

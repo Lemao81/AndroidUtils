@@ -13,20 +13,20 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.jueggs.andutils.Util.checkCast
 import com.jueggs.andutils.R
 import com.jueggs.andutils.extension.setNavigationTransitions
 import com.jueggs.andutils.interfaces.BackPressHandler
 import com.jueggs.andutils.util.AppMode
+import com.jueggs.jutils.Util.withNotNull
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
-import org.jetbrains.anko.contentView
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseActivity(private val searchNavController: Boolean = false) : AppCompatActivity(), CoroutineScope {
+abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
     private val job = SupervisorJob()
     protected var waiter: ConstraintLayout? = null
     var navController: NavController? = null
@@ -45,11 +45,10 @@ abstract class BaseActivity(private val searchNavController: Boolean = false) : 
         } else
             setContentView(layout())
 
-        if (searchNavController)
-            contentView?.let { navController = Navigation.findNavController(it) }
-        
+        navHostFragment()?.let { navController = findNavController(it) }
+
         initialize()
-        setToolbar(toolbar(), toolbarTitle(), toolbarNavigateBack())
+        setToolbar(toolbar(), toolbarTitle(), toolbarBackNavigation(), toolbarHomeIcon())
         initializeViews()
         observeLiveData(this)
         setListeners()
@@ -67,25 +66,33 @@ abstract class BaseActivity(private val searchNavController: Boolean = false) : 
     open fun bindingItems(): Map<Int, Any>? = null
     open fun initialize() {}
 
-    private fun setToolbar(toolbar: View?, title: Int? = null, navigateBack: Boolean = true) {
+    private fun setToolbar(toolbar: View?, toolbarTitle: Int?, navigateBack: Boolean, homeButtonResId: Int?) {
         if (toolbar != null && toolbar is Toolbar) {
             setSupportActionBar(toolbar)
-            if (title != null)
-                supportActionBar?.title = getString(title)
-            if (navigateBack) {
-                supportActionBar?.setDisplayHomeAsUpEnabled(true)
-                supportActionBar?.setDisplayShowHomeEnabled(true)
+            withNotNull(supportActionBar) {
+                toolbarTitle?.let { title = getString(it) }
+                if (navigateBack) {
+                    setDisplayHomeAsUpEnabled(true)
+                    setDisplayShowHomeEnabled(true)
+                }
+                homeButtonResId?.let {
+                    setDisplayHomeAsUpEnabled(true)
+                    setHomeAsUpIndicator(it)
+                }
             }
         }
     }
 
     open fun toolbar(): View? = null
     open fun toolbarTitle(): Int? = null
-    open fun toolbarNavigateBack(): Boolean = true
+    open fun toolbarBackNavigation(): Boolean = false
+    open fun toolbarHomeIcon(): Int? = null
 
     open fun initializeViews() {}
     open fun observeLiveData(owner: LifecycleOwner) {}
     open fun setListeners() {}
+
+    open fun navHostFragment(): Int? = null
 
     open fun enterTransition(): Int? = R.transition.fade
     open fun exitTransition(): Int? = R.transition.fade
@@ -132,8 +139,10 @@ abstract class BaseActivity(private val searchNavController: Boolean = false) : 
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return super.onSupportNavigateUp()
+        return navController?.navigateUp() ?: run {
+            onBackPressed()
+            return super.onSupportNavigateUp()
+        }
     }
 
     override fun onBackPressed() {

@@ -4,23 +4,23 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlin.coroutines.CoroutineContext
 
 @ObsoleteCoroutinesApi
 class ViewStateStore<TViewState>(private val initialState: TViewState) : CoroutineScope {
     private val store = MutableLiveData<TViewState>()
     private val job = Job()
 
-    override val coroutineContext: CoroutineContext
-        get() = job + IO
+    override val coroutineContext = job + IO
 
     private fun state(): TViewState = store.value ?: initialState
 
@@ -32,6 +32,10 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
 
     fun dispatchAction(func: suspend () -> StateEvent<TViewState>) {
         launch { handleEvent(func()) }
+    }
+
+    fun dispatchAction(deferred: Deferred<StateEvent<TViewState>>) {
+        launch { handleEvent(deferred.await()) }
     }
 
     fun dispatchActions(vararg funcs: suspend () -> StateEvent<TViewState>) {
@@ -60,4 +64,6 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
     private fun dispatchState(state: TViewState) {
         store.value = state
     }
+
+    fun dispose() = coroutineContext.cancelChildren()
 }
