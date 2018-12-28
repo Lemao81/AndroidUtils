@@ -29,15 +29,18 @@ object Util {
 
     fun <T> givenSuspended(block: suspend () -> T) = BDDMockito.given(runBlocking { block() })
 
-    fun areAllNull(vararg params: Any?): Boolean = params.all { it == null }
+    fun areAllNull(vararg params: Any?) = params.all { it == null }
 
-    fun <TParam1, TParam2> withNotNull(param1: TParam1?, param2: TParam2?, block: (TParam1, TParam2) -> Unit) {
-        if (areAllNull(param1, param2)) return
-        param1?.let { p1 -> param2?.let { p2 -> block(p1, p2) } }
-    }
+    fun isAnyNull(vararg params: Any?) = params.any { it == null }
 
-    fun <TParam1, TParam2, TParam3> withNotNull(param1: TParam1?, param2: TParam2?, param3: TParam3?, block: (TParam1, TParam2, TParam3) -> Unit) {
-        if (areAllNull(param1, param2, param3)) return
-        param1?.let { p1 -> param2?.let { p2 -> param3?.let { p3 -> block(p1, p2, p3) } } }
-    }
+    inline fun <T, R> withNotNull(receiver: T?, block: T.() -> R) = receiver?.let { with(it, block) } ?: Unit
+
+    fun <TParam1, TParam2> withNotNull(param1: TParam1?, param2: TParam2?, block: (TParam1, TParam2) -> Unit) = param1?.let { p1 -> param2?.let { p2 -> block(p1, p2) } } ?: Unit
+
+    fun <TParam1, TParam2, TParam3> withNotNull(param1: TParam1?, param2: TParam2?, param3: TParam3?, block: (TParam1, TParam2, TParam3) -> Unit) = param1?.let { p1 ->
+        param2?.let { p2 ->
+            param3?.let { p3 -> block(p1, p2, p3) }
+        }
+    } ?: Unit
+
 }
