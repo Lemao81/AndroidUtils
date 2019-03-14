@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
 
-class TapUpListener(private val onTapUp: (event: MotionEvent) -> Unit) : View.OnTouchListener {
+class MoveListener(private val onMove: (event: MotionEvent) -> Unit) : View.OnTouchListener {
     @SuppressLint("ClickableViewAccessibility")
-    override fun onTouch(v: View, event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_UP) {
-            onTapUp(event)
+    override fun onTouch(view: View, event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_MOVE) {
+            onMove(event)
             return true
         }
         return false
