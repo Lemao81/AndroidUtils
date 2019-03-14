@@ -18,4 +18,8 @@ object Constant {
     const val TAG_DEBUG = "MYDEBUG"
 
     const val LOG4K_PATTERN_ALL = ".*"
+
+    const val KEY_BROADCAST_REASON = "reason"
+    const val KEY_BROADCAST_REASON_RECENTAPPS = "recentapps"
+    const val KEY_BROADCAST_REASON_HOMEKEY = "homekey"
 }

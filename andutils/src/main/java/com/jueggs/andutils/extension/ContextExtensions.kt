@@ -4,9 +4,11 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.SharedPreferences
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.preference.PreferenceManager
 import android.util.TypedValue
 import android.view.View
@@ -90,3 +92,6 @@ fun Context.doWithNetworkConnection(action: () -> Unit): () -> Boolean {
 
 val Context.defaultSharedPrefs: SharedPreferences
     get() = PreferenceManager.getDefaultSharedPreferences(this)
+
+val Context.packageUri: Uri
+    get() = Uri.parse("package:$packageName")

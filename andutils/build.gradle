@@ -33,6 +33,7 @@ dependencies {
     implementation Lib.kotlinCoroutineAndroid
     implementation Lib.archNavigationUi
     implementation Lib.permissions
+    implementation Lib.log4k
     implementation Lib.log4kAndroid
     implementation Lib.apacheValidator
 

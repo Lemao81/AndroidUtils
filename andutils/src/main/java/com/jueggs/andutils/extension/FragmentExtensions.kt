@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.jueggs.andutils.adapter.StandardFragmentPagerAdapter
-import com.jueggs.andutils.base.BaseFragment
 import com.jueggs.jutils.Util.areAllNull
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
