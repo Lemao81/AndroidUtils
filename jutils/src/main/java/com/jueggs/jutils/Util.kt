@@ -42,5 +42,4 @@ object Util {
             param3?.let { p3 -> block(p1, p2, p3) }
         }
     } ?: Unit
-
 }

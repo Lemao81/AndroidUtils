@@ -4,12 +4,12 @@ object Version {
     // plugins
     const val customPlugins = "1.0.4"
     const val gmsPlugin = "4.1.0"
-    const val androidGradlePlugin = "3.2.1"
+    const val androidGradlePlugin = "3.3.1"
     const val fabricPlugin = "1.24.4"
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.97"
+    const val andutils = "1.0.102"
     const val jutils = "1.0.24"
     const val firebaseutils = "1.0.6"
     const val resutils = "1.0.7"
@@ -24,7 +24,7 @@ object Version {
     // libs
     const val java7 = "1.7"
     const val java8 = "1.8"
-    const val kotlin = "1.3.0"
+    const val kotlin = "1.3.21"
     const val androidxCore = "1.0.0"
     const val androidxCoreKtx = "1.0.1"
     const val androidxAppcompat = "1.0.0"
@@ -91,7 +91,7 @@ object Version {
     const val powermock = "1.6.5"
     const val mockk = "1.8.12.kotlin13"
     const val frodo = "0.8.3"
-    const val retrofit2 = "2.4.0"
+    const val retrofit2 = "2.5.0"
     const val retrofit2CoroutineAdapter = "1.0.0"
     const val buildTimeTracker = "0.11.0"
     const val archLifecycle = "1.1.1"
@@ -110,6 +110,9 @@ object Version {
     const val autoDsl = "0.0.9"
     const val log4k = "1.0.1"
     const val assertJ = "3.11.1"
+    const val okhttp = "3.12.1"
+    const val blurry = "3.0.0"
+    const val rippleEffect = "1.3.1"
 }
 
 object Lib {
@@ -236,7 +239,11 @@ object Lib {
     const val ktlint = "com.github.shyiko:ktlint:${Version.ktlint}"
     const val autoDsl = "com.juanchosaravia.autodsl:annotation:${Version.autoDsl}"
     const val autoDslProcessor = "com.juanchosaravia.autodsl:processor:${Version.autoDsl}"
+    const val log4k = "com.log4k:log4k:${Version.log4k}"
     const val log4kAndroid = "com.log4k:log4k-android:${Version.log4k}"
+    const val okhttp = "com.squareup.okhttp3:okhttp:${Version.okhttp}"
+    const val blurry = "jp.wasabeef:blurry:${Version.blurry}"
+    const val rippleEffect = "com.patrickpissurno:ripple-effect:${Version.rippleEffect}"
 
     // testing
     const val jUnit = "junit:junit:${Version.jUnit}"

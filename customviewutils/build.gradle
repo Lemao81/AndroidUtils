@@ -8,6 +8,7 @@ apply from: Path.baseArchivaUpload
 dependencies {
     implementation Lib.androidxAppcompat
     implementation Lib.androidxCoreKtx
+    implementation Lib.log4k
     implementation Lib.log4kAndroid
 }
 
