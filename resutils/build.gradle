@@ -1,15 +1,13 @@
-import buildSrc.*
-
-apply from: Path.baseAndroidLibrary
-apply plugin: PluginId.maven
-apply plugin: PluginId.archivaUpload
-apply from: Path.baseArchivaUpload
+apply from: Paths.baseAndroidLibrary
+apply plugin: PluginIds.maven
+apply plugin: PluginIds.archivaUpload
+apply from: Paths.baseArchivaUpload
 
 dependencies {
-    implementation Lib.andutils
-    implementation Lib.androidxRecyclerView
-    implementation Lib.androidxAppcompat
-    implementation Lib.androidxConstraintLayout
+    implementation Libs.andutils
+    implementation Libs.androidxRecyclerView
+    implementation Libs.androidxAppcompat
+    implementation Libs.androidxConstraintLayout
 }
 
 archiva.artifactId = "resutils"

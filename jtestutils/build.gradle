@@ -1,15 +1,13 @@
-import buildSrc.*
-
-apply from: Path.baseJavaLibrary
-apply plugin: PluginId.maven
-apply plugin: PluginId.archivaUpload
-apply from: Path.baseArchivaUpload
+apply from: Paths.baseJavaLibrary
+apply plugin: PluginIds.maven
+apply plugin: PluginIds.archivaUpload
+apply from: Paths.baseArchivaUpload
 
 dependencies {
-    implementation Lib.kotlinCoroutine
-    implementation Lib.mockito
-    implementation Lib.mockitoKotlin
-    implementation Lib.jUnit
+    implementation Libs.kotlinCoroutine
+    implementation Libs.mockito
+    implementation Libs.mockitoKotlin
+    implementation Libs.jUnit
 }
 
 archiva {

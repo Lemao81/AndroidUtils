@@ -1,16 +1,14 @@
-import buildSrc.*
-
-apply from: Path.baseAndroidLibrary
-apply plugin: PluginId.maven
-apply plugin: PluginId.archivaUpload
-apply from: Path.baseArchivaUpload
+apply from: Paths.baseAndroidLibrary
+apply plugin: PluginIds.maven
+apply plugin: PluginIds.archivaUpload
+apply from: Paths.baseArchivaUpload
 
 dependencies {
-    implementation Lib.andutils
-    implementation Lib.kakao
-    implementation Lib.androidxTestRules
-    implementation Lib.androidxTestUiAutomator
-    implementation Lib.androidxTestEspressoCore
+    implementation Libs.andutils
+    implementation Libs.kakao
+    implementation Libs.androidxTestRules
+    implementation Libs.androidxTestUiAutomator
+    implementation Libs.androidxTestEspressoCore
 }
 
 archiva.artifactId = "andtestutils"

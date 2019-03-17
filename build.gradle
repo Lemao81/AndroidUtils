@@ -1,19 +1,17 @@
-import buildSrc.*
-
-apply from: Path.baseProject
+apply from: Paths.baseProject
 
 buildscript {
     repositories {
         google()
         jcenter()
-        maven { url Url.mavenLocalInternal }
+        maven { url Urls.mavenLocalInternal }
     }
 
     dependencies {
-        classpath Plugin.androidGradle
-        classpath Plugin.kotlin
-        classpath Plugin.gms
-        classpath Plugin.custom
+        classpath Plugins.androidBuild
+        classpath Plugins.kotlin
+        classpath Plugins.gms
+        classpath Plugins.custom
     }
 }
 
@@ -23,5 +21,5 @@ allprojects {
 }
 
 subprojects {
-    apply from: Path.ktlint
+    apply from: Paths.ktlint
 }

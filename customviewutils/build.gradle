@@ -1,15 +1,13 @@
-import buildSrc.*
-
-apply from: Path.baseAndroidLibrary
-apply plugin: PluginId.maven
-apply plugin: PluginId.archivaUpload
-apply from: Path.baseArchivaUpload
+apply from: Paths.baseAndroidLibrary
+apply plugin: PluginIds.maven
+apply plugin: PluginIds.archivaUpload
+apply from: Paths.baseArchivaUpload
 
 dependencies {
-    implementation Lib.androidxAppcompat
-    implementation Lib.androidxCoreKtx
-    implementation Lib.log4k
-    implementation Lib.log4kAndroid
+    implementation Libs.androidxAppcompat
+    implementation Libs.androidxCoreKtx
+    implementation Libs.log4k
+    implementation Libs.log4kAndroid
 }
 
 archiva.artifactId = "customviewutils"

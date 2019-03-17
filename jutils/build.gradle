@@ -1,14 +1,12 @@
-import buildSrc.*
-
-apply from: Path.baseJavaLibrary
-apply plugin: PluginId.maven
-apply plugin: PluginId.archivaUpload
-apply from: Path.baseArchivaUpload
+apply from: Paths.baseJavaLibrary
+apply plugin: PluginIds.maven
+apply plugin: PluginIds.archivaUpload
+apply from: Paths.baseArchivaUpload
 
 dependencies {
-    implementation Lib.kotlinCoroutine
-    implementation Lib.rxJava
-    implementation Lib.joda
+    implementation Libs.kotlinCoroutine
+    implementation Libs.rxJava
+    implementation Libs.joda
 }
 
 archiva {

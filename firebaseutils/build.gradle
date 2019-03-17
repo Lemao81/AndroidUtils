@@ -1,17 +1,15 @@
-import buildSrc.*
-
-apply from: Path.baseAndroidLibrary
-apply plugin: PluginId.maven
-apply plugin: PluginId.archivaUpload
-apply from: Path.baseArchivaUpload
+apply from: Paths.baseAndroidLibrary
+apply plugin: PluginIds.maven
+apply plugin: PluginIds.archivaUpload
+apply from: Paths.baseArchivaUpload
 
 dependencies {
-    implementation Lib.jutils
-    implementation Lib.andutils
-    implementation Lib.rxJava
-    implementation Lib.kotlinReflect
-    implementation Lib.firebaseCore
-    implementation Lib.firebaseDatabase
+    implementation Libs.jutils
+    implementation Libs.andutils
+    implementation Libs.rxJava
+    implementation Libs.kotlinReflect
+    implementation Libs.firebaseCore
+    implementation Libs.firebaseDatabase
 }
 
 archiva.artifactId = "firebaseutils"
