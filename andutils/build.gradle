@@ -16,6 +16,10 @@ dependencies {
     implementation Lib.androidxCoreKtx
     implementation Lib.androidxRecyclerView
     implementation Lib.androidxConstraintLayout
+    implementation Lib.androidxLifecycleExtensions
+    implementation Lib.androidxLifecycleLiveData
+    implementation Lib.androidxLifecycleLiveDataCore
+    implementation Lib.androidxRoomRuntime
     implementation Lib.material
     implementation Lib.rxJava
     implementation Lib.rxJavaAndroid
@@ -26,10 +30,6 @@ dependencies {
     implementation Lib.glide
     implementation Lib.mosbyMvi
     implementation Lib.koinAndroid
-    implementation Lib.androidxLifecycleExtensions
-    implementation Lib.androidxLifecycleLiveData
-    implementation Lib.androidxLifecycleLiveDataCore
-    implementation Lib.androidxRoomRuntime
     implementation Lib.kotlinCoroutineAndroid
     implementation Lib.archNavigationUi
     implementation Lib.permissions
