@@ -1,7 +1,5 @@
 package com.jueggs.jutils
 
-import kotlinx.coroutines.runBlocking
-import org.mockito.BDDMockito
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.util.UUID
@@ -26,8 +24,6 @@ object Util {
 
         return list
     }
-
-    fun <T> givenSuspended(block: suspend () -> T) = BDDMockito.given(runBlocking { block() })
 
     fun areAllNull(vararg params: Any?) = params.all { it == null }
 

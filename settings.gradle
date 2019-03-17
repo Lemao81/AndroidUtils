@@ -1,1 +1,1 @@
-include ':andutils', ':jutils', ':firebaseutils', ':resutils', ':andtestutils', ':customviewutils'
+include ':andutils', ':jutils', ':firebaseutils', ':resutils', ':andtestutils', ':customviewutils', ':jtestutils'

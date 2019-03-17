@@ -7,11 +7,12 @@ apply from: Path.baseArchivaUpload
 
 dependencies {
     implementation Lib.kotlinCoroutine
-    implementation Lib.rxJava
-    implementation Lib.joda
+    implementation Lib.mockito
+    implementation Lib.mockitoKotlin
+    implementation Lib.jUnit
 }
 
 archiva {
-    artifactId = "jutils"
+    artifactId = "jtestutils"
     packaging = "jar"
 }
