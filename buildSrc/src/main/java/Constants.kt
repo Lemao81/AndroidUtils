@@ -38,14 +38,18 @@ object BuildTypes {
 }
 
 object Paths {
+    const val basePath = "../../base/gradlefiles/base/"
     const val baseProject = "../base/gradlefiles/base/base-project.gradle"
-    const val baseAndroidLibrary = "../../base/gradlefiles/base/base-android-library.gradle"
-    const val baseJavaLibrary = "../../base/gradlefiles/base/base-java-library.gradle"
-    const val baseKotlinAndroidExtension = "../../base/gradlefiles/base/base-kotlin-android-extension.gradle"
-    const val baseKapt = "../../base/gradlefiles/base/base-kapt.gradle"
-    const val baseDatabinding = "../../base/gradlefiles/base/base-databinding.gradle"
-    const val baseFlavors = "../../base/gradlefiles/base/base-flavors.gradle"
-    const val baseArchivaUpload = "../../base/gradlefiles/base/base-archivaupload.gradle"
+    const val baseAndroidLibrary = "${basePath}base-android-library.gradle"
+    const val baseAndroidLibraryKts = "../../base/gradlefiles/base/base-android-library.gradle.kts"
+    const val baseJavaLibrary = "${basePath}base-java-library.gradle"
+    const val baseKotlinAndroidExtension = "${basePath}base-kotlin-android-extension.gradle"
+    const val baseKapt = "${basePath}base-kapt.gradle"
+    const val baseDatabinding = "${basePath}base-databinding.gradle"
+    const val baseFlavors = "${basePath}base-flavors.gradle"
+    const val baseArchivaUpload = "${basePath}base-archivaupload.gradle"
+    const val baseArchivaUploadKts = "${basePath}base-archivaupload.gradle.kts"
+    const val baseMaven = "${basePath}base-maven.gradle"
     const val ktlintGr = "../../base/gradlefiles/ktlint.gradle"
     const val ktlint = "../../base/gradlefiles/ktlint.gradle.kts"
 }
