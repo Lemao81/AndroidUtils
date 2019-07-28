@@ -3,6 +3,7 @@ apply(from = Paths.baseMaven)
 plugins {
     id(PluginIds.androidLibrary)
     kotlin(PluginIds.android)
+    kotlin(PluginIds.kapt)
     id(PluginIds.archivaUpload)
 }
 

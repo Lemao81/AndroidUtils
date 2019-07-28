@@ -21,6 +21,5 @@ archiva {
 dependencies {
     implementation(Libs.kotlinStd8)
     implementation(Libs.kotlinCoroutine)
-    implementation(Libs.rxJava)
     implementation(Libs.joda)
 }

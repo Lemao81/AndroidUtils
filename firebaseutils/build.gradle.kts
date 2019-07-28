@@ -3,6 +3,7 @@ apply(from = Paths.baseMaven)
 plugins {
     id(PluginIds.androidLibrary)
     kotlin(PluginIds.android)
+    kotlin(PluginIds.kapt)
     id(PluginIds.archivaUpload)
 }
 
@@ -42,8 +43,9 @@ archiva {
 dependencies {
     implementation(Libs.jutils)
     implementation(Libs.andutils)
-    implementation(Libs.rxJava)
+    implementation(Libs.kotlinStd8)
     implementation(Libs.kotlinReflect)
+    implementation(Libs.rxJava)
     implementation(Libs.firebaseCore)
     implementation(Libs.firebaseDatabase)
 }
