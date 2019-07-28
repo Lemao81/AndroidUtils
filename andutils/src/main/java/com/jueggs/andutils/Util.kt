@@ -9,14 +9,11 @@ import androidx.core.view.ViewCompat
 import com.jueggs.andutils.aac.StateEvent
 import com.jueggs.andutils.util.Action
 import com.jueggs.jutils.pairOf
-import io.reactivex.Observable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.produce
-import java.lang.IllegalStateException
-import java.security.InvalidParameterException
 
 object Util {
     fun createSharedElement(view: View, transitionName: String): android.util.Pair<View, String> = pairOf(view, transitionName).toAndroidPair()
@@ -42,20 +39,4 @@ object Util {
 
     @ExperimentalCoroutinesApi
     fun <T> CoroutineScope.produceEvents(f: suspend ProducerScope<StateEvent<T>>.() -> Unit): ReceiveChannel<StateEvent<T>> = produce(block = f)
-
-    fun <T> mergeObservables(vararg observables: Observable<T>): Observable<T> {
-        return if (observables.size > 4) {
-            val merge = Observable.merge(observables[0], observables[1], observables[2], observables[3])
-            val reduced = observables.slice(IntRange(4, observables.size - 1)).toMutableList()
-            reduced.add(merge)
-            mergeObservables(*reduced.toTypedArray())
-        } else when (observables.size) {
-            0 -> throw InvalidParameterException("No observables to merge")
-            1 -> observables[0]
-            2 -> Observable.merge(observables[0], observables[1])
-            3 -> Observable.merge(observables[0], observables[1], observables[2])
-            4 -> Observable.merge(observables[0], observables[1], observables[2], observables[3])
-            else -> throw IllegalStateException()
-        }
-    }
 }
