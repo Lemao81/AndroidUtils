@@ -14,24 +14,18 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.jueggs.andutils.extension.disposedBy
+import com.jueggs.andutils.Util.postDelayed
 import com.jueggs.andutils.extension.gone
-import com.jueggs.andutils.extension.observeOnMain
 import com.jueggs.andutils.extension.setNavigationTransitions
 import com.jueggs.andutils.extension.visible
 import com.jueggs.andutils.interfaces.BackPressHandler
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.subjects.PublishSubject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
-import java.util.concurrent.TimeUnit
 
 abstract class BaseFragment(private val searchNavController: Boolean = false) : Fragment(), CoroutineScope, BackPressHandler {
     private val job = SupervisorJob()
-    private val disposable = CompositeDisposable()
-    private var waiterSubject: PublishSubject<Boolean>? = null
     protected var waiter: View? = null
     var navController: NavController? = null
 
@@ -40,7 +34,9 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (optionsMenu() != null) setHasOptionsMenu(true)
+        if (optionsMenu() != null) {
+            setHasOptionsMenu(true)
+        }
         setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
 
         pullArguments(arguments)
@@ -63,8 +59,9 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
             bindingItems.forEach { binding.setVariable(it.key, it.value) }
             binding.setLifecycleOwner(viewLifecycleOwner)
             binding.root
-        } else
+        } else {
             inflater.inflate(layout(), container, false)
+        }
     }
 
     abstract fun layout(): Int
@@ -74,28 +71,26 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
         super.onActivityCreated(savedInstanceState)
 
         val toolbarTitle = toolbarTitle()
-        if (toolbarTitle != null)
+        if (toolbarTitle != null) {
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(toolbarTitle)
+        }
 
         val waiterId = waiter()
         if (waiterId != null) {
             waiter = activity?.findViewById(waiterId)
-            waiter?.let { waiter ->
-                waiterSubject = PublishSubject.create()
-                val observable = waiterSubject?.debounce(300, TimeUnit.MILLISECONDS)?.observeOnMain()
-                observable?.subscribe { if (it) waiter.visible() else waiter.gone() }?.disposedBy(disposable)
-            }
         }
 
-        if (searchNavController)
+        if (searchNavController) {
             view?.let { navController = Navigation.findNavController(it) }
+        }
 
         initializeViews()
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             onInitialStart()
-        else
+        } else {
             restoreState(savedInstanceState)
+        }
 
         observeLiveData(viewLifecycleOwner)
         setListeners()
@@ -114,22 +109,33 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         val resId = optionsMenu()
-        if (resId != null)
+        if (resId != null) {
             inflater?.inflate(resId, menu)
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     open fun optionsMenu(): Int? = null
 
-    override fun onOptionsItemSelected(item: MenuItem) = if (item.itemId == android.R.id.home) onBackPressed()
-    else onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) =
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+        } else {
+            onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
+        }
 
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
-    protected fun showWaiter(show: Boolean) = waiterSubject?.onNext(show)
+    protected fun showWaiter(show: Boolean) {
+        checkNotNull(waiter)
+        if (show) {
+            postDelayed(300) { waiter?.visible() }
+        } else {
+            waiter?.gone()
+        }
+    }
 
     override fun onDestroy() {
-        disposable.dispose()
         super.onDestroy()
         coroutineContext.cancelChildren()
     }
