@@ -29,7 +29,6 @@ import com.jueggs.andutils.aac.StateEvent
 import com.jueggs.andutils.aac.Trigger
 import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.interfaces.Disposable
-import io.reactivex.internal.disposables.DisposableContainer
 import kotlinx.coroutines.channels.SendChannel
 import org.apache.commons.validator.routines.EmailValidator
 import java.io.ByteArrayOutputStream
@@ -124,5 +123,3 @@ val CharSequence?.isValidEmail: Boolean
 
 val CharSequence?.isInvalidEmail: Boolean
     get() = this.isNullOrBlank() || !EmailValidator.getInstance().isValid(this.toString())
-
-fun io.reactivex.disposables.Disposable.disposedBy(container: DisposableContainer): Boolean = container.add(this)
