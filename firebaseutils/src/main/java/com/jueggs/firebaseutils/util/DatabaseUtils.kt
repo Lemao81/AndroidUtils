@@ -5,8 +5,8 @@ import com.google.android.gms.tasks.TaskCompletionSource
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.database.DatabaseReference
 import com.jueggs.andutils.extension.then
-import com.jueggs.firebaseutils.DBTYPE_LIST
-import com.jueggs.firebaseutils.DBTYPE_MODEL
+import com.jueggs.firebaseutils.Constant.DBTYPE_LIST
+import com.jueggs.firebaseutils.Constant.DBTYPE_MODEL
 import com.jueggs.firebaseutils.extension.toModelListSingle
 import com.jueggs.firebaseutils.extension.toModelSingle
 

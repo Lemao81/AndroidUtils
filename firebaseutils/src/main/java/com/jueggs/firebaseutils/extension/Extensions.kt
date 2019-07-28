@@ -2,7 +2,7 @@ package com.jueggs.firebaseutils.extension
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.GenericTypeIndicator
-import com.jueggs.firebaseutils.DESERIALIZATION_FAILED
+import com.jueggs.firebaseutils.Constant.DESERIALIZATION_FAILED
 
 /**
  * Can only be used if data had been persisted as list. Total of singly added units is considered as a hashmap and not deserializable in this way
