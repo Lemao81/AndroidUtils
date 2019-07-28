@@ -1,4 +1,4 @@
-package com.jueggs.andutils.observable
+package com.jueggs.rxutils.observable
 
 import io.reactivex.Single
 import io.reactivex.SingleObserver
