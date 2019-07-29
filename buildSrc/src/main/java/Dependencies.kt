@@ -1,13 +1,13 @@
 object Versions {
     // plugins
-    const val customPlugins = "1.0.4"
+    const val customPlugins = "1.0.5"
     const val gmsPlugin = "4.1.0"
     const val androidGradlePlugin = "3.4.2"
     const val fabricPlugin = "1.24.4"
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.104"
+    const val andutils = "1.0.107"
     const val andtestutils = "1.0.10"
     const val jutils = "1.0.26"
     const val jtestutils = "1.0.0"
