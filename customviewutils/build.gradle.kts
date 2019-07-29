@@ -8,24 +8,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Android.compileSdkVersion)
-    defaultConfig {
-        versionCode = App.versionCode
-        versionName = App.versionName
-        minSdkVersion(Android.minSdkVersion)
-        targetSdkVersion(Android.targetSdkVersion)
-
-        multiDexEnabled = true
-        testInstrumentationRunner = Const.androidTestRunner
-    }
-
-    dexOptions.preDexLibraries = true
-    packagingOptions.pickFirst("protobuf.meta")
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
+    configureAndroidExtension(this)
 }
 
 archiva {

@@ -11,25 +11,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Android.compileSdkVersion)
-    defaultConfig {
-        versionCode = App.versionCode
-        versionName = App.versionName
-        minSdkVersion(Android.minSdkVersion)
-        targetSdkVersion(Android.targetSdkVersion)
-
-        multiDexEnabled = true
-        testInstrumentationRunner = Const.androidTestRunner
-    }
-
-    dexOptions.preDexLibraries = true
-    packagingOptions.pickFirst("protobuf.meta")
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
+    configureAndroidExtension(this)
     dataBinding.isEnabled = true
 }
 
@@ -38,7 +20,9 @@ archiva {
     artifactId = project.name
 }
 
-kapt.useBuildCache = true
+kapt {
+    useBuildCache = true
+}
 
 dependencies {
     compileOnly(fileTree(mapOf("include" to listOf("*.jar"), "dir" to "libs")))
