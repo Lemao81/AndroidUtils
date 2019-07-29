@@ -1,6 +1,7 @@
 apply(from = Paths.baseMaven)
 
 plugins {
+    java
     `java-library`
     id(PluginIds.kotlin)
     id(PluginIds.archivaUpload)

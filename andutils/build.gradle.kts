@@ -22,13 +22,6 @@ android {
         testInstrumentationRunner = Const.androidTestRunner
     }
 
-    buildTypes {
-        getByName(BuildTypes.release) {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-        }
-    }
-
     dexOptions.preDexLibraries = true
     packagingOptions.pickFirst("protobuf.meta")
 
