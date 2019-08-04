@@ -8,10 +8,12 @@ import com.log4k.Level
 import com.log4k.Log4k.add
 import com.log4k.android.AndroidAppender
 
-abstract class BaseApplication(private val debug: Boolean) : Application() {
+abstract class BaseApplication(private val isDebug: Boolean) : Application() {
     override fun onCreate() {
         super.onCreate()
-        if (debug) add(Level.Verbose, LOG4K_PATTERN_ALL, AndroidAppender(generateClassName = { "$TAG_DEBUG - ${it.substring(it.lastIndexOf('.') + 1)}" }))
+        if (isDebug) {
+            add(Level.Verbose, LOG4K_PATTERN_ALL, AndroidAppender(generateClassName = { "$TAG_DEBUG - ${it.substring(it.lastIndexOf('.') + 1)}" }))
+        }
         Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
             e(throwable)
             onUncaughtException(throwable)

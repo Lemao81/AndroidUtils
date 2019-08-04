@@ -28,7 +28,7 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
     private val job = SupervisorJob()
-    protected var waiter: ConstraintLayout? = null
+    protected var waiterView: ConstraintLayout? = null
     var navController: NavController? = null
 
     override val coroutineContext: CoroutineContext
@@ -42,8 +42,9 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
             val binding = setContentView<ViewDataBinding>(this, layout())
             bindingItems.forEach { binding.setVariable(it.key, it.value) }
             binding.setLifecycleOwner(this)
-        } else
+        } else {
             setContentView(layout())
+        }
 
         navHostFragment()?.let { navController = findNavController(it) }
 
@@ -147,15 +148,17 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onBackPressed() {
         val backPressHandled = (supportFragmentManager.fragments.firstOrNull { it.isVisible } as? BackPressHandler)?.onBackPressed() ?: false
-        if (!backPressHandled)
+        if (!backPressHandled) {
             super.onBackPressed()
+        }
     }
 
     fun addFragment(@IdRes containerViewId: Int, fragment: Fragment, addToBackStack: Boolean = true, tag: String? = null): Int {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(containerViewId, fragment, tag ?: fragment::class.simpleName)
-        if (addToBackStack)
+        if (addToBackStack) {
             transaction.addToBackStack(tag ?: fragment::class.simpleName)
+        }
         return transaction.commit()
     }
 
@@ -163,7 +166,11 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
 
     fun attachOrAddFragment(@IdRes containerViewId: Int, fragment: Lazy<Fragment>, addToBackStack: Boolean = true, tag: String? = null): Int {
         val addedFragment = supportFragmentManager.findFragmentByTag(tag)
-        return if (addedFragment != null) attachFragment(addedFragment) else addFragment(containerViewId, fragment.value, addToBackStack, tag)
+        return if (addedFragment != null) {
+            attachFragment(addedFragment)
+        } else {
+            addFragment(containerViewId, fragment.value, addToBackStack, tag)
+        }
     }
 
     fun detachFragment(fragment: Fragment) = supportFragmentManager.beginTransaction().detach(fragment).commit()

@@ -24,9 +24,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 
-abstract class BaseFragment(private val searchNavController: Boolean = false) : Fragment(), CoroutineScope, BackPressHandler {
+abstract class BaseFragment(private val isShouldSearchNavController: Boolean = false) : Fragment(), CoroutineScope, BackPressHandler {
     private val job = SupervisorJob()
-    protected var waiter: View? = null
+    protected var waiterView: View? = null
     var navController: NavController? = null
 
     override val coroutineContext = Dispatchers.Default + job
@@ -77,10 +77,10 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
 
         val waiterId = waiter()
         if (waiterId != null) {
-            waiter = activity?.findViewById(waiterId)
+            waiterView = activity?.findViewById(waiterId)
         }
 
-        if (searchNavController) {
+        if (isShouldSearchNavController) {
             view?.let { navController = Navigation.findNavController(it) }
         }
 
@@ -127,11 +127,11 @@ abstract class BaseFragment(private val searchNavController: Boolean = false) : 
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     protected fun showWaiter(show: Boolean) {
-        checkNotNull(waiter)
+        checkNotNull(waiterView)
         if (show) {
-            postDelayed(300) { waiter?.visible() }
+            postDelayed(300) { waiterView?.visible() }
         } else {
-            waiter?.gone()
+            waiterView?.gone()
         }
     }
 
