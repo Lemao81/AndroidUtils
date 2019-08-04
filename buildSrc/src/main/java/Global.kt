@@ -10,6 +10,17 @@ fun disableLintTasks(project: Project) {
     }
 }
 
+fun ignoreReleaseBuild(project: Project) {
+    project.afterEvaluate {
+        val android = this.extensions.findByName(Extensions.android) as? BaseExtension
+        android?.variantFilter {
+            if (this.buildType.name == BuildTypes.release) {
+                this.setIgnore(true)
+            }
+        }
+    }
+}
+
 fun configureAndroidExtension(android: BaseExtension) {
     android.compileSdkVersion(Android.compileSdkVersion)
     android.defaultConfig {
@@ -20,6 +31,7 @@ fun configureAndroidExtension(android: BaseExtension) {
 
         multiDexEnabled = true
         testInstrumentationRunner = Const.androidTestRunner
+        javaCompileOptions { annotationProcessorOptions.includeCompileClasspath = true }
     }
 
     android.dexOptions.preDexLibraries = true
@@ -28,5 +40,24 @@ fun configureAndroidExtension(android: BaseExtension) {
     android.compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+fun minifyRelease(android: BaseExtension) {
+    android.buildTypes {
+        getByName(BuildTypes.release) {
+            isMinifyEnabled = true
+            proguardFiles(android.getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        }
+    }
+}
+
+fun optimizeBuildTime(project: Project, android: BaseExtension) {
+    if (project.hasProperty("devBuild")) {
+        android.splits {
+            abi.isEnable = false
+            density.isEnable = false
+        }
+        android.aaptOptions.cruncherEnabled = false
     }
 }

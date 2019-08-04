@@ -17,9 +17,9 @@ archiva {
 }
 
 dependencies {
+    implementation(Libs.kotlinStd8)
     implementation(Libs.jutils)
     implementation(Libs.andutils)
-    implementation(Libs.kotlinStd8)
     implementation(Libs.kotlinReflect)
     implementation(Libs.rxJava)
     implementation(Libs.firebaseCore)
