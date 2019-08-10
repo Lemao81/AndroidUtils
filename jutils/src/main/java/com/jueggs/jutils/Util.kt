@@ -6,6 +6,7 @@ import java.util.UUID
 
 object Util {
     val newUUID: String = UUID.randomUUID().toString()
+    val lineSeparator: String = System.getProperty("line.separator") ?: "\n"
 
     fun <T> collectInheritedFields(list: MutableList<Field>, type: Class<T>): List<Field> {
         list.addAll(type.declaredFields)

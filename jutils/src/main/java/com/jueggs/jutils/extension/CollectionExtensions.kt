@@ -9,3 +9,6 @@ fun <T> List<T>.random(): T = this[Random.int(0, size - 1)]
 fun <T> List<T>.second(): T = this[1]
 
 fun <T> List<T>.third(): T = this[2]
+
+val <T> Collection<T>.maxIndex
+    get() = this.size - 1
