@@ -41,7 +41,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
         if (bindingItems != null) {
             val binding = setContentView<ViewDataBinding>(this, layout())
             bindingItems.forEach { binding.setVariable(it.key, it.value) }
-            binding.setLifecycleOwner(this)
+            binding.lifecycleOwner = this
         } else {
             setContentView(layout())
         }
@@ -124,7 +124,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
     open fun onInitialStart() {}
     open fun onRecreated(savedInstanceState: Bundle) {}
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val resId = optionsMenu()
         if (resId != null) {
             menuInflater.inflate(resId, menu)

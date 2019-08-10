@@ -20,7 +20,7 @@ abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Frag
     protected lateinit var viewModel: TViewModel
     protected lateinit var ctx: Context
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         inject()
         checkNotNull(this.context)
@@ -81,7 +81,7 @@ abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Frag
 
     open fun storeState(viewModel: TViewModel) {}
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val resId = optionsMenu()
         if (resId != null)
             inflater?.inflate(resId, menu)
