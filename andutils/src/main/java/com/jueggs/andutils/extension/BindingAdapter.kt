@@ -26,25 +26,25 @@ var View.visibleOrGone
         visibility = if (value) VISIBLE else GONE
     }
 
-@set:BindingAdapter("visible")
-var View.visible
+@set:BindingAdapter("goneOrVisible")
+var View.goneOrVisible
+    get() = visibility == GONE
+    set(value) {
+        visibility = if (value) GONE else VISIBLE
+    }
+
+@set:BindingAdapter("visibleOrInvisible")
+var View.visibleOrInvisible
     get() = visibility == VISIBLE
     set(value) {
         visibility = if (value) VISIBLE else INVISIBLE
     }
 
-@set:BindingAdapter("invisible")
-var View.invisible
+@set:BindingAdapter("invisibleOrVisible")
+var View.invisibleOrVisible
     get() = visibility == INVISIBLE
     set(value) {
         visibility = if (value) INVISIBLE else VISIBLE
-    }
-
-@set:BindingAdapter("gone")
-var View.gone
-    get() = visibility == GONE
-    set(value) {
-        visibility = if (value) GONE else VISIBLE
     }
 
 @BindingAdapter(value = ["imageUrl", "defaultImage", "placeholder", "circleCrop"], requireAll = false)
