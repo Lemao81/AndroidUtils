@@ -15,9 +15,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.jueggs.andutils.Util.postDelayed
-import com.jueggs.andutils.extension.gone
+import com.jueggs.andutils.extension.goneOrVisible
 import com.jueggs.andutils.extension.setNavigationTransitions
-import com.jueggs.andutils.extension.visible
+import com.jueggs.andutils.extension.visibleOrInvisible
 import com.jueggs.andutils.interfaces.BackPressHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,7 +38,6 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
             setHasOptionsMenu(true)
         }
         setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
-
         pullArguments(arguments)
         initialize()
     }
@@ -74,12 +73,10 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
         if (toolbarTitle != null) {
             (activity as? AppCompatActivity)?.supportActionBar?.title = getString(toolbarTitle)
         }
-
         val waiterId = waiter()
         if (waiterId != null) {
             waiterView = activity?.findViewById(waiterId)
         }
-
         if (isShouldSearchNavController) {
             view?.let { navController = Navigation.findNavController(it) }
         }
@@ -94,6 +91,7 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
 
         observeLiveData(viewLifecycleOwner)
         setListeners()
+        onStandby()
     }
 
     open fun toolbarTitle(): Int? = null
@@ -104,13 +102,14 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
     open fun onInitialStart() {}
     open fun restoreState(savedInstanceState: Bundle) {}
     open fun setListeners() {}
+    open fun onStandby() {}
 
     override fun onBackPressed() = false
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val resId = optionsMenu()
         if (resId != null) {
-            inflater?.inflate(resId, menu)
+            inflater.inflate(resId, menu)
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -129,9 +128,9 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
     protected fun showWaiter(show: Boolean) {
         checkNotNull(waiterView)
         if (show) {
-            postDelayed(300) { waiterView?.visible() }
+            postDelayed(300) { waiterView?.visibleOrInvisible = true }
         } else {
-            waiterView?.gone()
+            waiterView?.goneOrVisible = true
         }
     }
 
