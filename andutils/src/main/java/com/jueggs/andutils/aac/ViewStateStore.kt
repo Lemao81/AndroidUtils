@@ -30,22 +30,28 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
         })
     }
 
-    fun dispatchAction(func: suspend () -> StateEvent<TViewState>) {
-        launch { handleEvent(func()) }
+    fun dispatch(function: suspend () -> StateEvent<TViewState>) {
+        launch { handleEvent(function()) }
     }
 
-    fun dispatchAction(deferred: Deferred<StateEvent<TViewState>>) {
+    fun dispatch(deferred: Deferred<StateEvent<TViewState>>) {
         launch { handleEvent(deferred.await()) }
     }
 
-    fun dispatchActions(vararg funcs: suspend () -> StateEvent<TViewState>) {
-        launch {
-            funcs.forEach { handleEvent(it()) }
-        }
+    fun dispatch(event: StateEvent<TViewState>) {
+        launch { handleEvent(event) }
     }
 
-    fun dispatchActions(channel: ReceiveChannel<StateEvent<TViewState>>) {
+    fun dispatch(vararg functions: suspend () -> StateEvent<TViewState>) {
+        launch { functions.forEach { handleEvent(it()) } }
+    }
+
+    fun dispatch(channel: ReceiveChannel<StateEvent<TViewState>>) {
         launch { channel.consumeEach { handleEvent(it) } }
+    }
+
+    fun dispatch(vararg events: StateEvent<TViewState>) {
+        launch { events.forEach { handleEvent(it) } }
     }
 
     private suspend fun handleEvent(event: StateEvent<TViewState>) {
