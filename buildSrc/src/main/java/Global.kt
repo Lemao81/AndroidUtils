@@ -61,3 +61,20 @@ fun optimizeBuildTime(project: Project, android: BaseExtension) {
         android.aaptOptions.cruncherEnabled = false
     }
 }
+
+fun configureAppDevProdFlavors(android: BaseExtension, isWithMinifiedConfig: Boolean = true) {
+    configureLibraryDevProdFlavors(android, isWithMinifiedConfig)
+    android.productFlavors.getByName(Flavors.dev).applicationIdSuffix = ".dev"
+}
+
+fun configureLibraryDevProdFlavors(android: BaseExtension, isWithMinifiedConfig: Boolean = true) {
+    android.flavorDimensions(Dimensions.main)
+    android.productFlavors {
+        create(Flavors.dev) {
+            if (isWithMinifiedConfig) {
+                resConfigs("en", "xhdpi")
+            }
+        }
+        create(Flavors.prod)
+    }
+}
