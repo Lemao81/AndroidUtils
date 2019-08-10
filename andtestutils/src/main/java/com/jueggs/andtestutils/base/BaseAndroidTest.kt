@@ -6,10 +6,10 @@ import com.agoda.kakao.Screen
 import com.jueggs.andtestutils.rule.DisableAnimationsRule
 import org.junit.ClassRule
 import org.junit.Rule
-import org.koin.dsl.context.ModuleDefinition
-import org.koin.dsl.module.module
-import org.koin.standalone.StandAloneContext.loadKoinModules
-import org.koin.standalone.StandAloneContext.stopKoin
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.stopKoin
+import org.koin.dsl.ModuleDeclaration
+import org.koin.dsl.module
 import kotlin.reflect.KClass
 
 abstract class BaseAndroidTest<TActivity : Activity, TScreen : Screen<*>>(
@@ -24,9 +24,9 @@ abstract class BaseAndroidTest<TActivity : Activity, TScreen : Screen<*>>(
     val activity: TActivity
         get() = activityRule.activity
 
-    fun reinitKoin(moduleDefinition: ModuleDefinition.() -> Unit) {
+    fun reinitKoin(moduleDeclaration: ModuleDeclaration) {
         stopKoin()
-        loadKoinModules(module(definition = moduleDefinition))
+        loadKoinModules(module(moduleDeclaration = moduleDeclaration))
     }
 
     companion object {

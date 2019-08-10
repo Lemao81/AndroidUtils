@@ -23,4 +23,5 @@ dependencies {
     implementation(Libs.androidxTestRules)
     implementation(Libs.androidxTestUiAutomator)
     implementation(Libs.androidxTestEspressoCore)
+    implementation(Libs.koinAndroid)
 }
