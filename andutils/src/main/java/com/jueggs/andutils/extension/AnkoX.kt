@@ -5,6 +5,11 @@ import android.widget.Toast
 import org.jetbrains.anko.browse
 import org.jetbrains.anko.longToast
 import org.jetbrains.anko.selector
+import org.jetbrains.anko.toast
+
+fun androidx.fragment.app.Fragment.shortToast(message: CharSequence): Toast? = activity?.toast(message)
+
+fun androidx.fragment.app.Fragment.shortToast(message: Int): Toast? = activity?.toast(message)
 
 fun androidx.fragment.app.Fragment.longToast(message: CharSequence): Toast? = activity?.longToast(message)
 
