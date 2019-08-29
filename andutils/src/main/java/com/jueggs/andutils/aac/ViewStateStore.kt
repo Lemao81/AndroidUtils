@@ -8,14 +8,14 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.cancelChildren
+import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@ObsoleteCoroutinesApi
 class ViewStateStore<TViewState>(private val initialState: TViewState) : CoroutineScope {
     private val store = MutableLiveData<TViewState>()
     private val job = Job()
@@ -30,39 +30,37 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
         })
     }
 
-    fun dispatch(function: suspend () -> StateEvent<TViewState>) {
-        launch { handleEvent(function()) }
-    }
-
-    fun dispatch(deferred: Deferred<StateEvent<TViewState>>) {
-        launch { handleEvent(deferred.await()) }
-    }
-
-    fun dispatch(event: StateEvent<TViewState>) {
-        launch { handleEvent(event) }
-    }
-
-    fun dispatch(vararg functions: suspend () -> StateEvent<TViewState>) {
-        launch { functions.forEach { handleEvent(it()) } }
-    }
-
-    fun dispatch(channel: ReceiveChannel<StateEvent<TViewState>>) {
-        launch { channel.consumeEach { handleEvent(it) } }
-    }
-
     fun dispatch(vararg events: StateEvent<TViewState>) {
         launch { events.forEach { handleEvent(it) } }
     }
 
+    fun _dispatch(vararg blocks: suspend (state: TViewState) -> StateEvent<TViewState>) {
+        launch { blocks.forEach { handleEvent(it(state())) } }
+    }
+
+    fun dispatch(vararg deferreds: Deferred<StateEvent<TViewState>>) {
+        launch { deferreds.forEach { handleEvent(it.await()) } }
+    }
+
+    fun dispatch(vararg channels: ReceiveChannel<StateEvent<TViewState>>) {
+        launch { channels.forEach { channel -> channel.consumeEach { handleEvent(it) } } }
+    }
+
+    fun dispatch(vararg blocks: suspend ProducerScope<StateEvent<TViewState>>.() -> Unit) {
+        launch {
+            produce<StateEvent<TViewState>> { blocks.forEach { it.invoke(this) } }.consumeEach { handleEvent(it) }
+        }
+    }
+
     private suspend fun handleEvent(event: StateEvent<TViewState>) {
-        withContext(Main) {
-            when (event) {
-                is Alter -> dispatchState(event.action(state()))
-                is Trigger -> {
-                    val oldState = state()
-                    dispatchState(event.action(oldState))
-                    dispatchState(oldState)
-                }
+        when (event) {
+            is Alter -> withContext(Main) {
+                dispatchState(event.action(state()))
+            }
+            is Trigger -> withContext(Main) {
+                val oldState = state()
+                dispatchState(event.action(oldState))
+                dispatchState(oldState)
             }
         }
     }
