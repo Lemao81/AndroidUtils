@@ -1,4 +1,4 @@
-package com.jueggs.andutils.result
+package com.jueggs.andutils.validation
 
 import androidx.annotation.StringRes
 
