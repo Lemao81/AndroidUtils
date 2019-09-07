@@ -1,4 +1,4 @@
-package com.jueggs.andutils.aac
+package com.jueggs.jutils.usecase
 
 sealed class StateEvent<TState>() {
     lateinit var action: TState.() -> TState

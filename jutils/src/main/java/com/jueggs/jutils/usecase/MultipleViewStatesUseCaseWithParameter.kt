@@ -1,8 +1,5 @@
-package com.jueggs.andutils.usecase
+package com.jueggs.jutils.usecase
 
-import com.jueggs.andutils.aac.Alter
-import com.jueggs.andutils.aac.StateEvent
-import com.jueggs.andutils.aac.Trigger
 import kotlinx.coroutines.channels.ProducerScope
 
 abstract class MultipleViewStatesUseCaseWithParameter<TViewState, TParameter> {

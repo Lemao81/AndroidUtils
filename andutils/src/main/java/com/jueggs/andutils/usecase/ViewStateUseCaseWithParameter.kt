@@ -1,7 +1,7 @@
 package com.jueggs.andutils.usecase
 
-import com.jueggs.andutils.aac.StateEvent
+import com.jueggs.jutils.usecase.StateEvent
 
 interface ViewStateUseCaseWithParameter<TViewState, TParameter> {
-    suspend operator fun invoke(param: TParameter): StateEvent<TViewState>
+    suspend operator fun invoke(param: TParameter): com.jueggs.jutils.usecase.StateEvent<TViewState>
 }

@@ -6,9 +6,9 @@ import android.widget.EditText
 import androidx.core.os.postDelayed
 import androidx.core.util.toAndroidPair
 import androidx.core.view.ViewCompat
-import com.jueggs.andutils.aac.StateEvent
 import com.jueggs.andutils.util.Action
 import com.jueggs.jutils.pairOf
+import com.jueggs.jutils.usecase.StateEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.ProducerScope
