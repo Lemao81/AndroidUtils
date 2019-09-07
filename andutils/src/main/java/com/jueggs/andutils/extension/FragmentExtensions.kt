@@ -16,13 +16,13 @@ import org.jetbrains.anko.noButton
 import org.jetbrains.anko.yesButton
 import org.joda.time.LocalDate
 
-fun Fragment.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) =
+fun Fragment.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
     context?.alert(message, title) {
-        yesButton { confirmAction(Unit) }
-        noButton { denyAction(Unit) }
+        yesButton { confirmAction() }
+        noButton { denyAction() }
     }?.show()
 
-fun Fragment.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: (Unit) -> Unit, denyAction: (Unit) -> Unit = {}) =
+fun Fragment.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
     showConfirmDialog(if (titleResId != null) getString(titleResId) else null, getString(messageResId), confirmAction, denyAction)
 
 fun Fragment.showSelection(title: CharSequence?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
@@ -57,3 +57,5 @@ fun Fragment.setupTabPager(viewPager: ViewPager, tabLayout: TabLayout, pageTitle
 }
 
 fun Fragment.hideKeyboard() = activity?.hideKeyboard()
+
+fun Fragment.showKeyboard() = activity?.showKeyboard()

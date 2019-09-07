@@ -24,9 +24,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.ResolvableApiException
 import com.jueggs.andutils.GlideRequest
 import com.jueggs.andutils.GlideRequests
-import com.jueggs.andutils.aac.Alter
-import com.jueggs.andutils.aac.StateEvent
-import com.jueggs.andutils.aac.Trigger
+import com.jueggs.jutils.usecase.Alter
+import com.jueggs.jutils.usecase.StateEvent
+import com.jueggs.jutils.usecase.Trigger
 import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.interfaces.Disposable
 import kotlinx.coroutines.channels.SendChannel
@@ -115,8 +115,8 @@ suspend fun <T> SendChannel<T>.sendAndClose(element: T) {
     close()
 }
 
-suspend fun <TState> SendChannel<StateEvent<TState>>.alter(action: TState.() -> TState) = send(Alter(action))
-suspend fun <TState> SendChannel<StateEvent<TState>>.trigger(action: TState.() -> TState) = send(Trigger(action))
+suspend fun <TState> SendChannel<com.jueggs.jutils.usecase.StateEvent<TState>>.alter(action: TState.() -> TState) = send(com.jueggs.jutils.usecase.Alter(action))
+suspend fun <TState> SendChannel<com.jueggs.jutils.usecase.StateEvent<TState>>.trigger(action: TState.() -> TState) = send(com.jueggs.jutils.usecase.Trigger(action))
 
 val CharSequence?.isValidEmail: Boolean
     get() = !this.isNullOrBlank() && EmailValidator.getInstance().isValid(this.toString())

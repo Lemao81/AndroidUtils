@@ -50,6 +50,8 @@ fun Activity.hideStatusBar() {
 
 fun Activity.hideKeyboard() = inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
 
+fun Activity.showKeyboard() = inputMethodManager.showSoftInput(currentFocus, InputMethodManager.SHOW_IMPLICIT)
+
 fun Activity.setNavigationTransitions(@TransitionRes enterResId: Int?, @TransitionRes exitResId: Int?, @TransitionRes reenterResId: Int?, @TransitionRes returnResId: Int?) {
     if (isLollipopOrAboveUtil()) {
         val transitionInflater = TransitionInflater.from(this)

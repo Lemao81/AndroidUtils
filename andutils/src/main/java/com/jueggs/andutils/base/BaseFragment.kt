@@ -77,19 +77,16 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
         if (waiterId != null) {
             waiterView = activity?.findViewById(waiterId)
         }
-        if (isShouldSearchNavController) {
+        if (isShouldSearchNavController && navController == null) {
             view?.let { navController = Navigation.findNavController(it) }
         }
-
         initializeViews()
-
         if (savedInstanceState == null) {
+            observeLiveData(viewLifecycleOwner)
             onInitialStart()
         } else {
             restoreState(savedInstanceState)
         }
-
-        observeLiveData(viewLifecycleOwner)
         setListeners()
         onStandby()
     }

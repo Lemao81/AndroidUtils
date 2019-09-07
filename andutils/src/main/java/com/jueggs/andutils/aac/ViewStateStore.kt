@@ -3,6 +3,10 @@ package com.jueggs.andutils.aac
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.jueggs.jutils.usecase.Alter
+import com.jueggs.jutils.usecase.Keep
+import com.jueggs.jutils.usecase.StateEvent
+import com.jueggs.jutils.usecase.Trigger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers.IO
@@ -25,6 +29,7 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
     private fun state(): TViewState = store.value ?: initialState
 
     fun observe(owner: LifecycleOwner, observer: TViewState.() -> Unit) {
+        store.removeObservers(owner)
         store.observe(owner, Observer { state ->
             state?.let { with(it, observer) }
         })
@@ -62,6 +67,7 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
                 dispatchState(event.action(oldState))
                 dispatchState(oldState)
             }
+            is Keep -> Unit
         }
     }
 
