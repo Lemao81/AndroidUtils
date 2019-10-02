@@ -54,5 +54,5 @@ dependencies {
 
     kapt(Libs.glideCompiler)
 
-    testImplementation(Libs.jUnit)
+    testImplementation(Libs.jUnit4)
 }

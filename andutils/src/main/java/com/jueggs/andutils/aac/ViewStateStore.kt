@@ -7,6 +7,7 @@ import com.jueggs.jutils.usecase.Alter
 import com.jueggs.jutils.usecase.Keep
 import com.jueggs.jutils.usecase.StateEvent
 import com.jueggs.jutils.usecase.Trigger
+import com.log4k.d
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers.IO
@@ -73,6 +74,7 @@ class ViewStateStore<TViewState>(private val initialState: TViewState) : Corouti
 
     private fun dispatchState(state: TViewState) {
         store.value = state
+        d(state.toString())
     }
 
     fun dispose() = coroutineContext.cancelChildren()
