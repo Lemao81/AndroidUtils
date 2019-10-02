@@ -23,5 +23,5 @@ dependencies {
     implementation(Libs.kotlinCoroutine)
     implementation(Libs.mockito)
     implementation(Libs.mockitoKotlin)
-    implementation(Libs.jUnit)
+    implementation(Libs.jUnit4)
 }

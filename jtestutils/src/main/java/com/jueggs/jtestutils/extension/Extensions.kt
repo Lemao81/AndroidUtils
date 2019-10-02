@@ -1,6 +1,6 @@
 package com.jueggs.jtestutils.extension
 
-import com.nhaarman.mockito_kotlin.KStubbing
+import com.nhaarman.mockitokotlin2.KStubbing
 import kotlinx.coroutines.runBlocking
 import org.mockito.BDDMockito
 import org.mockito.stubbing.OngoingStubbing
