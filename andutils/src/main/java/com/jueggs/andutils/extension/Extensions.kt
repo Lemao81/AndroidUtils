@@ -115,8 +115,8 @@ suspend fun <T> SendChannel<T>.sendAndClose(element: T) {
     close()
 }
 
-suspend fun <TState> SendChannel<com.jueggs.jutils.usecase.StateEvent<TState>>.alter(action: TState.() -> TState) = send(com.jueggs.jutils.usecase.Alter(action))
-suspend fun <TState> SendChannel<com.jueggs.jutils.usecase.StateEvent<TState>>.trigger(action: TState.() -> TState) = send(com.jueggs.jutils.usecase.Trigger(action))
+suspend fun <TState> SendChannel<StateEvent<TState>>.alter(action: TState.() -> TState) = send(Alter(action))
+suspend fun <TState> SendChannel<StateEvent<TState>>.trigger(action: TState.() -> TState) = send(Trigger(action))
 
 val CharSequence?.isValidEmail: Boolean
     get() = !this.isNullOrBlank() && EmailValidator.getInstance().isValid(this.toString())

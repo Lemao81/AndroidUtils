@@ -7,7 +7,7 @@ object Versions {
     const val hugoPlugin = "1.2.1"
 
     // utils
-    const val andutils = "1.0.128"
+    const val andutils = "1.0.131"
     const val andtestutils = "1.0.11"
     const val jutils = "1.0.31"
     const val jtestutils = "1.0.0"
@@ -204,8 +204,8 @@ object Libs {
     const val gmsLocation = "com.google.android.gms:play-services-location:${Versions.gmsLocation}"
     const val mosbyMvi = "com.hannesdorfmann.mosby3:mvi:${Versions.mosbyMvi}"
     const val anko = "org.jetbrains.anko:anko:${Versions.anko}"
-    const val ankoDesign = "org.jetbrains.anko:anko-design:${Versions.anko}"
     const val ankoCommons = "org.jetbrains.anko:anko-commons:${Versions.anko}"
+    const val ankoDesign = "org.jetbrains.anko:anko-design:${Versions.anko}"
     const val dagger = "com.google.dagger:dagger-android:${Versions.dagger}"
     const val daggerSupport = "com.google.dagger:dagger-android-support:${Versions.dagger}"
     const val daggerProcessor = "com.google.dagger:dagger-android-processor:${Versions.dagger}"

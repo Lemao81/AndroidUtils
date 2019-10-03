@@ -3,13 +3,19 @@ package com.jueggs.andutils.extension
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.PendingIntent
+import android.app.Service
+import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.ContextWrapper
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Bundle
 import android.preference.PreferenceManager
+import android.provider.Settings
 import android.util.TypedValue
 import android.view.View
 import android.widget.ArrayAdapter
@@ -23,6 +29,7 @@ import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.isLollipopOrAboveUtil
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.connectivityManager
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.yesButton
@@ -89,6 +96,16 @@ fun Context.doWithNetworkConnection(action: () -> Unit): () -> Boolean {
         action()
     return condition
 }
+
+inline fun <reified T : Activity> Context.pendingActivityIntentFor(flag: Int, options: Bundle? = null, requestCode: Int = 0) = PendingIntent.getActivity(this, requestCode, intentFor<T>(), flag, options)
+
+fun Context.pendingActivityIntent(intent: Intent, flag: Int, options: Bundle? = null, requestCode: Int = 0) = PendingIntent.getActivity(this, requestCode, intent, flag, options)
+
+inline fun <reified T : BroadcastReceiver> Context.pendingBroadcastIntentFor(flag: Int, requestCode: Int = 0) = PendingIntent.getBroadcast(this, requestCode, intentFor<T>(), flag)
+
+inline fun <reified T : Service> Context.pendingServiceIntentFor(flag: Int, requestCode: Int = 0) = PendingIntent.getService(this, requestCode, intentFor<T>(), flag)
+
+fun Context.createSettingsIntent(): Intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri)
 
 val Context.defaultSharedPrefs: SharedPreferences
     get() = PreferenceManager.getDefaultSharedPreferences(this)
