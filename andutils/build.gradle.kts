@@ -7,11 +7,12 @@ plugins {
     id(PluginIds.androidLibrary)
     kotlin(PluginIds.android)
     kotlin(PluginIds.kapt)
+    id(PluginIds.kotlinSerialization)
     id(PluginIds.archivaUpload)
 }
 
 android {
-    configureAndroidExtension(this)
+    configureAndroidExtension()
     dataBinding.isEnabled = true
 }
 
@@ -29,6 +30,8 @@ dependencies {
 
     implementation(Libs.kotlinStd8)
     implementation(Libs.kotlinReflect)
+    implementation(Libs.kotlinSerialization)
+    implementation(Libs.kotlinCoroutineAndroid)
     implementation(Libs.jutils)
     implementation(Libs.androidxAppcompat)
     implementation(Libs.androidxCore)
@@ -46,7 +49,6 @@ dependencies {
     implementation(Libs.joda)
     implementation(Libs.glide)
     implementation(Libs.koinAndroid)
-    implementation(Libs.kotlinCoroutineAndroid)
     implementation(Libs.permissions)
     implementation(Libs.log4k)
     implementation(Libs.log4kAndroid)

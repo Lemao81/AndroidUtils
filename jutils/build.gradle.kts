@@ -4,6 +4,7 @@ plugins {
     java
     `java-library`
     id(PluginIds.kotlin)
+    id(PluginIds.kotlinSerialization)
     id(PluginIds.archivaUpload)
 }
 
@@ -20,6 +21,8 @@ archiva {
 
 dependencies {
     implementation(Libs.kotlinStd8)
+    implementation(Libs.kotlinSerialization)
     implementation(Libs.kotlinCoroutine)
+    implementation(Libs.koinCore)
     implementation(Libs.joda)
 }
