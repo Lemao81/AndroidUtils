@@ -17,9 +17,9 @@ abstract class BaseApplication(private val isDebug: Boolean) : Application() {
         if (isDebug) {
             add(Level.Verbose, LOG4K_PATTERN_ALL, AndroidAppender(generateClassName = { "$TAG_DEBUG - ${it.substring(it.lastIndexOf('.') + 1)}" }))
         }
-        Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
-            e(throwable)
-            onUncaughtException(throwable)
+        Thread.setDefaultUncaughtExceptionHandler { _, exception ->
+            e(exception)
+            onUncaughtException(exception)
         }
 
         val koinModule = koinModule()
@@ -37,7 +37,7 @@ abstract class BaseApplication(private val isDebug: Boolean) : Application() {
         initialize()
     }
 
-    open fun onUncaughtException(th: Throwable) {}
+    open fun onUncaughtException(exception: Throwable) {}
 
     open fun koinModule(): Module? = null
 

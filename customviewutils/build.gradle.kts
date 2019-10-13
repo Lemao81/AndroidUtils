@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    configureAndroidExtension(this)
+    configureAndroidExtension()
 }
 
 archiva {
