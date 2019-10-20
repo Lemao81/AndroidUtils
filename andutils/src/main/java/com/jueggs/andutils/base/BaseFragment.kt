@@ -16,7 +16,6 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.jueggs.andutils.Util.postDelayed
 import com.jueggs.andutils.extension.goneOrVisible
-import com.jueggs.andutils.extension.setNavigationTransitions
 import com.jueggs.andutils.extension.visibleOrInvisible
 import com.jueggs.andutils.interfaces.BackPressHandler
 import kotlinx.coroutines.CoroutineScope
@@ -37,18 +36,13 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
         if (optionsMenu() != null) {
             setHasOptionsMenu(true)
         }
-        setNavigationTransitions(enterTransition(), exitTransition(), reenterTransition(), returnTransition())
         pullArguments(arguments)
         initialize()
     }
 
+    open fun optionsMenu(): Int? = null
     open fun pullArguments(arguments: Bundle?) {}
     open fun initialize() {}
-
-    open fun enterTransition(): Int? = null
-    open fun exitTransition(): Int? = null
-    open fun reenterTransition(): Int? = null
-    open fun returnTransition(): Int? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val bindingItems = bindingItems()
@@ -81,8 +75,8 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
             view?.let { navController = Navigation.findNavController(it) }
         }
         initializeViews()
+        observeLiveData(viewLifecycleOwner)
         if (savedInstanceState == null) {
-            observeLiveData(viewLifecycleOwner)
             onInitialStart()
         } else {
             restoreState(savedInstanceState)
@@ -93,7 +87,6 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
 
     open fun toolbarTitle(): Int? = null
     open fun waiter(): Int? = null
-
     open fun initializeViews() {}
     open fun observeLiveData(owner: LifecycleOwner) {}
     open fun onInitialStart() {}
@@ -104,14 +97,12 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
     override fun onBackPressed() = false
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val resId = optionsMenu()
-        if (resId != null) {
-            inflater.inflate(resId, menu)
+        val menuResId = optionsMenu()
+        if (menuResId != null) {
+            inflater.inflate(menuResId, menu)
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-    open fun optionsMenu(): Int? = null
 
     override fun onOptionsItemSelected(item: MenuItem) =
         if (item.itemId == android.R.id.home) {
