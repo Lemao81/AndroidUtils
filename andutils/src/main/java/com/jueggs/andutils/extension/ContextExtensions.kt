@@ -4,6 +4,7 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ActivityManager.RunningAppProcessInfo.*
 import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
@@ -27,6 +28,7 @@ import androidx.core.content.ContextCompat
 import com.jueggs.andutils.Util.createSharedElement
 import com.jueggs.andutils.helper.ColorAnimator
 import com.jueggs.andutils.isLollipopOrAboveUtil
+import org.jetbrains.anko.activityManager
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.connectivityManager
 import org.jetbrains.anko.intentFor
@@ -112,3 +114,6 @@ val Context.defaultSharedPrefs: SharedPreferences
 
 val Context.packageUri: Uri
     get() = Uri.parse("package:$packageName")
+
+val Context.isInForeground: Boolean
+    get() = activityManager.runningAppProcesses.any { it.importance == IMPORTANCE_FOREGROUND && it.processName == packageName }

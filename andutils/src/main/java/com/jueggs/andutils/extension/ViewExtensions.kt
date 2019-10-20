@@ -18,10 +18,6 @@ import com.jueggs.andutils.Util.haveAllText
 import com.jueggs.andutils.adapter._addTextChangedListener
 import com.jueggs.andutils.isLollipopOrAboveUtil
 
-fun TextView.asString(): String = text.toString()
-
-fun TextView.asInt(): Int = text.toString().toInt()
-
 fun Spinner.withSimpleAdapter(vararg elements: String): Spinner {
     adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
     return this
