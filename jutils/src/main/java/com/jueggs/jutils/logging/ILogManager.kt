@@ -1,7 +1,7 @@
 package com.jueggs.jutils.logging
 
 interface ILogManager {
-    val targets: List<ILogTarget>
+    val targets: List<AbstractLogTarget>
 
     fun newEntry(message: String = ""): ILogEntryBuilder
 

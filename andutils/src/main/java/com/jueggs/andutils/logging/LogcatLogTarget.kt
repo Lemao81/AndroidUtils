@@ -2,8 +2,8 @@ package com.jueggs.andutils.logging
 
 import android.util.Log
 import com.jueggs.jutils.extension.join
+import com.jueggs.jutils.logging.AbstractLogTarget
 import com.jueggs.jutils.logging.ILogEntry
-import com.jueggs.jutils.logging.ILogTarget
 import com.jueggs.jutils.logging.LogLevel
 import com.jueggs.jutils.service.JsonSerializer
 import kotlinx.coroutines.GlobalScope
@@ -12,12 +12,12 @@ import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 
-class LogcatLogTarget : ILogTarget {
+class LogcatLogTarget(override val levelThreshold: LogLevel = LogLevel.DEBUG) : AbstractLogTarget() {
     @ImplicitReflectionSerializer
     private val serializer = JsonSerializer(Json(JsonConfiguration.Default))
 
     @ImplicitReflectionSerializer
-    override fun log(entry: ILogEntry) {
+    override fun doLog(entry: ILogEntry) {
         val messageParts = mutableListOf<String>()
         if (entry.message.isNotBlank()) {
             messageParts.add("Message: ${entry.message}")
@@ -39,7 +39,7 @@ class LogcatLogTarget : ILogTarget {
     }
 
     @ImplicitReflectionSerializer
-    override suspend fun logAsync(entry: ILogEntry) {
+    override suspend fun doLogAsync(entry: ILogEntry) {
         GlobalScope.launch { log(entry) }
     }
 

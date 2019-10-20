@@ -3,8 +3,9 @@ package com.jueggs.firebaseutils.logging
 import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.jueggs.jutils.logging.AbstractLogTarget
 import com.jueggs.jutils.logging.ILogEntry
-import com.jueggs.jutils.logging.ILogTarget
+import com.jueggs.jutils.logging.LogLevel
 import com.jueggs.jutils.service.JsonSerializer
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import java.util.*
 
-class FirestoreLogTarget(context: Context) : ILogTarget {
+class FirestoreLogTarget(context: Context, override val levelThreshold: LogLevel = LogLevel.INFO) : AbstractLogTarget() {
     private val packageName = context.packageName
     @ImplicitReflectionSerializer
     private val serializer = JsonSerializer(Json(JsonConfiguration.Default))
@@ -23,7 +24,7 @@ class FirestoreLogTarget(context: Context) : ILogTarget {
     }
 
     @ImplicitReflectionSerializer
-    override fun log(entry: ILogEntry) {
+    override fun doLog(entry: ILogEntry) {
         val entries = hashMapOf(
             "packagename" to packageName,
             "category" to entry.category,
@@ -43,7 +44,7 @@ class FirestoreLogTarget(context: Context) : ILogTarget {
     }
 
     @ImplicitReflectionSerializer
-    override suspend fun logAsync(entry: ILogEntry) {
+    override suspend fun doLogAsync(entry: ILogEntry) {
         GlobalScope.launch { log(entry) }
     }
 

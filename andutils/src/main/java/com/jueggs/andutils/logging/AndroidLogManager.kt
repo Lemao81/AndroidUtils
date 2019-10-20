@@ -1,12 +1,12 @@
 package com.jueggs.andutils.logging
 
+import com.jueggs.jutils.logging.AbstractLogTarget
 import com.jueggs.jutils.logging.ILogEntry
 import com.jueggs.jutils.logging.ILogEntryBuilder
 import com.jueggs.jutils.logging.ILogManager
-import com.jueggs.jutils.logging.ILogTarget
 
 class AndroidLogManager(
-    override val targets: List<ILogTarget>,
+    override val targets: List<AbstractLogTarget>,
     private val isDebug: Boolean,
     private val flavor: String
 ) : ILogManager {
