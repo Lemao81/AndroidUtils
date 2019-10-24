@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter
 import androidx.annotation.ArrayRes
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.jueggs.andutils.Util.createSharedElement
@@ -44,6 +45,9 @@ fun <T> Context.createSimpleSpinnerAdapter(elements: List<T>): ArrayAdapter<T> =
 fun <T> Context.createSimpleSpinnerAdapter(elements: Array<T>): ArrayAdapter<T> = ArrayAdapter(this, android.R.layout.simple_spinner_item, elements.toMutableList())
 fun Context.createSimpleSpinnerAdapter(@ArrayRes arrayResId: Int): ArrayAdapter<String> = createSimpleSpinnerAdapter(getStringArray(arrayResId))
 
+fun Context.getInteger(@IntegerRes resId: Int) = resources.getInteger(resId)
+fun Context.getLong(@IntegerRes resId: Int) = (resources.getInteger(resId)).toLong()
+fun Context.getFloat(@IntegerRes resId: Int) = (resources.getInteger(resId)).toFloat()
 fun Context.getStringArray(@ArrayRes resId: Int): Array<String> = resources.getStringArray(resId)
 fun Context.getStringList(@ArrayRes resId: Int): List<String> = getStringArray(resId).asList()
 fun Context.getIntArray(@ArrayRes resId: Int): IntArray = resources.getIntArray(resId)

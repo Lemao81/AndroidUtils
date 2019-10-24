@@ -55,13 +55,6 @@ fun GlideRequests.loadOrDefault(url: String?, default: Drawable): GlideRequest<D
     else load(default)
 }
 
-fun ColorAnimator.update(func: KFunction1<Int, Unit>): ValueAnimator = valueAnimator.also { it.addUpdateListener { func(it.animatedValue as Int) } }
-
-fun ValueAnimator.startDelayed(delay: Long) {
-    startDelay = delay
-    start()
-}
-
 fun <T> ObservableField<T>.getOr(default: T): T = get() ?: default
 
 inline fun <T : Disposable?, R> T.use(block: (T) -> R): R {
