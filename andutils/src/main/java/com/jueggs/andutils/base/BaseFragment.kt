@@ -25,24 +25,19 @@ import kotlinx.coroutines.cancelChildren
 
 abstract class BaseFragment(private val isShouldSearchNavController: Boolean = false) : Fragment(), CoroutineScope, BackPressHandler {
     private val job = SupervisorJob()
+
     protected var waiterView: View? = null
-    var navController: NavController? = null
+    protected var navController: NavController? = null
 
     override val coroutineContext = Dispatchers.Default + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (optionsMenu() != null) {
-            setHasOptionsMenu(true)
-        }
+        optionsMenu()?.let { setHasOptionsMenu(true) }
         pullArguments(arguments)
         initialize()
     }
-
-    open fun optionsMenu(): Int? = null
-    open fun pullArguments(arguments: Bundle?) {}
-    open fun initialize() {}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val bindingItems = bindingItems()
@@ -50,27 +45,23 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
         return if (bindingItems != null) {
             val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, layout(), container, false)
             bindingItems.forEach { binding.setVariable(it.key, it.value) }
-            binding.setLifecycleOwner(viewLifecycleOwner)
+            binding.lifecycleOwner = viewLifecycleOwner
             binding.root
         } else {
             inflater.inflate(layout(), container, false)
         }
     }
 
-    abstract fun layout(): Int
-    open fun bindingItems(): Map<Int, Any>? = null
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val toolbarTitle = toolbarTitle()
-        if (toolbarTitle != null) {
-            (activity as? AppCompatActivity)?.supportActionBar?.title = getString(toolbarTitle)
+        toolbarTitle()?.let {
+            val supportActionBar = (activity as? AppCompatActivity)?.supportActionBar
+                ?: throw UninitializedPropertyAccessException("derive activity from ${BaseActivity::class.qualifiedName} " +
+                    "and initialize toolbar with ${BaseActivity::toolbar.name}()")
+            supportActionBar.title = getString(it)
         }
-        val waiterId = waiter()
-        if (waiterId != null) {
-            waiterView = activity?.findViewById(waiterId)
-        }
+        waiter()?.let { waiterView = activity?.findViewById(it) }
         if (isShouldSearchNavController && navController == null) {
             view?.let { navController = Navigation.findNavController(it) }
         }
@@ -85,22 +76,10 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
         onStandby()
     }
 
-    open fun toolbarTitle(): Int? = null
-    open fun waiter(): Int? = null
-    open fun initializeViews() {}
-    open fun observeLiveData(owner: LifecycleOwner) {}
-    open fun onInitialStart() {}
-    open fun restoreState(savedInstanceState: Bundle) {}
-    open fun setListeners() {}
-    open fun onStandby() {}
-
     override fun onBackPressed() = false
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        val menuResId = optionsMenu()
-        if (menuResId != null) {
-            inflater.inflate(menuResId, menu)
-        }
+        optionsMenu()?.let { inflater.inflate(it, menu) }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -111,7 +90,26 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
             onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
         }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        coroutineContext.cancelChildren()
+    }
+
+    abstract fun layout(): Int
+
+    open fun optionsMenu(): Int? = null
+    open fun pullArguments(arguments: Bundle?) {}
+    open fun initialize() {}
+    open fun initializeViews() {}
+    open fun bindingItems(): Map<Int, Any>? = null
+    open fun toolbarTitle(): Int? = null
+    open fun waiter(): Int? = null
+    open fun setListeners() {}
+    open fun observeLiveData(owner: LifecycleOwner) {}
+    open fun onInitialStart() {}
+    open fun restoreState(savedInstanceState: Bundle) {}
     open fun onMenuItemSelected(id: Int): Boolean? = null
+    open fun onStandby() {}
 
     protected fun showWaiter(show: Boolean) {
         checkNotNull(waiterView)
@@ -120,10 +118,5 @@ abstract class BaseFragment(private val isShouldSearchNavController: Boolean = f
         } else {
             waiterView?.goneOrVisible = true
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        coroutineContext.cancelChildren()
     }
 }
