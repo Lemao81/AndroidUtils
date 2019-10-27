@@ -1,4 +1,4 @@
-package com.jueggs.andutils.util
+package com.jueggs.andutils.aac
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

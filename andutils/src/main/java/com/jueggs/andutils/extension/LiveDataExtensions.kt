@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.jueggs.andutils.observable.NonNullMediatorLiveData
-import com.jueggs.andutils.util.SingleLiveEvent
+import com.jueggs.andutils.aac.SingleLiveEvent
 
 fun <T> LiveData<T>.nonNull(): NonNullMediatorLiveData<T> {
     val mediator = NonNullMediatorLiveData<T>()
