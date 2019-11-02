@@ -98,10 +98,7 @@ fun ViewGroup.LayoutParams.asConstraintLayoutParams(): ConstraintLayout.LayoutPa
 fun ViewGroup.LayoutParams.asFrameLayoutParams(): FrameLayout.LayoutParams = this as FrameLayout.LayoutParams
 fun ViewGroup.LayoutParams.asLinearLayoutParams(): LinearLayout.LayoutParams = this as LinearLayout.LayoutParams
 
-fun NavController?.setupWithToolbar(activity: Activity?, @IdRes toolbarId: Int) {
-    val toolbar = activity?.findViewById<Toolbar>(toolbarId)
-    this?.let { toolbar?.setupWithNavController(it) }
-}
+fun NavController.setupWithToolbar(activity: Activity, @IdRes toolbarId: Int) = requireNotNull(activity.findViewById<Toolbar>(toolbarId)).setupWithNavController(this)
 
 suspend fun <T> SendChannel<T>.sendAndClose(element: T) {
     send(element)

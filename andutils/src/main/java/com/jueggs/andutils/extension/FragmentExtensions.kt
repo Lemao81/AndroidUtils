@@ -17,22 +17,22 @@ import org.jetbrains.anko.yesButton
 import org.joda.time.LocalDate
 
 fun Fragment.showConfirmDialog(title: CharSequence?, message: CharSequence, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
-    context?.alert(message, title) {
+    requireContext().alert(message, title) {
         yesButton { confirmAction() }
         noButton { denyAction() }
-    }?.show()
+    }.show()
 
 fun Fragment.showConfirmDialog(@StringRes titleResId: Int?, @StringRes messageResId: Int, confirmAction: () -> Unit, denyAction: () -> Unit = {}) =
     showConfirmDialog(if (titleResId != null) getString(titleResId) else null, getString(messageResId), confirmAction, denyAction)
 
 fun Fragment.showSelection(title: CharSequence?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
-    context?.showSelection(title, items, onSelectIndex, onSelectString)
+    requireContext().showSelection(title, items, onSelectIndex, onSelectString)
 
 fun Fragment.showSelection(@StringRes titleResId: Int?, items: List<CharSequence>, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
-    context?.showSelection(titleResId, items, onSelectIndex, onSelectString)
+    requireContext().showSelection(titleResId, items, onSelectIndex, onSelectString)
 
 fun Fragment.showSelection(@StringRes titleResId: Int?, @ArrayRes arrayResId: Int, onSelectIndex: (Int) -> Unit = {}, onSelectString: (String) -> Unit = {}) =
-    context?.showSelection(titleResId, arrayResId, onSelectIndex, onSelectString)
+    requireContext().showSelection(titleResId, arrayResId, onSelectIndex, onSelectString)
 
 fun Fragment.setNavigationTransitions(@TransitionRes enterResId: Int?, @TransitionRes exitResId: Int?, @TransitionRes reenterResId: Int?, @TransitionRes returnResId: Int?) {
     if (areAllNull(enterResId, exitResId, reenterResId, returnResId)) return
@@ -49,13 +49,17 @@ fun Fragment.withArguments(vararg arguments: Pair<String, Any>): Fragment = appl
 fun Fragment.datePicker(date: LocalDate = LocalDate.now(), onDateSet: (LocalDate) -> Unit, onClose: (() -> Unit)? = null) = DatePicker(date, onDateSet, onClose).show(childFragmentManager)
 
 fun Fragment.setupTabPager(viewPager: ViewPager, tabLayout: TabLayout, pageTitleArrayResId: Int, vararg fragments: Fragment) {
-    context?.let {
+    requireContext().let {
         val adapter = StandardFragmentPagerAdapter(childFragmentManager, fragments.toList(), it.getStringArray(pageTitleArrayResId))
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
     }
 }
 
-fun Fragment.hideKeyboard() = activity?.hideKeyboard()
+fun Fragment.hideKeyboard() {
+    requireActivity().hideKeyboard()
+}
 
-fun Fragment.showKeyboard() = activity?.showKeyboard()
+fun Fragment.showKeyboard() {
+    requireActivity().showKeyboard()
+}

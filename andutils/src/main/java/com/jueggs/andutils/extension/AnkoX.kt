@@ -7,14 +7,14 @@ import org.jetbrains.anko.longToast
 import org.jetbrains.anko.selector
 import org.jetbrains.anko.toast
 
-fun androidx.fragment.app.Fragment.shortToast(message: CharSequence): Toast? = activity?.toast(message)
+fun androidx.fragment.app.Fragment.shortToast(message: CharSequence): Toast = requireActivity().toast(message)
 
-fun androidx.fragment.app.Fragment.shortToast(message: Int): Toast? = activity?.toast(message)
+fun androidx.fragment.app.Fragment.shortToast(message: Int): Toast = requireActivity().toast(message)
 
-fun androidx.fragment.app.Fragment.longToast(message: CharSequence): Toast? = activity?.longToast(message)
+fun androidx.fragment.app.Fragment.longToast(message: CharSequence): Toast = requireActivity().longToast(message)
 
-fun androidx.fragment.app.Fragment.longToast(message: Int): Toast? = activity?.longToast(message)
+fun androidx.fragment.app.Fragment.longToast(message: Int): Toast = requireActivity().longToast(message)
 
-fun androidx.fragment.app.Fragment.browse(url: String, newTask: Boolean = false) = activity?.browse(url, newTask)
+fun androidx.fragment.app.Fragment.browse(url: String, newTask: Boolean = false) = requireActivity().browse(url, newTask)
 
-fun androidx.fragment.app.Fragment.selector(title: CharSequence? = null, items: List<CharSequence>, onClick: (DialogInterface, Int) -> Unit) = activity?.selector(title, items, onClick)
+fun androidx.fragment.app.Fragment.selector(title: CharSequence? = null, items: List<CharSequence>, onClick: (DialogInterface, Int) -> Unit) = requireActivity().selector(title, items, onClick)

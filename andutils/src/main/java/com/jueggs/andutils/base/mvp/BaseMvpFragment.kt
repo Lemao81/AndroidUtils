@@ -95,13 +95,11 @@ abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Frag
     open fun onMenuItemSelected(id: Int): Boolean? = null
 
     //region baseview
-    override fun finishView() {
-        activity?.finish()
-    }
+    override fun finishView() = requireActivity().finish()
 
     override fun finishViewAfterTransition() {
-        if (isLollipopOrAboveUtil()) activity?.finishAfterTransition()
-        else activity?.finish()
+        if (isLollipopOrAboveUtil()) requireActivity().finishAfterTransition()
+        else requireActivity().finish()
     }
 
     override fun showLongToast(msg: String): Toast? = longToast(msg)
@@ -113,7 +111,7 @@ abstract class BaseMvpFragment<TView : BaseView, TViewModel : Parcelable> : Frag
             longToast(resId)
     }
 
-    override fun hideSoftKeyboard() = activity?.hideKeyboard() ?: false
+    override fun hideSoftKeyboard() = requireActivity().hideKeyboard()
     //endregion
 
     override fun onDestroy() {
