@@ -5,7 +5,7 @@ import android.view.View
 import com.jueggs.andutils.AppManager
 import com.jueggs.andutils.R
 
-abstract class BaseMainActivity : BaseActivity() {
+abstract class BaseMainActivity : BaseNavigationActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

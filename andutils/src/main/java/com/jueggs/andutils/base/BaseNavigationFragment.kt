@@ -7,24 +7,25 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.jueggs.andutils.Util.doWithDelay
 import com.jueggs.andutils.adapter.OnBackPressedCallbackAdapter
-import com.jueggs.andutils.extension.goneOrVisible
-import com.jueggs.andutils.extension.visibleOrInvisible
-import com.jueggs.andutils.interfaces.BackPressHandler
+import com.jueggs.andutils.extension.makeGone
+import com.jueggs.andutils.extension.makeVisible
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 
-abstract class BaseFragment : Fragment(), CoroutineScope, BackPressHandler {
+abstract class BaseNavigationFragment() : Fragment(), CoroutineScope {
     private val job = SupervisorJob()
     protected var waiterView: View? = null
+    protected lateinit var navController: NavController
     override val coroutineContext = Dispatchers.Default + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,13 +53,9 @@ abstract class BaseFragment : Fragment(), CoroutineScope, BackPressHandler {
         super.onActivityCreated(savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, OnBackPressedCallbackAdapter(this::onBackPressed))
-        toolbarTitle()?.let {
-            val supportActionBar = (requireActivity() as AppCompatActivity).supportActionBar
-                ?: throw UninitializedPropertyAccessException(
-                    "derive activity from ${BaseActivity::class.qualifiedName} and initialize toolbar with ${BaseActivity::toolbar.name}()")
-            supportActionBar.title = getString(it)
-        }
         waiter()?.let { waiterView = requireActivity().findViewById(it) }
+        navController = Navigation.findNavController(requireView())
+
         initializeViews()
         observeLiveData(viewLifecycleOwner)
         if (savedInstanceState == null) {
@@ -75,19 +72,12 @@ abstract class BaseFragment : Fragment(), CoroutineScope, BackPressHandler {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem) =
-        if (item.itemId == android.R.id.home) {
-            onHomePressed()
-        } else {
-            onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
-        }
+    override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
 
     override fun onDestroy() {
         super.onDestroy()
         coroutineContext.cancelChildren()
     }
-
-    override fun handleBackPressed() = false
 
     abstract fun layout(): Int
 
@@ -96,7 +86,6 @@ abstract class BaseFragment : Fragment(), CoroutineScope, BackPressHandler {
     open fun initialize() {}
     open fun initializeViews() {}
     open fun bindingItems(): Map<Int, Any>? = null
-    open fun toolbarTitle(): Int? = null
     open fun waiter(): Int? = null
     open fun setListeners() {}
     open fun observeLiveData(owner: LifecycleOwner) {}
@@ -104,15 +93,14 @@ abstract class BaseFragment : Fragment(), CoroutineScope, BackPressHandler {
     open fun restoreState(savedInstanceState: Bundle) {}
     open fun onMenuItemSelected(id: Int): Boolean? = null
     open fun onStandby() {}
-    open fun onHomePressed() = false
     open fun onBackPressed() {}
 
     protected fun showWaiter(show: Boolean) {
         checkNotNull(waiterView)
         if (show) {
-            doWithDelay(300) { waiterView?.visibleOrInvisible = true }
+            doWithDelay(300) { waiterView?.makeVisible() }
         } else {
-            waiterView?.goneOrVisible = true
+            waiterView?.makeGone()
         }
     }
 }

@@ -12,13 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
 import com.jueggs.andutils.AppManager
 import com.jueggs.andutils.Util.checkCast
 import com.jueggs.andutils.interfaces.BackPressHandler
@@ -30,10 +23,7 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
     private val job = SupervisorJob()
-
     protected var waiterView: ConstraintLayout? = null
-    protected var navController: NavController? = null
-
     override val coroutineContext: CoroutineContext = Dispatchers.Default + job
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,18 +37,11 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
         } else {
             setContentView(layout())
         }
-        navHostFragment()?.let { navController = findNavController(it) }
-        if (navController != null) {
-            setupWithNavController()
-        } else {
-            setupToolbar()
-        }
-
+        setupToolbar()
         initialize()
         initializeViews()
         observeLiveData(this)
         setListeners()
-
         if (savedInstanceState == null) {
             if (singlePaneFragment() != null || twoPaneFragments() != null) {
                 addFragments()
@@ -71,13 +54,14 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
 
     override fun onCreateOptionsMenu(menu: Menu) = optionsMenu()?.let { menuInflater.inflate(it, menu); true } ?: super.onCreateOptionsMenu(menu)
 
-    override fun onOptionsItemSelected(item: MenuItem) =
-        onMenuItemSelected(item.itemId) ?: navController?.let { item.onNavDestinationSelected(it) } ?: super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem) = onMenuItemSelected(item.itemId) ?: super.onOptionsItemSelected(item)
 
-    override fun onSupportNavigateUp() = navController?.navigateUp() ?: onBackPressed().let { super.onSupportNavigateUp() }
+    override fun onSupportNavigateUp() = onBackPressedOrNavigateUp() || super.onSupportNavigateUp()
 
     override fun onBackPressed() {
-        (supportFragmentManager.fragments.firstOrNull { it.isVisible } as? BackPressHandler)?.onBackPressed() ?: super.onBackPressed()
+        if (!onBackPressedOrNavigateUp()) {
+            super.onBackPressed()
+        }
     }
 
     override fun onDestroy() {
@@ -90,11 +74,7 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
     open fun bindingItems(): Map<Int, Any>? = null
     open fun initialize() {}
     open fun initializeViews() {}
-    open fun navHostFragment(): Int? = null
-    open fun appBarConfiguration(): AppBarConfiguration? = null
     open fun toolbar(): View? = null
-    open fun navigationView(): View? = null
-    open fun bottomNavigationView(): View? = null
     open fun toolbarTitle(): Int? = null
     open fun toolbarBackNavigation(): Boolean = false
     open fun toolbarHomeIcon(): Int? = null
@@ -134,14 +114,6 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
 
     fun toggleHomeAsUp(isShouldShow: Boolean) = supportActionBar?.setDisplayHomeAsUpEnabled(isShouldShow)
 
-    private fun setupWithNavController() {
-        navController?.let { navController ->
-            (toolbar() as? Toolbar)?.setupWithNavController(navController, appBarConfiguration() ?: AppBarConfiguration(navController.graph))
-            (navigationView() as? NavigationView)?.setupWithNavController(navController)
-            (bottomNavigationView() as? BottomNavigationView)?.setupWithNavController(navController)
-        }
-    }
-
     private fun setupToolbar() {
         val toolbar = toolbar() as? Toolbar
         when {
@@ -160,9 +132,10 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
                 }
             }
             toolbarTitle() != null || toolbarBackNavigation() || toolbarHomeIcon() != null ->
-                throw UninitializedPropertyAccessException("calling ${BaseActivity::toolbarTitle.name}(), " +
-                    "${BaseActivity::toolbarBackNavigation.name}() or ${BaseActivity::toolbarHomeIcon.name}() " +
-                    "has no effect without allocating a toolbar with ${BaseActivity::toolbar.name}()")
+                throw UninitializedPropertyAccessException(
+                    "calling ${BaseActivity::toolbarTitle.name}(), ${BaseActivity::toolbarBackNavigation.name}() or ${BaseActivity::toolbarHomeIcon.name}() " +
+                        "has no effect without allocating a toolbar with ${BaseActivity::toolbar.name}()"
+                )
         }
     }
 
@@ -175,5 +148,11 @@ abstract class BaseActivity : AppCompatActivity(), CoroutineScope {
                 addFragment(it.second.first, it.second.second)
             }
         }
+    }
+
+    private fun onBackPressedOrNavigateUp(): Boolean {
+        val backHandlingFragment = supportFragmentManager.fragments.firstOrNull { it.isVisible } as? BackPressHandler
+
+        return backHandlingFragment?.handleBackPressed() ?: false
     }
 }
