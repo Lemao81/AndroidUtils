@@ -28,7 +28,7 @@ object Util {
 
     fun haveAllText(vararg inputFields: EditText): Boolean = inputFields.all { !it.text.isNullOrEmpty() }
 
-    inline fun postDelayed(delayInMillis: Long, token: Any? = null, crossinline action: () -> Unit): Runnable = Handler().postDelayed(delayInMillis, token, action)
+    inline fun doWithDelay(delayInMillis: Long, token: Any? = null, crossinline action: () -> Unit): Runnable = Handler().postDelayed(delayInMillis, token, action)
 
     fun isVerticalScroll(axes: Int) = axes == ViewCompat.SCROLL_AXIS_VERTICAL
 

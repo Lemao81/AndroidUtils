@@ -2,12 +2,13 @@ package com.jueggs.andutils.extension
 
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.animation.AccelerateInterpolator
 import android.view.animation.AnticipateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.annotation.ArrayRes
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
@@ -25,11 +26,13 @@ fun Spinner.withSimpleAdapter(vararg elements: String): Spinner {
 
 fun <T> Spinner.withSimpleAdapter(elements: List<T>): Spinner {
     adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
+
     return this
 }
 
 fun <T> Spinner.withSimpleAdapter(elements: Array<T>): Spinner {
     adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, elements)
+
     return this
 }
 
@@ -37,6 +40,7 @@ fun Spinner.withSimpleAdapter(@ArrayRes arrayResId: Int): Spinner = withSimpleAd
 
 fun <T> AutoCompleteTextView.withSimpleAdapter(elements: List<T>): AutoCompleteTextView {
     setAdapter(ArrayAdapter(context, android.R.layout.simple_dropdown_item_1line, elements))
+
     return this
 }
 
@@ -45,8 +49,10 @@ fun View.makeInvisible() = let { visibility = View.INVISIBLE }
 fun View.makeGone() = let { visibility = View.GONE }
 
 fun View.withTransitionName(name: String): View {
-    if (isLollipopOrAboveUtil())
+    if (isLollipopOrAboveUtil()) {
         transitionName = name
+    }
+
     return this
 }
 
@@ -76,9 +82,28 @@ fun View.shortSnackbar(@StringRes messageId: Int, @StringRes actionTextId: Int? 
 
 private fun createSnackbar(view: View, message: CharSequence, period: Int, actionText: CharSequence? = null, action: ((View) -> Unit)? = null) {
     val snackbar = Snackbar.make(view, message, period)
-    if (actionText != null && action != null)
+    if (actionText != null && action != null) {
         snackbar.setAction(actionText, action)
+    }
     snackbar.show()
+}
+
+fun View.fadeIn() {
+    animate().apply {
+        alpha(1f)
+        duration = context.getLong(android.R.integer.config_shortAnimTime)
+        interpolator = DecelerateInterpolator()
+        start()
+    }
+}
+
+fun View.fadeOut() {
+    animate().apply {
+        alpha(0f)
+        duration = context.getLong(android.R.integer.config_shortAnimTime)
+        interpolator = AccelerateInterpolator()
+        start()
+    }
 }
 
 fun View.animateScaleBounceOut(duration: Long = 150, scale: Float = 1.1f, tension: Float = 6f) {
@@ -135,6 +160,7 @@ fun View.setWidthAndHeight(width: Int, height: Int) {
 }
 
 fun View.onClick(action: (View) -> Unit) = setOnClickListener(action)
+
 fun View.onLongClick(action: (View) -> Unit) = setOnLongClickListener { action(it); true }
 
 fun View.navigateOnClick(@IdRes resId: Int) = setOnClickListener(Navigation.createNavigateOnClickListener(resId))

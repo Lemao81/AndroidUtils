@@ -34,6 +34,7 @@ dependencies {
     implementation(Libs.kotlinCoroutineAndroid)
     implementation(Libs.jutils)
     implementation(Libs.androidxAppcompat)
+    implementation(Libs.androidxActivityKtx)
     implementation(Libs.androidxCore)
     implementation(Libs.androidxCoreKtx)
     implementation(Libs.androidxRecyclerView)
